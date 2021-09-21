@@ -1,0 +1,36 @@
+.btn-base {
+    outline: none;
+    width: 100%;
+    border-radius: 1rem 1rem 0 0;
+    border: none;
+    font-family: 'Fira Sans', sans-serif;
+    cursor: pointer;
+    
+};
+
+.btn--big {
+    padding: 5rem 2rem;
+    font-size:3.2rem;
+
+}
+
+.btn--normal {
+    padding: 2.4rem 1rem;
+    font-size: 2rem;
+}
+
+.btn--small {
+    padding: 1.2rem .5rem;
+    font-size: 1.2rem;
+
+}
+
+.btn--primary {
+    background-color: #1C2A8A;
+    color: #ffffff;
+};
+
+.btn--secondary {
+    background-color: #ffffff;
+    color: #1C2A8A;
+}

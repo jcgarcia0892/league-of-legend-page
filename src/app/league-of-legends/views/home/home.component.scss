@@ -1,0 +1,284 @@
+.main {
+    position: relative;
+    height: calc(100vh - 8rem);
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: 0;
+        z-index: 1;
+        animation-name: opacity;
+        animation-duration: 2s;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+    }
+
+    & video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+    &__center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+
+        & img {
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation-name: fadeIn;
+            animation-delay: .5s;
+            animation-duration: .5s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+
+        }
+
+        & div {
+            width: 51.4rem;
+            opacity: 0;
+            margin: 0 auto;
+            animation-name: fadeIn;
+            animation-delay: 1s;
+            animation-duration: .5s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
+
+
+.findRol {
+    display: grid;
+    width: 100%;
+    grid-template-columns:  [space-left-start] calc(((100%) - (100% / 1.1707)) / 2) [space-left-end content-start] calc(100% / 1.1707)
+                            [content-end space-right-start] calc(((100%) - (100% / 1.1707)) / 2) [space-right-end];
+    grid-template-rows: repeat(3, auto);
+    padding: 14rem 0;
+    
+    &__title {
+        text-align: center;
+        grid-row: 1 / 2;
+        grid-column: content-start / content-end;
+        margin-bottom: 6rem;
+
+        h1 {
+            color: #4C59AD;
+        }
+    }
+
+    & .content {
+        grid-column: content-start / content-end;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__rolesBox {
+        width: 28%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-between;
+        & input {
+            display: none;
+        }
+        & input[type="radio"]:checked + &__item {
+            svg {
+                transition: all .3s ease;
+                fill: #4C59AD;
+            }
+            h3 {
+                transition: all .3s ease;
+                color: #4C59AD;
+            }
+        }
+        &__item {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 45px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            transition: all .3s ease;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(192, 192, 192, .5);
+            }
+
+            svg {
+                margin-right: 4rem;
+                width: 7.4rem;
+                fill: #404040;
+            }
+
+            h3 {
+                color: #404040;
+            }
+        }
+
+        &__button {
+            width: 100%
+        }
+    };
+
+    &__mid {
+        width: 22%;
+        height: 100%;
+        border-left: 1px solid #404040;
+
+        &__up {
+            height: 50%;
+            width: 100%;
+            border-bottom: 1px solid #404040;
+        }
+
+    }
+
+    &__illus {
+        width: 50%;
+        overflow: hidden;
+        position: relative;
+
+        &__circle {
+            width: 100%;
+            padding-top: 100%;
+            border: 1px solid #404040;
+            border-radius: 50%;
+            z-index: 999;
+            background-color: transparent;
+            position: relative;
+          
+            
+            & img {
+                width: 90%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            &__text {
+                position: absolute;
+                top: 2%;
+                left: 50%;
+                transform: translateX(-50%);
+                color: #4C59AD;
+                text-align: center;
+                
+                &--name {
+                    font-size: 32px;
+                    font-weight: bold;
+                }
+
+                &--nickname {
+                    font-size: 24px;
+                }
+            }
+
+            &--animation {
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 50%;
+                width: 100%;
+                height: 100%;
+                z-index: 999;
+                background: linear-gradient(#1C2A8A 20%, #fff 20% 40%, #1C2A8A 40% 60%, #fff 60% 80%, #1C2A8A 80%);
+                z-index: -1;
+                animation: rotate 6s linear infinite;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+
+                & div {
+                    width: 99%;
+                    height: 99%;
+                    background-color: #fff;
+                    border-radius: 50%;
+                }
+            }
+        }
+
+    }
+
+}
+
+
+.legendsLand {
+    display: grid;
+    width: 100%;
+    grid-template-columns:  [space-left-start] calc(((100%) - (100% / 1.1707)) / 2) [space-left-end content-start] calc(100% / 1.1707)
+                            [content-end space-right-start] calc(((100%) - (100% / 1.1707)) / 2) [space-right-end];
+    grid-template-rows: repeat(2, auto);
+
+    background-color: #000;
+    padding: 14rem 0;
+    
+    &__title {
+        text-align: center;
+        grid-row: 2 / 3;
+        grid-column: content-start / content-end;
+
+        h1 {
+            color: #fff;
+        }
+    }
+};
+// HELPERS
+.default-selected-svg {
+    fill: #4C59AD;
+}
+
+.default-selected-color {
+    color: #4C59AD;
+}
+
+.w-95p {
+    width: 95%;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0)
+    };
+    to {
+        transform: rotate(360deg);
+    }
+};
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(300px);
+    };
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+
+    }
+};
+
+@keyframes opacity {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .3;
+    }
+}
+
