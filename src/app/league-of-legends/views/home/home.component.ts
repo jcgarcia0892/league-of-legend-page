@@ -2,6 +2,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { fadeInAnimation } from '../../animations/fade-in-animation';
+import { followingMouseXAnimation } from '../../animations/following-mouse-x-animation';
 import { titleAnimation } from '../../animations/title-animation';
 import { translateAnimation } from '../../animations/translate-animation';
 
@@ -12,22 +13,29 @@ import { translateAnimation } from '../../animations/translate-animation';
   animations: [
     translateAnimation,
     titleAnimation,
-    fadeInAnimation
+    fadeInAnimation,
+    followingMouseXAnimation
   ]
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   // ANIMATIONS VAR
   imgAnimation: boolean = true;
   fadeInAnimation: boolean = true;
-  titleAnimation: boolean = true;
+  findYourRolTitleAnimation: boolean = true;
+  legendsLandTitleAnimation: boolean = true;
+  followingMouseXAnimation!: string;
   // END ANIMATION VAR
   // GETTING HTML ELEMENTS
   @ViewChild('homeVideo') homeVideo!: ElementRef;
-  @ViewChild('encuentraTuRol') encuentraTuRol!: ElementRef;
+  @ViewChild('findYourRol') findYourRol!: ElementRef;
+  @ViewChild('legendsLand') legendsLand!: ElementRef;
   // END GETTIN HTML ELEMENTS
-  offsetTitle!: number;
-  offsetHeight!: number;
+  findYourRolOffsetTitle!: number;
+  findYourRolOffsetHeight!: number;
+  legendsLandOffsetTitle!: number;
+  legendsLandOffsetHeight!: number;
   rolSelectionControl: FormControl;
+  mouseHorizontalPosition: number = 0;
   videoPath!: string;
   videoPaths: string[] = ['caitlyn', 'kaisa', 'sylas-entrace', 'sylas'];
   imgRolPath: string = 'assets/images/champions-role/assassins.png';
@@ -83,8 +91,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.playToVideo();
-    this.offsetTitle = this.encuentraTuRol.nativeElement.offsetTop;
-    this.offsetHeight = this.encuentraTuRol.nativeElement.offsetHeight;
+    this.findYourRolOffsetTitle = this.findYourRol.nativeElement.offsetTop;
+    this.findYourRolOffsetHeight = this.findYourRol.nativeElement.offsetHeight;
+    this.legendsLandOffsetTitle = this.legendsLand.nativeElement.offsetTop;
+    this.legendsLandOffsetHeight = this.legendsLand.nativeElement.offsetHeight;
     
   }
   
@@ -98,18 +108,54 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.homeVideo.nativeElement.muted = true;
     this.homeVideo.nativeElement.play();
   }
-
+  // HOSTLISTENER
   @HostListener('window:scroll', ['$event'])
-  handleKeyDown(event: any) {
+  scrollDetection(event: any) {
     let scrollTop = event.srcElement.scrollingElement.scrollTop;
     let clientHeight = event.srcElement.scrollingElement.clientHeight;
 
-    if(this.offsetTitle + this.offsetHeight < scrollTop + clientHeight) {
-      this.titleAnimation = false;
+    if(this.findYourRolOffsetTitle + this.findYourRolOffsetHeight < scrollTop + clientHeight) {
+      this.findYourRolTitleAnimation = false;
     } else {
-      this.titleAnimation = true;
+      this.findYourRolTitleAnimation = true;
+    }
+
+    if(this.legendsLandOffsetTitle + this.legendsLandOffsetHeight < scrollTop + clientHeight) {
+      this.legendsLandTitleAnimation = false;
+    } else {
+      this.legendsLandTitleAnimation = true;
     }
   };
+
+  @HostListener('document:mousemove', ['$event'])
+  mouseMoveDetection(event: any): void {
+    let partialZone = event.view.innerWidth / 10;
+
+    if(event.clientX <= partialZone * 1) {
+      this.followingMouseXAnimation = 'toXsLeft';
+    } else if(event.clientX <= partialZone * 2) {
+      this.followingMouseXAnimation = 'toSmLeft';
+    } else if(event.clientX <= partialZone * 3) {
+      this.followingMouseXAnimation = 'toMdLeft';
+    } else if(event.clientX <= partialZone * 4) {
+      this.followingMouseXAnimation = 'toLgLeft';
+    } else if(event.clientX <= partialZone * 5) {
+      this.followingMouseXAnimation = 'toXlLeft';
+    } else if(event.clientX <= partialZone * 6) {
+      this.followingMouseXAnimation = 'toXsRight';
+    } else if(event.clientX <= partialZone * 7) {
+      this.followingMouseXAnimation = 'toSmRight';
+    } else if(event.clientX <= partialZone * 8) {
+      this.followingMouseXAnimation = 'toMdRight';
+    } else if(event.clientX <= partialZone * 9) {
+      this.followingMouseXAnimation = 'toLgRight';
+    } else {
+      this.followingMouseXAnimation = 'toXlRight';
+    }
+
+  }
+
+  // END HOSTLISTENER
 
   rolSelectionFunction(): void {
     this.rolSelectionControl.valueChanges.subscribe((rol: string) => {

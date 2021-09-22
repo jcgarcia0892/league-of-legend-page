@@ -20,7 +20,7 @@
 <!-- END MAIN HOME SCREEN -->
 <!-- FIND YOUR ROL SCREEN -->
 <section class="findRol">
-    <div class="findRol__title" #encuentraTuRol [@titleAnimation]="titleAnimation ? 'appear' :  'disappear'" style="opacity: 0;">
+    <div class="findRol__title" #findYourRol [@titleAnimation]="findYourRolTitleAnimation ? 'appear' :  'disappear'" style="opacity: 0;">
         <h1>ENCUENTRA TU ROL</h1>
     </div>
     <div class="content">
@@ -122,8 +122,26 @@
 <!-- END FIND YOUR ROL SCREEN -->
 <!-- LEGENDS LAND SCREEN -->
 <section class="legendsLand">
-    <div class="legendsLand__title">
+    <div class="legendsLand__title" #legendsLand [@titleAnimation]="legendsLandTitleAnimation ? 'appear' :  'disappear'">
         <h1>TIERRA DE LEGENDAS</h1>
+    </div>
+    <div class="legendsLand__body">
+        <div class="legendsLand__body__img" [@followingMouseXAnimation]="followingMouseXAnimation">
+            <img src="assets/images/map.png" alt="">
+        </div>
+        <div class="legendsLand__body__content">
+            <h2>PELEARAS TUS MEJORES BATALLAS AQUI</h2>
+            <p>Los mejores jugadores son los que tienen una habilidad excepcional en el juego y estrategias aplastantes que no le dan al rival ninguna oportunidad.</p>
+            <p>Explora un resumen de este popular juego.</p>
+            <div class="legendsLand__body__content__button">
+                <app-button
+                    (click)="goTo()"
+                    text="EXPLORAME"
+                    size="btn--big"
+                    type="btn--primary">
+                </app-button>
+            </div>
+        </div>
     </div>
 </section>
 <!-- END LEGENDS LAND SCREEN -->
