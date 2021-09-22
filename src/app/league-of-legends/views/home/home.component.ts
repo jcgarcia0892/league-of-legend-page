@@ -5,6 +5,7 @@ import { fadeInAnimation } from '../../animations/fade-in-animation';
 import { followingMouseXAnimation } from '../../animations/following-mouse-x-animation';
 import { titleAnimation } from '../../animations/title-animation';
 import { translateAnimation } from '../../animations/translate-animation';
+import { AnimationsService } from '../../services/animations.service';
 
 @Component({
   selector: 'app-home',
@@ -79,7 +80,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     nickName: 'La Asesina Furtiva'
   }
 
-  constructor() {
+  constructor(
+    private animationService: AnimationsService
+  ) {
     this.rolSelectionControl = new FormControl('assassins');
 
   }
@@ -113,46 +116,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
   scrollDetection(event: any) {
     let scrollTop = event.srcElement.scrollingElement.scrollTop;
     let clientHeight = event.srcElement.scrollingElement.clientHeight;
+    let scrollPositionY = scrollTop + clientHeight;
+    // HEIGHT DE LOS ELEMENTOS
+    let findYourRolPositionY = this.findYourRolOffsetTitle + this.findYourRolOffsetHeight;
+    let legendsLandPositionY = this.legendsLandOffsetTitle + this.legendsLandOffsetHeight;
+    // END HEIGHT DE LOS ELEMENTOS
+    this.findYourRolTitleAnimation = this.animationService.positionYFadeIn(findYourRolPositionY, scrollPositionY);
+    this.legendsLandTitleAnimation = this.animationService.positionYFadeIn(legendsLandPositionY, scrollPositionY);
 
-    if(this.findYourRolOffsetTitle + this.findYourRolOffsetHeight < scrollTop + clientHeight) {
-      this.findYourRolTitleAnimation = false;
-    } else {
-      this.findYourRolTitleAnimation = true;
-    }
-
-    if(this.legendsLandOffsetTitle + this.legendsLandOffsetHeight < scrollTop + clientHeight) {
-      this.legendsLandTitleAnimation = false;
-    } else {
-      this.legendsLandTitleAnimation = true;
-    }
   };
 
   @HostListener('document:mousemove', ['$event'])
   mouseMoveDetection(event: any): void {
     let partialZone = event.view.innerWidth / 10;
-
-    if(event.clientX <= partialZone * 1) {
-      this.followingMouseXAnimation = 'toXsLeft';
-    } else if(event.clientX <= partialZone * 2) {
-      this.followingMouseXAnimation = 'toSmLeft';
-    } else if(event.clientX <= partialZone * 3) {
-      this.followingMouseXAnimation = 'toMdLeft';
-    } else if(event.clientX <= partialZone * 4) {
-      this.followingMouseXAnimation = 'toLgLeft';
-    } else if(event.clientX <= partialZone * 5) {
-      this.followingMouseXAnimation = 'toXlLeft';
-    } else if(event.clientX <= partialZone * 6) {
-      this.followingMouseXAnimation = 'toXsRight';
-    } else if(event.clientX <= partialZone * 7) {
-      this.followingMouseXAnimation = 'toSmRight';
-    } else if(event.clientX <= partialZone * 8) {
-      this.followingMouseXAnimation = 'toMdRight';
-    } else if(event.clientX <= partialZone * 9) {
-      this.followingMouseXAnimation = 'toLgRight';
-    } else {
-      this.followingMouseXAnimation = 'toXlRight';
-    }
-
+    this.followingMouseXAnimation = this.animationService.mouseMoveAnimation(event.clientX, partialZone);
   }
 
   // END HOSTLISTENER
