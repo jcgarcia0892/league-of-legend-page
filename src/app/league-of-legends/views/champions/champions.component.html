@@ -1,0 +1,109 @@
+<section class="findChamps">
+    <div class="findChamps__title" #findYourchamps>
+        <h1>ENCUENTRA TU CAMPEÓN</h1>
+        <h4>Puedes ver la información del campeón que mas te guste, puedes filtrar por rol o por dificultad de uso</h4>
+    </div>
+    <div class="findChamps__body">
+        <div class="findChamps__body__navbar">
+            <div class="findChamps__body__navbar__search">
+                <div class="findChamps__body__navbar__search__button">
+                    <div class="search-input">
+                        <input
+                            type="text"
+                            placeholder="BUSCAR"
+                            [formControl]="championsSearcherControl"
+                            (focus)="activeFocusSearcherInput = true"
+                            (blur)="deleteText()"
+                            id="searcherInput">
+                        <label class="material-icons icon-asset" for="searcherInput">search</label>
+                        <i class="material-icons icon-asset" (click)="deleteText()" *ngIf="championsSearcherControl.value.length > 0">close</i>
+                    </div>
+                </div>
+                <div class="findChamps__body__navbar__search__dropdown" *ngIf="activeFocusSearcherInput">
+                    <ul>
+                        <li *ngFor="let name of championsNameFiltered"> {{name}} </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="findChamps__body__navbar__filters">
+                <ul class="findChamps__body__navbar__filters__lists">
+                    <li class="findChamps__body__navbar__filters__lists__item">
+                        <input type="radio" name="rols" id="allFilter">
+                        <label for="allFilter">
+                            <span>TODOS</span>
+                        </label>
+                    </li>
+                    <li class="findChamps__body__navbar__filters__lists__item">
+                        <input type="radio" name="rols" id="assassinsFilter">
+                        <label for="assassinsFilter">
+                            <span>ASESINOS</span>
+                        </label>
+                    </li>
+                    <li class="findChamps__body__navbar__filters__lists__item">
+                        <input type="radio" name="rols" id="supportsFilter">
+                        <label for="supportsFilter">
+                            <span>APOYOS</span>
+                        </label>
+                    </li>
+                    <li class="findChamps__body__navbar__filters__lists__item">
+                        <input type="radio" name="rols" id="fightersFilter">
+                        <label for="fightersFilter">
+                            <span>LUCHADORES</span>
+                        </label>
+                    </li>
+                    <li class="findChamps__body__navbar__filters__lists__item">
+                        <input type="radio" name="rols" id="magesFilter">
+                        <label for="magesFilter">
+                            <span>MAGOS</span>
+                        </label>
+                    </li>
+                    <li class="findChamps__body__navbar__filters__lists__item">
+                        <input type="radio" name="rols" id="tanksFilter">
+                        <label for="tanksFilter">
+                            <span>TANQUES</span>
+                        </label>
+                    </li>
+                    <li class="findChamps__body__navbar__filters__lists__item">
+                        <input type="radio" name="rols" id="marksmen">
+                        <label for="marksmen">
+                            <span>TIRADORES</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="findChamps__body__navbar__levels">
+                <input
+                type="checkbox"
+                placeholder="TODAS LAS DIFICULTADES"
+                id="levels"
+                (blur)="levelsControl.setValue(false)"
+                (click)="levelsControl.setValue(!levelsControl.value)"
+                >
+                <label for="levels">
+                    <p>TODAS LAS DIFICULTADES</p>
+                    <i class="material-icons icon-asset" *ngIf="!levelsControl.value"> keyboard_arrow_down</i>
+                    <i class="material-icons icon-asset" *ngIf="levelsControl.value"> keyboard_arrow_up</i>
+                </label>
+                <div class="findChamps__body__navbar__levels__container" *ngIf="levelsControl.value">
+                    <div 
+                        class="findChamps__body__navbar__levels__container__group"
+                        *ngFor="let levels of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; let i = index">
+                        <div 
+                            class="findChamps__body__navbar__levels__container__group__item"
+                            *ngFor="let level of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; let j = index"
+                            [ngClass]="{'bg-blue': j <= i}">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="findChamps__body__cards">
+
+        </div>
+    </div>
+</section>
+
+<pre>{{levelsControl.value}}</pre>
+
+

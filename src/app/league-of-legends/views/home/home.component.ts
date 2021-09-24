@@ -31,9 +31,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('findYourRol') findYourRol!: ElementRef;
   @ViewChild('legendsLand') legendsLand!: ElementRef;
   // END GETTIN HTML ELEMENTS
-  findYourRolOffsetTitle!: number;
+  findYourRolOffsetTop!: number;
   findYourRolOffsetHeight!: number;
-  legendsLandOffsetTitle!: number;
+  legendsLandOffsetTop!: number;
   legendsLandOffsetHeight!: number;
   rolSelectionControl: FormControl;
   mouseHorizontalPosition: number = 0;
@@ -94,9 +94,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.playToVideo();
-    this.findYourRolOffsetTitle = this.findYourRol.nativeElement.offsetTop;
+    this.findYourRolOffsetTop = this.findYourRol.nativeElement.offsetTop;
     this.findYourRolOffsetHeight = this.findYourRol.nativeElement.offsetHeight;
-    this.legendsLandOffsetTitle = this.legendsLand.nativeElement.offsetTop;
+    this.legendsLandOffsetTop = this.legendsLand.nativeElement.offsetTop;
     this.legendsLandOffsetHeight = this.legendsLand.nativeElement.offsetHeight;
     
   }
@@ -113,13 +113,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   // HOSTLISTENER
   @HostListener('window:scroll', ['$event'])
-  scrollDetection(event: any) {
+  scrollDetection(event: any): void {
     let scrollTop = event.srcElement.scrollingElement.scrollTop;
     let clientHeight = event.srcElement.scrollingElement.clientHeight;
     let scrollPositionY = scrollTop + clientHeight;
     // HEIGHT DE LOS ELEMENTOS
-    let findYourRolPositionY = this.findYourRolOffsetTitle + this.findYourRolOffsetHeight;
-    let legendsLandPositionY = this.legendsLandOffsetTitle + this.legendsLandOffsetHeight;
+    let findYourRolPositionY = this.findYourRolOffsetTop + this.findYourRolOffsetHeight;
+    let legendsLandPositionY = this.legendsLandOffsetTop + this.legendsLandOffsetHeight;
     // END HEIGHT DE LOS ELEMENTOS
     this.findYourRolTitleAnimation = this.animationService.positionYFadeIn(findYourRolPositionY, scrollPositionY);
     this.legendsLandTitleAnimation = this.animationService.positionYFadeIn(legendsLandPositionY, scrollPositionY);
