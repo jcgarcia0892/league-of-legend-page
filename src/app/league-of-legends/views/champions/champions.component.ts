@@ -26,6 +26,7 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
   private _championsCards: ChampionCard[] = [];
   findYourChampTitleAnimation: boolean = true;
   championsCardsFilter: ChampionCard[] = [];
+  randomChampionsCard: ChampionCard[] = [];
   idChamp!: string;
   difficultChamp: number = 0;
   filtersActive: FiltersActive = {
@@ -139,8 +140,8 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((champions: ChampionCard[]) => {
         this._championsCards = champions;
         this.championsCardsFilter = this._championsCards;
+        this.pushingRandomChampions();
         this.championNameFilterFunction('');
-        console.log(champions);
 
       })
   }
@@ -152,8 +153,8 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filtersActive.searcherFilter = true;
     this.championsCardsFilter = [];
     this.championsCardsFilter = this.filterArrayById(this._championsCards, id);
-    this.nameConditionsFilter();
     this.championsSearcherControl.setValue(this.championsCardsFilter[0].name);
+    this.nameConditionsFilter();
     this.activeFocusSearcherInput = false;
 
   }
@@ -192,18 +193,11 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
   // CONDITIONS TO APPLY THE FILTERS
 
   nameConditionsFilter(): void {
-    console.log('entro');
     if(this.filtersActive.difficultyFilter && !this.filtersActive.rolFilter) {
-    console.log('1');
-
       this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
     } else if(!this.filtersActive.difficultyFilter && this.filtersActive.rolFilter) {
-    console.log('2');
-
       this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
     } else if(this.filtersActive.difficultyFilter && this.filtersActive.rolFilter) {
-    console.log('3');
-
       this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
       this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
     }
@@ -278,5 +272,18 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // END RESET FILTERS
+
+  randomChampions(arrayLength: number): number {
+    return Math.floor(Math.random() * arrayLength);
+
+  }
+
+  pushingRandomChampions(): void {
+    this.randomChampionsCard = [];
+    for(let i = 0; i < 4; i++) {
+      let number = this.randomChampions(this._championsCards.length)
+      this.randomChampionsCard.push(this._championsCards[number]);
+    }
+  };
 
 }

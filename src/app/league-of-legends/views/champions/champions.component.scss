@@ -225,15 +225,23 @@
 
         &__cards {
             width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            // justify-content: space-between;
-            justify-content:start;
+
+            
+            &__container {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content:start;
+            }
+
             &__card {
                 width: 12.5%;
                 margin-bottom: 2rem;
+            }
+
+            &__card, &__error__card {
+
                 border: 1px solid #fff;
-                // margin-right: 2rem;
                 opacity: 0;
                 cursor: pointer;
                 transition: all .3s ease;
@@ -286,6 +294,31 @@
                         transition: all .3s ease;
                     }
                 }
+            }
+
+            &__error {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+
+                &__title {
+                    width: 100%;
+                    color: #4C59AD;
+                    margin-bottom: 3rem;
+
+                    & h3 {
+                        margin-bottom: 1.6rem;
+                    }
+
+                }
+                &__card {
+                    margin-bottom: 3rem;
+                }
+                &__card, &__button {
+                    width: 21%;
+                }
+
             }
         }
     }

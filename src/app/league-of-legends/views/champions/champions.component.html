@@ -106,14 +106,38 @@
             </div>
         </div>
         <div class="findChamps__body__cards">
-            <figure class="findChamps__body__cards__card" *ngFor="let championCard of championsCardsFilter">
-                <div class="findChamps__body__cards__card__img">
-                    <img [src]="championCard.img" loading="lazy" alt="">
+            <div class="findChamps__body__cards__container" *ngIf="championsCardsFilter.length > 0">
+                <figure class="findChamps__body__cards__card" *ngFor="let championCard of championsCardsFilter">
+                    <div class="findChamps__body__cards__card__img">
+                        <img [src]="championCard.img" loading="lazy" alt="">
+                    </div>
+                    <div class="findChamps__body__cards__card__figcaption">
+                        <figcaption>{{championCard.name}}</figcaption>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="findChamps__body__cards__error" *ngIf="championsCardsFilter.length === 0">
+                <div class="findChamps__body__cards__error__title">
+                    <h3>No hay campeones que cumplan con el criterio de filtro</h3>
+                    <h4>Campeones que te puedan interesar:</h4>
                 </div>
-                <div class="findChamps__body__cards__card__figcaption">
-                    <figcaption>{{championCard.name}}</figcaption>
+                <figure class="findChamps__body__cards__error__card" *ngFor="let championCard of randomChampionsCard">
+                    <div class="findChamps__body__cards__error__card__img">
+                        <img [src]="championCard.img" alt="">
+                    </div>
+                    <div class="findChamps__body__cards__error__card__figcaption">
+                        <figcaption>{{championCard.name}}</figcaption>
+                    </div>
+                </figure>
+                <div class="findChamps__body__cards__error__button">
+                    <app-button
+                        text="Más campeones"
+                        size="btn--normal"
+                        type="btn--primary"
+                        (click)="pushingRandomChampions()"></app-button>
                 </div>
-            </figure>
+            </div>
         </div>
     </div>
 </section>
