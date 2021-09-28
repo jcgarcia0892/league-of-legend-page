@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { titleAnimation } from '../../animations/title-animation';
 import { AnimationsService } from '../../services/animations.service';
@@ -6,6 +6,7 @@ import { ChampionsDataService } from '../../services/champions-data.service';
 import { map } from 'rxjs/operators'
 import { ChampionsObject } from '../../interfaces/champions.interface';
 import { ChampionCard } from '../../interfaces/champion-card.interface';
+import { Subscriber, Subscription } from 'rxjs';
 
   interface FiltersActive {
     searcherFilter: boolean;
@@ -21,9 +22,9 @@ import { ChampionCard } from '../../interfaces/champion-card.interface';
     titleAnimation,
   ]
 })
-export class ChampionsComponent implements OnInit, AfterViewInit {
-  findYourChampTitleAnimation: boolean = true;
+export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
   private _championsCards: ChampionCard[] = [];
+  findYourChampTitleAnimation: boolean = true;
   championsCardsFilter: ChampionCard[] = [];
   idChamp!: string;
   difficultChamp: number = 0;
@@ -49,6 +50,10 @@ export class ChampionsComponent implements OnInit, AfterViewInit {
   // END GETTING HTML ELEMENTS
   findYourChampOffsetTop!: number;
   findYourChampOffsetHeight!: number;
+
+  // SUBSCRIBERS
+    championDataSubscriber!: Subscription;
+  // END SUBSCRIBERS
   constructor(
     private animationService: AnimationsService,
     private championsDataService: ChampionsDataService
@@ -65,8 +70,15 @@ export class ChampionsComponent implements OnInit, AfterViewInit {
     this.getChampionsData();
   }
 
+  ngOnDestroy(): void {
+    this.championDataSubscriber.unsubscribe();
+  }
 
-
+  
+    ngAfterViewInit(): void {
+      // this.findYourChampOffsetTop = this.findYourChamp.nativeElement.offsetTop;
+      // this.findYourChampOffsetHeight = this.findYourChamp.nativeElement.offsetHeight;
+    }
   @HostListener('window:scroll', ['$event'])
   scrollDetection(event: any): void {
     let scrollTop = event.srcElement.scrollingElement.scrollTop;
@@ -78,28 +90,10 @@ export class ChampionsComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void {
-    // this.findYourChampOffsetTop = this.findYourChamp.nativeElement.offsetTop;
-    // this.findYourChampOffsetHeight = this.findYourChamp.nativeElement.offsetHeight;
-  }
-
   deleteText(): void {
-    this.championsSearcherControl.setValue('');
-    
+    this.championsSearcherControl.setValue('');  
   }
 
-  resetLevels(): void {
-    this.difficultChamp = 0;
-    this.championsCardsFilter = this._championsCards;
-    if(this.filtersActive.searcherFilter && !this.filtersActive.rolFilter) {
-      this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
-    } else if(!this.filtersActive.searcherFilter && this.filtersActive.rolFilter) {
-      this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
-    } else if(this.filtersActive.searcherFilter && this.filtersActive.rolFilter) {
-      this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
-      this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
-    }
-  }
   championNameFilterFunction(text: string): void {
     this.championsNameFiltered = [];
     text = text.toUpperCase();
@@ -113,25 +107,19 @@ export class ChampionsComponent implements OnInit, AfterViewInit {
   championsSearcherControlFunction(): void {
     this.championsSearcherControl.valueChanges.subscribe((text: string) => {
       this.championNameFilterFunction(text);
-      if(text.length === 0) {
+      if(text.length === 0 && this.championsRolesControl.value !== 'all') {
+        this.filtersActive.searcherFilter = false;
         this.championsCardsFilter = this._championsCards;
-        if(this.filtersActive.difficultyFilter && !this.filtersActive.rolFilter) {
-          this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
-        } else if(!this.filtersActive.difficultyFilter && this.filtersActive.rolFilter) {
-          this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
-        } else if(this.filtersActive.difficultyFilter && this.filtersActive.rolFilter) {
-          this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
-          this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
-        }
+        this.nameConditionsFilter();
         this.filtersActive.searcherFilter = false;
       } else {
         this.activeFocusSearcherInput = true;
       }
     })
   }
-
+  // GETTING DATA FROM SERVICE
   getChampionsData(): void {
-    this.championsDataService.getChampions()
+    this.championDataSubscriber = this.championsDataService.getChampions()
       .pipe(
         map((champions: ChampionsObject) => {
           let championsCards: ChampionCard[] = [];
@@ -156,38 +144,28 @@ export class ChampionsComponent implements OnInit, AfterViewInit {
 
       })
   }
+  // END GETTING DATA FROM SERVICE
 
-
+  // CARDS FILTERS
   filterChampionByName(id: string): void {
     this.idChamp = id;
     this.filtersActive.searcherFilter = true;
     this.championsCardsFilter = [];
     this.championsCardsFilter = this.filterArrayById(this._championsCards, id);
+    this.nameConditionsFilter();
     this.championsSearcherControl.setValue(this.championsCardsFilter[0].name);
     this.activeFocusSearcherInput = false;
-
-    if(this.filtersActive.difficultyFilter && !this.filtersActive.rolFilter) {
-      this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
-    } else if(!this.filtersActive.difficultyFilter && this.filtersActive.rolFilter) {
-      this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
-    } else if(this.filtersActive.difficultyFilter && this.filtersActive.rolFilter) {
-      this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
-      this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
-    }
 
   }
 
   championsRolesControlFunction(): void {
     this.championsRolesControl.valueChanges.subscribe((rol: string) => {
       this.filtersActive.rolFilter = true;
-      this.championsCardsFilter = this.filterArrayByRoles(this._championsCards, rol);
-      if(this.filtersActive.searcherFilter && !this.filtersActive.difficultyFilter) {
-        this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
-      } else if(!this.filtersActive.searcherFilter && this.filtersActive.difficultyFilter) {
-        this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
-      } else if(this.filtersActive.searcherFilter && this.filtersActive.rolFilter) {
-        this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
-        this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
+      if(rol === 'all') {
+        this.championsCardsFilter = this.cleanFilters();
+      } else {
+        this.championsCardsFilter = this.filterArrayByRoles(this._championsCards, rol);
+        this.rolesConditionsFilters();
       }
     })
   }
@@ -197,6 +175,52 @@ export class ChampionsComponent implements OnInit, AfterViewInit {
     this.championsCardsFilter = [];
     this.filtersActive.difficultyFilter = true;
     this.championsCardsFilter = this.filterArrayByDifficulty(this._championsCards, difficulty);
+    this.difficultConditionsFilters();
+  
+  }
+  // END CARDS FILTERS 
+
+  // BLUR INPUTS
+  blurSearcher(): void {
+    setTimeout(() => this.activeFocusSearcherInput = false, 90);
+  }
+  blurDifficulty(): void {
+    setTimeout(() => this.levelsControl.setValue(false), 90);
+  }
+  // END BLUR INPUTS
+
+  // CONDITIONS TO APPLY THE FILTERS
+
+  nameConditionsFilter(): void {
+    console.log('entro');
+    if(this.filtersActive.difficultyFilter && !this.filtersActive.rolFilter) {
+    console.log('1');
+
+      this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
+    } else if(!this.filtersActive.difficultyFilter && this.filtersActive.rolFilter) {
+    console.log('2');
+
+      this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
+    } else if(this.filtersActive.difficultyFilter && this.filtersActive.rolFilter) {
+    console.log('3');
+
+      this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
+      this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
+    }
+  }
+
+  rolesConditionsFilters(): void {
+    if(this.filtersActive.searcherFilter && !this.filtersActive.difficultyFilter) {
+      this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
+    } else if(!this.filtersActive.searcherFilter && this.filtersActive.difficultyFilter) {
+      this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
+    } else if(this.filtersActive.searcherFilter && this.filtersActive.rolFilter) {
+      this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
+      this.championsCardsFilter = this.filterArrayByDifficulty(this.championsCardsFilter, this.difficultChamp);
+    }
+  }
+
+  difficultConditionsFilters(): void {
     if(this.filtersActive.searcherFilter && !this.filtersActive.rolFilter) {
       this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
     } else if(!this.filtersActive.searcherFilter && this.filtersActive.rolFilter) {
@@ -205,17 +229,10 @@ export class ChampionsComponent implements OnInit, AfterViewInit {
       this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
       this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
     }
-    
   }
+  // END CONDITIONS TO APPLY THE FILTERS
 
-  blurSearcher(): void {
-    setTimeout(() => this.activeFocusSearcherInput = false, 90);
-  }
-  blurDifficulty(): void {
-    setTimeout(() => this.levelsControl.setValue(false), 90);
-  }
-
-  // ACTION FILTERS
+  // ARRAY FILTERS
 
   filterArrayById(array: ChampionCard[], id: string): ChampionCard[] {
     return array.filter((element) => element.id === id);
@@ -227,19 +244,22 @@ export class ChampionsComponent implements OnInit, AfterViewInit {
 
   filterArrayByRoles(array: ChampionCard[], roles: string): ChampionCard[] {
     let championsCards: ChampionCard[] = [];
-    if(roles === 'all' && this.filtersActive.rolFilter) {
-      return this.cleanFilters();
-    } else {
-      championsCards = array.filter((element) => {
-        for(let rol of element.roles) {
-          return rol.toLocaleLowerCase() === roles;
-        }
-        return;
-      })
-      return championsCards;
-    }
+    // if(roles === 'all' && this.filtersActive.rolFilter) {
+    //   return this.cleanFilters();
+    // } else {
+    // }
+    championsCards = array.filter((element) => {
+      for(let rol of element.roles) {
+        return rol.toLocaleLowerCase() === roles;
+      }
+      return;
+    })
+    return championsCards;
   }
 
+  // END ARRAY FILTERS
+
+  // RESET FILTERS
   cleanFilters(): ChampionCard[] {
     this.championsSearcherControl.setValue('');
     this.difficultChamp = 0;
@@ -247,8 +267,16 @@ export class ChampionsComponent implements OnInit, AfterViewInit {
     this.filtersActive.rolFilter = false;
     this.filtersActive.difficultyFilter = false;
     this.activeFocusSearcherInput = false;
-    return this._championsCards;
-    
+    return this._championsCards; 
   }
+
+  resetDifficultFilters(): void {
+    this.difficultChamp = 0;
+    this.filtersActive.difficultyFilter = false;
+    this.championsCardsFilter = this._championsCards;
+    this.difficultConditionsFilters();
+  }
+
+  // END RESET FILTERS
 
 }

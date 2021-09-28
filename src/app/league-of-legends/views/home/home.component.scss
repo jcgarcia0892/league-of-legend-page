@@ -66,7 +66,7 @@
     grid-template-columns:  [space-left-start] calc(((100%) - (100% / 1.1707)) / 2) [space-left-end content-start] calc(100% / 1.1707)
                             [content-end space-right-start] calc(((100%) - (100% / 1.1707)) / 2) [space-right-end];
     grid-template-rows: repeat(2, auto);
-    padding: 14rem 0;
+    padding: 8rem 0;
     
     &__title {
         text-align: center;
@@ -228,7 +228,7 @@
     grid-template-rows: repeat(2, auto);
 
     background-color: #000;
-    padding-top: 14rem;
+    padding-top: 8rem;
     padding-bottom: 5rem;
     
     &__title {
