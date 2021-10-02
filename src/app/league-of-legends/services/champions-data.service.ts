@@ -16,6 +16,11 @@ export class ChampionsDataService {
 
 
   getChampions(): Observable<ChampionsObject> {
-    return this.http.get<ChampionsObject>(`${this.baseUrl}/11.19.1/data/en_US/champion.json`);
+    return this.http.get<ChampionsObject>(`${this.baseUrl}/11.19.1/data/es_ES/champion.json`);
+  }
+
+
+  getChampion(id:string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/11.19.1/data/es_ES/champion/${id}.json`);
   }
 }

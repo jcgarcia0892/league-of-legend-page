@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators'
 import { ChampionsObject } from '../../interfaces/champions.interface';
 import { ChampionCard } from '../../interfaces/champion-card.interface';
 import { Subscriber, Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
   interface FiltersActive {
     searcherFilter: boolean;
@@ -57,7 +58,8 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
   // END SUBSCRIBERS
   constructor(
     private animationService: AnimationsService,
-    private championsDataService: ChampionsDataService
+    private championsDataService: ChampionsDataService,
+    private router: Router
   ) {
     this.championsSearcherControl = new FormControl('');
     this.levelsControl = new FormControl(false);
@@ -285,5 +287,9 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.randomChampionsCard.push(this._championsCards[number]);
     }
   };
+
+  redirectTo(id: string): void {
+    this.router.navigate(['main/champion', id]);
+  }
 
 }

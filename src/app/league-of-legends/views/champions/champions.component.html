@@ -107,7 +107,10 @@
         </div>
         <div class="findChamps__body__cards">
             <div class="findChamps__body__cards__container" *ngIf="championsCardsFilter.length > 0">
-                <figure class="findChamps__body__cards__card" *ngFor="let championCard of championsCardsFilter">
+                <figure
+                    class="findChamps__body__cards__card"
+                    *ngFor="let championCard of championsCardsFilter"
+                    (click)="redirectTo(championCard.id)">
                     <div class="findChamps__body__cards__card__img">
                         <img [src]="championCard.img" loading="lazy" alt="">
                     </div>
