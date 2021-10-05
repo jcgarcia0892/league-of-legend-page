@@ -5,7 +5,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { fadeAnimation, fadeInAnimation, sasa } from '../../animations/fade-in-animation';
 import { ChampionsDataService } from '../../services/champions-data.service';
-
+import SwiperCore, {SwiperOptions, Pagination} from 'swiper';
+SwiperCore.use([Pagination]);
 interface Rol {
   value: string;
   spanish: string;
@@ -35,6 +36,14 @@ export class ChampionComponent implements OnInit, AfterViewInit {
   idChamp!: string;
   imgUrl!: string;
   prueba: boolean = true;
+
+  config: SwiperOptions = {
+    slidesPerView: 3,
+    spaceBetween: 50,
+    navigation: true,
+    pagination: { clickable: true },
+    scrollbar: { draggable: true },
+  };
 
   rolArray: Rol[] = [
     {
@@ -73,7 +82,6 @@ export class ChampionComponent implements OnInit, AfterViewInit {
     this.skillsControl = new FormControl('');
   }
   ngAfterViewInit(): void {
-
   }
 
   ngOnInit(): void {
@@ -179,6 +187,13 @@ export class ChampionComponent implements OnInit, AfterViewInit {
     <h4>${this.champion.skills[index].name}</h4>
     <p class="champion__skills__container__description__text">${this.champion.skills[index].description}</p>
     `;
+  }
+
+  onSwiper(swiper: any) {
+    console.log(swiper);
+  }
+  onSlideChange() {
+    console.log('slide change');
   }
 
 }

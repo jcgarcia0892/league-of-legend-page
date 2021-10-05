@@ -79,7 +79,38 @@
         </div>
     </div>
 
-    <div class="champion__skins" style="height: 1000px; background-color: brown;"></div>
+    <div class="champion__skins" style="height: 1000px; background-color: brown;">
+
+        <swiper
+            [pagination]="{
+                dynamicBullets: true
+              }"
+            (swiper)="onSwiper($event)"
+            (slideChange)="onSlideChange()"
+        >
+            <ng-template swiperSlide>Slide 1</ng-template>
+            <ng-template swiperSlide>Slide 2</ng-template>
+            <ng-template swiperSlide>Slide 3</ng-template>
+            <ng-template swiperSlide>Slide 4</ng-template>
+            <ng-template swiperSlide>Slide 7</ng-template>
+            <ng-template swiperSlide>Slide 3</ng-template>
+            <ng-template swiperSlide>Slide 1</ng-template>
+            <ng-template swiperSlide>Slide 2</ng-template>
+            <ng-template swiperSlide>Slide 3</ng-template>
+        </swiper>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">Slide 1</div>
+              <div class="swiper-slide">Slide 1</div>
+              <div class="swiper-slide">Slide 1</div>
+              <div class="swiper-slide">Slide 1</div>
+              <div class="swiper-slide">Slide 1</div>
+              <div class="swiper-slide">Slide 1</div>
+              <div class="swiper-slide">Slide 1</div>
+            </div>
+          </div>
+
+    </div>
 </section>
 
 

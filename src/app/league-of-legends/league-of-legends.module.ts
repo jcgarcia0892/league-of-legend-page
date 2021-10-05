@@ -11,8 +11,7 @@ import { ChampionComponent } from './views/champion/champion.component';
 import { ChampionsComponent } from './views/champions/champions.component';
 import { RulesComponent } from './views/rules/rules.component';
 import { MainComponent } from './views/main/main.component';
-// import { HttpClientModule } from '@angular/common/http';
-
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,8 @@ import { MainComponent } from './views/main/main.component';
   imports: [
     CommonModule,
     LeagueOfLegendsRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SwiperModule
   ]
 })
 export class LeagueOfLegendsModule { }
