@@ -14,8 +14,8 @@ import { AnimationsService } from '../../services/animations.service';
   animations: [
     translateAnimation,
     titleAnimation,
+    followingMouseXAnimation,
     fadeInAnimation,
-    followingMouseXAnimation
   ]
 })
 export class HomeComponent implements OnInit, AfterViewInit {

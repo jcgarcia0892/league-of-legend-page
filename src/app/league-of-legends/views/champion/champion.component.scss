@@ -163,7 +163,6 @@
     }
 
     &__skills {
-        height: 1000px;
         color: #4C59AD;
         padding: 6rem 0;
         
@@ -246,10 +245,33 @@
                 }
             }
 
+            &__description::-webkit-scrollbar {
+                background-color: #E6E6E6;
+                border-radius: 1rem;
+                width: 1rem;
+            }
+
+            &__description::-webkit-scrollbar-thumb {
+                background-color: #4C59AD;
+                border-radius: 1rem;
+
+            }
+            &__description::-webkit-scrollbar-thumb {
+                background-color: #4C59AD;
+                border-radius: 1rem;
+
+            }
+
             &__description {
                 width: 35%;
                 padding-top: 4rem;
-                display: none;
+                max-height: 26rem;
+                padding-right: 1rem;
+                overflow-y: auto;
+                scrollbar-width: thin;
+                scrollbar-color: #4C59AD #E6E6E6;
+                // display: none;
+                transition: all ease 1s;
                 // opacity: 0;
 
                 &__skill {

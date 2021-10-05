@@ -73,13 +73,13 @@
             <div class="champion__skills__container__logo">
                 <img src="assets/images/skills-symbol.svg" alt="">
             </div>
-            <div class="champion__skills__container__description"  *ngFor="let skill of champion?.skills" [ngClass]="{'d-block': skill.checked}">
-                <p class="champion__skills__container__description__skill">{{skill.key}}</p>
-                <h4>{{skill.name}}</h4>
-                <p class="champion__skills__container__description__text">{{skill.description}}</p>
+            <div class="champion__skills__container__description" [@fadeAnimation]="(prueba) ? 'fadeIn' : 'fadeOut'" #skillSelectedHtml>
             </div>
+
         </div>
     </div>
 
-    <div class="champion__skins"></div>
+    <div class="champion__skins" style="height: 1000px; background-color: brown;"></div>
 </section>
+
+
