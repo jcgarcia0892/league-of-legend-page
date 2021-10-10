@@ -21,15 +21,21 @@
         display: flex;
         flex-wrap: wrap;
         
-        & p {
+        & a {
             margin-right: 5rem;
             font-size: 20px;
-            color: #FFFFFF;
+            color: #999;
             cursor: pointer;
+            text-decoration: none;
+            transition: all .6s ease;
         }
 
         &:last-child {
             margin-right: 0 !important
         }
     }
+}
+
+.active-link {
+    color: #ffffff !important;
 }

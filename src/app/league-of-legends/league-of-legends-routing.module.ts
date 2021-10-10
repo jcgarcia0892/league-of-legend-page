@@ -4,6 +4,7 @@ import { ChampionComponent } from './views/champion/champion.component';
 import { ChampionsComponent } from './views/champions/champions.component';
 import { HomeComponent } from './views/home/home.component';
 import { MainComponent } from './views/main/main.component';
+import { RulesComponent } from './views/rules/rules.component';
 
 const routes: Routes = [
   { 
@@ -13,6 +14,8 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'champions', component: ChampionsComponent },
       { path: 'champion/:id', component: ChampionComponent },
+      { path: 'rules', component: RulesComponent },
+
 
     ]
   },
