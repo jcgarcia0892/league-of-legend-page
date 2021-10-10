@@ -1,3 +1,8 @@
+@import "~swiper/css";
+@import "~swiper/css/navigation";
+@import "~swiper/css/thumbs";
+@import "~swiper/css/pagination";
+
 .champion {
     &__main {
         position: relative;
@@ -21,6 +26,7 @@
             position: relative;
             transform: translateY(10%);
             width: 70%;
+            // padding-top: 41.42%;
 
             &::before {
                 content: '';
@@ -33,6 +39,9 @@
             }
 
             & img {
+                // position: absolute;
+                // top: 0;
+                // left: 0;
                 vertical-align: top;
                 width: 100%;
                 box-shadow: 12px 29px 81px 0px rgba(0,0,0,0.75);
@@ -63,10 +72,8 @@
 
     &__description {
         padding: 10rem 0;
-        // background: linear-gradient(transparent 0%, #000 6%, #000 50%, #000);
         background-color: #000;
 
-        // transform: translateY(-6%);
 
         &__header {
             grid-column: content-start / content-end;
@@ -270,9 +277,7 @@
                 overflow-y: auto;
                 scrollbar-width: thin;
                 scrollbar-color: #4C59AD #E6E6E6;
-                // display: none;
                 transition: all ease 1s;
-                // opacity: 0;
 
                 &__skill {
                     text-transform: uppercase;
@@ -292,7 +297,70 @@
     }
 
     &__skins {
+        background-color: #000;
+        padding: 6rem 0;
 
+        &__title {
+            grid-column: content-start / content-end;
+            grid-row: 1 / 2;
+            
+            & h2 {
+                color: #fff;
+                margin-bottom: 3rem;
+            }
+        }
+        &__thumbs {
+            grid-column: content-start / content-end;
+            width: 80%;
+            margin: 0 auto;
+            grid-row: 2 / 3;
+            margin-bottom: 6rem;
+
+            &__container {
+                position: relative;
+
+                &__title {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: fit-content;
+                    background-color: rgba(0, 0, 0, .6);
+                    backdrop-filter: blur(.5rem);
+                    padding: 1.5% 6%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    & h4 {
+                        color: #fff;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+
+        &__slides {
+            grid-column: content-start / content-end;
+            width: 50%;
+            margin: 0 auto;
+            grid-row: 3 / 4; 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                background-color: #000;
+                width: 100%;
+                height: 10rem;
+            }
+        }
     }
 }
 
@@ -308,47 +376,71 @@
     display: block;
 }
 
+.filter-none {
+    filter: none !important;
+}
 
-
-
-
-
-@import 'swiper/swiper.scss';
-@import 'swiper/components/navigation/navigation.scss';
-@import 'swiper/components/pagination/pagination.scss';
-
-
-
+// Swiper Styles
 
 .swiper {
   width: 100%;
-  height: 100%;
 }
 
 .swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-
-  /* Center slide text vertically */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
+    width: 30%;
+    & img {
+        width: 100%;
+        vertical-align: top;
+    }
 }
 
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.swiper-pagination-bullet {
+    opacity: 1;
 }
+
+.mySwiper .swiper-slide {
+    opacity: .4;
+}
+
+.mySwiper .swiper-slide:hover {
+    opacity: .7;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+    opacity: 1;
+}
+.mySwiper .swiper-slide-thumb-active:hover {
+    opacity: 1;
+}
+
+
+// .swiper-slide {
+//   text-align: center;
+//   font-size: 18px;
+//   background: #fff;
+
+//   /* Center slide text vertically */
+//   display: -webkit-box;
+//   display: -ms-flexbox;
+//   display: -webkit-flex;
+//   display: flex;
+//   -webkit-box-pack: center;
+//   -ms-flex-pack: center;
+//   -webkit-justify-content: center;
+//   justify-content: center;
+//   -webkit-box-align: center;
+//   -ms-flex-align: center;
+//   -webkit-align-items: center;
+//   align-items: center;
+// }
+
+// .swiper-slide img {
+//   display: block;
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// }
+
+
+
 

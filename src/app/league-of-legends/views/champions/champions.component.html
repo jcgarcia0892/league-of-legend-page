@@ -1,5 +1,9 @@
+<section>
+    <app-loading [animationVar]="loading"></app-loading>
+  </section>
+
 <section class="findChamps">
-    <div class="findChamps__title" #findYourchamps>
+    <div class="findChamps__title">
         <h1>ENCUENTRA TU CAMPEÓN</h1>
         <h4>Puedes ver la información del campeón que mas te guste, puedes filtrar por nombre, por rol o por dificultad de uso</h4>
     </div>
@@ -9,6 +13,7 @@
                 <div class="findChamps__body__navbar__search__button">
                     <div class="search-input">
                         <input
+                            autocomplete="off"
                             type="text"
                             placeholder="BUSCAR"
                             [formControl]="championsSearcherControl"
@@ -16,7 +21,7 @@
                             (blur)="blurSearcher()"
                             id="searcherInput">
                         <label class="material-icons icon-asset" for="searcherInput">search</label>
-                        <i class="material-icons icon-asset" (click)="deleteText()" *ngIf="championsSearcherControl.value.length > 0">close</i>
+                        <i class="material-icons icon-asset" (click)="cleanChipFilter('nombre')" *ngIf="championsSearcherControl.value.length > 0">close</i>
                     </div>
                 </div>
                 <div class="findChamps__body__navbar__search__dropdown" [ngClass]="{'fadeIn': activeFocusSearcherInput}">
@@ -28,12 +33,6 @@
             </div>
             <div class="findChamps__body__navbar__filters">
                 <ul class="findChamps__body__navbar__filters__lists">
-                    <li class="findChamps__body__navbar__filters__lists__item">
-                        <input type="radio" name="rols" id="allFilter" [formControl]="championsRolesControl" value="all">
-                        <label for="allFilter">
-                            <span>TODOS</span>
-                        </label>
-                    </li>
                     <li class="findChamps__body__navbar__filters__lists__item">
                         <input type="radio" name="rols" id="assassinsFilter" [formControl]="championsRolesControl" value="assassin">
                         <label for="assassinsFilter">
@@ -74,11 +73,11 @@
             </div>
             <div class="findChamps__body__navbar__levels">
                 <input
-                type="checkbox"
-                placeholder="TODAS LAS DIFICULTADES"
-                id="levels"
-                (blur)="blurDifficulty()"
-                (click)="levelsControl.setValue(!levelsControl.value)"
+                    type="checkbox"
+                    placeholder="TODAS LAS DIFICULTADES"
+                    id="levels"
+                    (blur)="blurDifficulty()"
+                    (click)="levelsControl.setValue(!levelsControl.value)"
                 >
                 <label *ngIf="difficultChamp === 0"  for="levels">TODAS LAS DIFICULTADES </label>
                 <label *ngIf="difficultChamp !== 0" for="levels">
@@ -89,7 +88,7 @@
                     <i class="material-icons icon-asset" *ngIf="!levelsControl.value"> keyboard_arrow_down</i>
                     <i class="material-icons icon-asset" *ngIf="levelsControl.value"> keyboard_arrow_up</i>
                 </div>
-                <div class="findChamps__body__navbar__levels__container" *ngIf="true" [ngClass]="{'fadeIn': levelsControl.value}">
+                <div class="findChamps__body__navbar__levels__container" [ngClass]="{'fadeIn': levelsControl.value}">
                     <div 
                         class="findChamps__body__navbar__levels__container__group"
                         *ngFor="let level of difficulty; let i = index"
@@ -105,6 +104,23 @@
 
             </div>
         </div>
+
+        <div class="findChamps__body__chips" *ngIf="filters.length > 0">
+            <h3 class="findChamps__body__chips__title">Filtros:</h3>
+            <div class="findChamps__body__chips__chip" *ngFor="let filter of filters">
+                <span >{{filter.field}}: {{filter.value}}</span>
+                <i class="material-icons icon-asset" (click)="cleanChipFilter(filter.field)">close</i>
+            </div>
+
+            <div class="findChamps__body__chips__button">
+                <app-button
+                text="Limpiar filtro(s)"
+                size="btn--normal"
+                [type]="'btn--secondary'"
+                (click)="cleanFilters()"></app-button>
+            </div>
+        </div>
+
         <div class="findChamps__body__cards">
             <div class="findChamps__body__cards__container" *ngIf="championsCardsFilter.length > 0">
                 <figure
@@ -139,6 +155,7 @@
                         size="btn--normal"
                         type="btn--primary"
                         (click)="pushingRandomChampions()"></app-button>
+                
                 </div>
             </div>
         </div>

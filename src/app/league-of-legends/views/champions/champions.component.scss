@@ -223,6 +223,40 @@
 
         }
 
+        &__chips {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 6rem;
+
+            &__title {
+                color:#4C59AD;
+                margin-right: 2rem;
+                text-transform: uppercase;
+            }
+
+            &__chip {
+                display: flex;
+                align-items: center;
+                border-radius: 2rem;
+                padding: 1rem 1.5rem;
+                background-color: #1C2A8A;
+                margin-right: 2rem;
+                font-size: 1.6rem;
+                color: #fff;
+                text-transform: uppercase;
+
+                & i {
+                    margin-left: 1.6rem;
+                    cursor: pointer;
+                }
+            }
+
+            &__button {
+                margin-left: auto;
+            }
+        }
+
         &__cards {
             width: 100%;
 
@@ -335,7 +369,7 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        left: 4.5rem;
+        left: 1.5rem;
         cursor: pointer;
         font-size: 3.2rem;
         transition: .3s all ease-out;
@@ -346,7 +380,7 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        right: 4rem;
+        right: 2rem;
         font-size: 3.2rem;
         cursor: pointer;
     }
@@ -357,7 +391,7 @@
        width: 100%;
     //    padding-left: 4rem;
     //    padding-right: 4rem;
-       padding: 2rem 8rem;
+       padding: 2rem 6rem;
        font-size: 16px;
        text-transform: uppercase;
        cursor: pointer;
@@ -379,7 +413,7 @@
 
     & input[type=text]:hover + label,
     & input[type=text]:focus + label {
-        left: 4rem;
+        left: 1rem;
     }
 
 }
@@ -400,6 +434,10 @@
 .fadeIn {
     opacity: 1;
     z-index: 10;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
 }
 
 

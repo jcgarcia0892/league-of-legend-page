@@ -12,6 +12,7 @@ import { ChampionsComponent } from './views/champions/champions.component';
 import { RulesComponent } from './views/rules/rules.component';
 import { MainComponent } from './views/main/main.component';
 import { SwiperModule } from 'swiper/angular';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SwiperModule } from 'swiper/angular';
     ChampionsComponent,
     RulesComponent,
     MainComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,

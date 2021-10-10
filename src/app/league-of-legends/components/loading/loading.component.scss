@@ -1,0 +1,99 @@
+.loading {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(255, 255, 255); 
+    z-index: 2000;
+    justify-content: center;
+    // animation-delay: 3s;
+    align-items: center;
+    &__element {
+        position: relative;
+        width: 10%;
+        height: 10%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    
+        & img {
+            width: 50%;
+            vertical-align: top;
+            animation: loadingFadeIn 1s linear infinite;
+        }
+    
+        span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(calc(18deg * var(--i)));
+            z-index: 1000;
+    
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0;
+                height: 0;
+                border-radius: 50%;
+                background-color: #C28F2C;
+                animation: rotate 1s linear infinite;
+                animation-delay: calc(.05s * var(--i));
+            }
+        }
+    }
+}
+
+.loading-animation {
+    animation: fadeOut .3s linear;
+    animation-fill-mode: forwards;
+
+
+}
+
+
+@keyframes rotate {
+    0% {
+        transform: scale(1);
+        width: 15px;
+        height: 15px;
+    }
+
+    80%, 100% {
+        transform: scale(0);
+        width: 15px;
+        height: 15px;
+
+    }
+}
+
+@keyframes loadingFadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOut{
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

@@ -1,16 +1,23 @@
 import { state, style, transition, trigger, useAnimation } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { fadeAnimation, fadeInAnimation, sasa } from '../../animations/fade-in-animation';
 import { ChampionsDataService } from '../../services/champions-data.service';
-import SwiperCore, {SwiperOptions, Pagination} from 'swiper';
-SwiperCore.use([Pagination]);
+
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, Thumbs } from "swiper";
+import { Subscription } from 'rxjs';
+import { Champion, Skill } from '../../interfaces/champion.interface';
+
+// install Swiper modules
+SwiperCore.use([Navigation, Thumbs, Pagination]);
 interface Rol {
   value: string;
   spanish: string;
 }
+
 
 @Component({
   selector: 'app-champion',
@@ -29,21 +36,17 @@ interface Rol {
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class ChampionComponent implements OnInit, AfterViewInit {
+export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('skillSelectedHtml') skillSelectedHtml!: ElementRef;
   skillsControl: FormControl;
-  champion!: any;
+  champion!: Champion;
   idChamp!: string;
   imgUrl!: string;
-  prueba: boolean = true;
+  fadeAnimation: boolean = true;
+  getChampionObs!: Subscription;
+  loading: boolean = false;
 
-  config: SwiperOptions = {
-    slidesPerView: 3,
-    spaceBetween: 50,
-    navigation: true,
-    pagination: { clickable: true },
-    scrollbar: { draggable: true },
-  };
+  thumbsSwiper: any;
 
   rolArray: Rol[] = [
     {
@@ -85,53 +88,59 @@ export class ChampionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.acRoute.params
+
+    this.getChampionObs = this.acRoute.params
       .pipe(
         switchMap(({id}) => {
           this.idChamp = id;
           return this.championsDataService.getChampion(id)
         }),
         map(({data}) => {
-
+          console.log(data);
           data[this.idChamp].imgSplash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.idChamp}_0.jpg`;
           data[this.idChamp].imgSquare = `http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/${this.idChamp}.png`;
           data[this.idChamp].imgLoading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${this.idChamp}_0.jpg`;
           data[this.idChamp].skills = [];
           data[this.idChamp].skillSelected = {};
-          // data[this.idChamp].skills.push(this.skills(data[this.idChamp].passive));
           data[this.idChamp].rolArray = [];
           for(let rol of data[this.idChamp].tags) {
             data[this.idChamp].rolArray.push(this.translateRol(rol));
           }
-          data[this.idChamp].skills.push(this.skills(data[this.idChamp].passive));
+          data[this.idChamp].skills.push(this.mapSkills(data[this.idChamp].passive));
           
           for(let i = 0; i < data[this.idChamp].spells.length; i++) {
-            data[this.idChamp].skills.push(this.skills(data[this.idChamp].spells[i], i));
+            data[this.idChamp].skills.push(this.mapSkills(data[this.idChamp].spells[i], i));
           }
+          delete data[this.idChamp].spells;
+          delete data[this.idChamp].stats;
           return data[this.idChamp]
         })
       )
 
-    .subscribe((data: any) => {
+    .subscribe((data: Champion) => {
       this.champion = data;
       this.champion.skills[0].checked = true;
       this.skillsControl.setValue(this.champion.skills[0].name);
-
+      this.loading = true;
       console.log(this.champion);
     });
 
-    this.skillsControlFunction();
+    this.skillsControlObservable();
+  }
+
+  ngOnDestroy(): void {
+    this.getChampionObs.unsubscribe();
   }
 
 
-  skillsControlFunction(): void {
+  skillsControlObservable(): void {
     this.skillsControl.valueChanges.subscribe((skillName: string) => {
       this.showSkills(skillName);
-      this.prueba = !this.prueba;
+      this.fadeAnimation = !this.fadeAnimation;
     })
   }
 
-  translateRol(value: string): any {
+  translateRol(value: string): string {
     let index = this.rolArray.findIndex((rol: Rol) => {
       return rol.value === value;
     });
@@ -139,7 +148,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 
   }
 
-  skills(element: any, index: number = 5): any {
+  mapSkills(element: any, index: number = 5): Skill {
     let key = '';
     let {id, name, description, image} = element;
     switch (index) {
@@ -171,7 +180,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
   }
 
   showSkills(skillName: string): void {
-    let index = this.champion.skills.findIndex((skill: any) => skill.name === skillName);
+    let index = this.champion.skills.findIndex((skill: Skill) => skill.name === skillName);
     for(let skill of this.champion.skills) {
       skill.checked = false;
     };

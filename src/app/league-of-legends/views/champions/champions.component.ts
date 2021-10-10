@@ -23,12 +23,15 @@ import { Router } from '@angular/router';
     titleAnimation,
   ]
 })
-export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ChampionsComponent implements OnInit, OnDestroy {
   private _championsCards: ChampionCard[] = [];
-  findYourChampTitleAnimation: boolean = true;
   championsCardsFilter: ChampionCard[] = [];
   randomChampionsCard: ChampionCard[] = [];
   idChamp!: string;
+  loading: boolean = false;
+
+  filters: any[] = [];
+
   difficultChamp: number = 0;
   filtersActive: FiltersActive = {
     searcherFilter: false,
@@ -48,10 +51,7 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
   levelsControl: FormControl;
   // END FORMS CONTROL
   // GETTING HTML ELEMENTS
-  @ViewChild('findYourChamp') findYourChamp!: ElementRef;
-  // END GETTING HTML ELEMENTS
-  findYourChampOffsetTop!: number;
-  findYourChampOffsetHeight!: number;
+
 
   // SUBSCRIBERS
     championDataSubscriber!: Subscription;
@@ -77,21 +77,6 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.championDataSubscriber.unsubscribe();
   }
 
-  
-    ngAfterViewInit(): void {
-      // this.findYourChampOffsetTop = this.findYourChamp.nativeElement.offsetTop;
-      // this.findYourChampOffsetHeight = this.findYourChamp.nativeElement.offsetHeight;
-    }
-  @HostListener('window:scroll', ['$event'])
-  scrollDetection(event: any): void {
-    let scrollTop = event.srcElement.scrollingElement.scrollTop;
-    let clientHeight = event.srcElement.scrollingElement.clientHeight;
-    let scrollPositionY = scrollTop + clientHeight;
-
-    let findYourRolPositionY = this.findYourChampOffsetTop + this.findYourChampOffsetHeight;
-    this.findYourChampTitleAnimation = this.animationService.positionYFadeIn(findYourRolPositionY, scrollPositionY);
-
-  }
 
   deleteText(): void {
     this.championsSearcherControl.setValue('');  
@@ -110,11 +95,15 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
   championsSearcherControlFunction(): void {
     this.championsSearcherControl.valueChanges.subscribe((text: string) => {
       this.championNameFilterFunction(text);
-      if(text.length === 0 && this.championsRolesControl.value !== 'all') {
+      if(text.length === 0) {
         this.filtersActive.searcherFilter = false;
         this.championsCardsFilter = this._championsCards;
-        this.nameConditionsFilter();
-        this.filtersActive.searcherFilter = false;
+        if(this.championsRolesControl.value !== 'all') {
+          console.log(this.championsCardsFilter);
+          this.nameConditionsFilter();
+          console.log(this.championsCardsFilter);
+        }
+
       } else {
         this.activeFocusSearcherInput = true;
       }
@@ -144,6 +133,8 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.championsCardsFilter = this._championsCards;
         this.pushingRandomChampions();
         this.championNameFilterFunction('');
+        this.loading = true;
+
 
       })
   }
@@ -156,6 +147,13 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.championsCardsFilter = [];
     this.championsCardsFilter = this.filterArrayById(this._championsCards, id);
     this.championsSearcherControl.setValue(this.championsCardsFilter[0].name);
+    let filter = {field: 'nombre', value: this.championsSearcherControl.value};
+    let index = this.filters.findIndex((element: any) => element.field === filter.field);
+    if(index === -1) {
+      this.filters.push(filter);
+    } else {
+      this.filters[index].value = this.championsSearcherControl.value;
+    }
     this.nameConditionsFilter();
     this.activeFocusSearcherInput = false;
 
@@ -163,12 +161,24 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   championsRolesControlFunction(): void {
     this.championsRolesControl.valueChanges.subscribe((rol: string) => {
-      this.filtersActive.rolFilter = true;
-      if(rol === 'all') {
-        this.championsCardsFilter = this.cleanFilters();
-      } else {
+      
+      if(rol !== 'all') {
+        this.filtersActive.rolFilter = true;
         this.championsCardsFilter = this.filterArrayByRoles(this._championsCards, rol);
         this.rolesConditionsFilters();
+        let filter = {field: 'rol', value: rol};
+        let index = this.filters.findIndex((element: any) => element.field === filter.field);
+        if(index === -1) {
+          this.filters.push(filter);
+        } else {
+          this.filters[index].value = rol;
+        }
+      } else {
+        this.filtersActive.rolFilter = false;
+        this.championsCardsFilter = this._championsCards;
+        this.rolesConditionsFilters();
+
+
       }
     })
   }
@@ -179,6 +189,13 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filtersActive.difficultyFilter = true;
     this.championsCardsFilter = this.filterArrayByDifficulty(this._championsCards, difficulty);
     this.difficultConditionsFilters();
+    let filter = {field: 'dificultad', value: difficulty};
+    let index = this.filters.findIndex((element: any) => element.field === filter.field);
+    if(index === -1) {
+      this.filters.push(filter);
+    } else {
+      this.filters[index].value = difficulty;
+    }
   
   }
   // END CARDS FILTERS 
@@ -218,10 +235,17 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   difficultConditionsFilters(): void {
     if(this.filtersActive.searcherFilter && !this.filtersActive.rolFilter) {
+      console.log('seacher');
+
       this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
     } else if(!this.filtersActive.searcherFilter && this.filtersActive.rolFilter) {
+      console.log('rol');
+
       this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
+      console.log(this.championsCardsFilter);
     } else if(this.filtersActive.searcherFilter && this.filtersActive.rolFilter) {
+      console.log('ambos');
+
       this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
       this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
     }
@@ -240,10 +264,6 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   filterArrayByRoles(array: ChampionCard[], roles: string): ChampionCard[] {
     let championsCards: ChampionCard[] = [];
-    // if(roles === 'all' && this.filtersActive.rolFilter) {
-    //   return this.cleanFilters();
-    // } else {
-    // }
     championsCards = array.filter((element) => {
       for(let rol of element.roles) {
         return rol.toLocaleLowerCase() === roles;
@@ -256,14 +276,12 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
   // END ARRAY FILTERS
 
   // RESET FILTERS
-  cleanFilters(): ChampionCard[] {
-    this.championsSearcherControl.setValue('');
-    this.difficultChamp = 0;
-    this.filtersActive.searcherFilter = false;
-    this.filtersActive.rolFilter = false;
-    this.filtersActive.difficultyFilter = false;
-    this.activeFocusSearcherInput = false;
-    return this._championsCards; 
+  cleanFilters(): void {
+    this.deleteText();
+    this.championsRolesControl.setValue('all');
+    this.resetDifficultFilters();
+    this.filters = [];
+
   }
 
   resetDifficultFilters(): void {
@@ -287,6 +305,30 @@ export class ChampionsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.randomChampionsCard.push(this._championsCards[number]);
     }
   };
+
+  cleanChipFilter(field: string): void {
+    console.log(field);
+    let index = this.filters.findIndex((element: any) => element.field === field);
+    this.filters.splice(index, 1);
+
+    switch (field.toLowerCase()) {
+      case 'nombre':
+        this.deleteText();
+        break;
+      case 'rol':
+        // this.rolesConditionsFilters();
+        this.championsRolesControl.setValue('all');
+        console.log('hola');
+        break;
+      case 'dificultad':
+        this.resetDifficultFilters();
+        break;
+    
+      default:
+        break;
+      }
+
+  }
 
   redirectTo(id: string): void {
     this.router.navigate(['main/champion', id]);
