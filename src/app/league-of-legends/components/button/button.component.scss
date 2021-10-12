@@ -1,3 +1,6 @@
+@import 'variables';
+
+
 .btn-base {
     outline: none;
     width: 100%;
@@ -26,12 +29,12 @@
 }
 
 .btn--primary {
-    background-color: #1C2A8A;
-    color: #ffffff;
+    background-color: $c-primary;
+    color: $c-light;
 };
 
 .btn--secondary {
-    background-color: #ffffff;
-    color: #1C2A8A;
-    border: .1rem solid #1C2A8A;
+    background-color: $c-light;
+    color: $c-primary;
+    border: .1rem solid $c-primary;
 }

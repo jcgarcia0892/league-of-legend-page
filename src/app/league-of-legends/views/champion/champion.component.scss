@@ -2,13 +2,16 @@
 @import "~swiper/css/navigation";
 @import "~swiper/css/thumbs";
 @import "~swiper/css/pagination";
+@import 'variables';
+@import 'mixins';
+
 
 .champion {
     &__main {
         position: relative;
         width: 100%;
         height: calc(100vh - 8rem);
-        background-color: #000;
+        background-color: $c-dark;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -32,7 +35,7 @@
                 content: '';
                 width: 100%;
                 height: 102%;
-                background: linear-gradient(transparent 0%, transparent 25%, transparent 50%, rgba(0, 0, 0, .5) 75%, rgba(0, 0, 0, .7) 90%, rgba(0, 0, 0, 1));
+                background: linear-gradient(transparent 0%, transparent 25%, transparent 50%, rgba($c-dark, .5) 75%, rgba($c-dark, .7) 90%, rgba($c-dark, 1));
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -44,7 +47,7 @@
                 // left: 0;
                 vertical-align: top;
                 width: 100%;
-                box-shadow: 12px 29px 81px 0px rgba(0,0,0,0.75);
+                box-shadow: 12px 29px 81px 0px rgba($c-dark,0.75);
             }
             
             &__text {
@@ -53,7 +56,7 @@
                 top: 80%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                color: #fff;
+                color: $c-light;
                 text-align: center;
                 text-transform: uppercase;
             }
@@ -64,15 +67,12 @@
     }
 
     &__description, &__skills, &__skins {
-        display: grid;
-        grid-template-columns:  [space-left-start] calc(((100%) - (100% / 1.1707)) / 2) [space-left-end content-start] calc(100% / 1.1707)
-        [content-end space-right-start] calc(((100%) - (100% / 1.1707)) / 2) [space-right-end];
-        grid-template-rows: repeat(2, auto);
+        @include css-grid(0);
     }
 
     &__description {
         padding: 10rem 0;
-        background-color: #000;
+        background-color: $c-dark;
 
 
         &__header {
@@ -84,7 +84,7 @@
                 margin: 0 auto;
                 width: 8%;
                 padding-top: 8%;
-                border: .2rem solid #1C2A8A;
+                border: .2rem solid $c-primary;
                 position: relative;
                 margin-bottom: 10rem;
 
@@ -111,7 +111,7 @@
 
             &__text {
                 width: 60%;
-                color: #fff;
+                color: $c-light;
                 
                 & > * {
                     margin-bottom: 3rem;
@@ -125,7 +125,7 @@
 
                     & p {
                         font-size: 1.6rem;
-                        color: #E6E6E6;
+                        color: $c-gray-dark;
                         margin-bottom: 1.6rem;
                     }
                 }
@@ -139,7 +139,7 @@
                         &__chip {
                             border-radius: 2rem;
                             padding: 1rem 1.5rem;
-                            background-color: #1C2A8A;
+                            background-color: $c-primary;
                             margin-right: 2rem;
                             font-size: 1.6rem;
                         }
@@ -170,7 +170,7 @@
     }
 
     &__skills {
-        color: #4C59AD;
+        color: $c-primary-light;
         padding: 6rem 0;
         
         &__container {
@@ -253,18 +253,18 @@
             }
 
             &__description::-webkit-scrollbar {
-                background-color: #E6E6E6;
+                background-color: $c-gray;
                 border-radius: 1rem;
                 width: 1rem;
             }
 
             &__description::-webkit-scrollbar-thumb {
-                background-color: #4C59AD;
+                background-color: $c-primary-light;
                 border-radius: 1rem;
 
             }
             &__description::-webkit-scrollbar-thumb {
-                background-color: #4C59AD;
+                background-color: $c-primary-light;
                 border-radius: 1rem;
 
             }
@@ -277,7 +277,7 @@
                 padding-right: 1rem;
                 overflow-y: auto;
                 scrollbar-width: thin;
-                scrollbar-color: #4C59AD #E6E6E6;
+                scrollbar-color: $c-primary-light $c-gray;
                 transition: all ease 1s;
 
                 &__skill {
@@ -298,7 +298,7 @@
     }
 
     &__skins {
-        background-color: #000;
+        background-color: $c-dark;
         padding: 6rem 0;
 
         &__title {
@@ -306,7 +306,7 @@
             grid-row: 1 / 2;
             
             & h2 {
-                color: #fff;
+                color: $c-light;
                 margin-bottom: 3rem;
             }
         }
@@ -326,7 +326,7 @@
                     top: 0;
                     left: 0;
                     width: fit-content;
-                    background-color: rgba(0, 0, 0, .6);
+                    background-color: rgba($c-dark, .6);
                     backdrop-filter: blur(.5rem);
                     padding: 1.5% 6%;
                     display: flex;
@@ -334,7 +334,7 @@
                     align-items: center;
 
                     & h4 {
-                        color: #fff;
+                        color: $c-light;
                         text-transform: uppercase;
                     }
                 }
@@ -357,7 +357,7 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                background-color: #000;
+                background-color: $c-dark;
                 width: 100%;
                 height: 10rem;
             }
@@ -414,33 +414,6 @@
     opacity: 1;
 }
 
-
-// .swiper-slide {
-//   text-align: center;
-//   font-size: 18px;
-//   background: #fff;
-
-//   /* Center slide text vertically */
-//   display: -webkit-box;
-//   display: -ms-flexbox;
-//   display: -webkit-flex;
-//   display: flex;
-//   -webkit-box-pack: center;
-//   -ms-flex-pack: center;
-//   -webkit-justify-content: center;
-//   justify-content: center;
-//   -webkit-box-align: center;
-//   -ms-flex-align: center;
-//   -webkit-align-items: center;
-//   align-items: center;
-// }
-
-// .swiper-slide img {
-//   display: block;
-//   width: 100%;
-//   height: 100%;
-//   object-fit: cover;
-// }
 
 
 

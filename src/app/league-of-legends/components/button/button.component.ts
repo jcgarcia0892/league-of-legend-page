@@ -8,6 +8,7 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit } from '@angular/cor
 export class ButtonComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() text!: string
   @Input() type!: 'btn--primary' | 'btn--secondary';
+  @Input() icon!: string | undefined;
   @Input() size!: 'btn--big' | 'btn--normal' | 'btn--small';
 
   styles: string[] = []

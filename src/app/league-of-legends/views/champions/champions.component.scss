@@ -1,17 +1,17 @@
+@import 'variables';
+@import 'animations';
+@import 'mixins';
+
+
 .findChamps {
-    display: grid;
-    width: 100%;
-    grid-template-columns:  [space-left-start] calc(((100%) - (100% / 1.1707)) / 2) [space-left-end content-start] calc(100% / 1.1707)
-                            [content-end space-right-start] calc(((100%) - (100% / 1.1707)) / 2) [space-right-end];
-    grid-template-rows: repeat(2, auto);
-    padding: 8rem 0;
+    @include css-grid;
 
     &__title {
         text-align: center;
         grid-row: 1 / 2;
         grid-column: content-start / content-end;
         margin-bottom: 6rem;
-        color: #4C59AD;
+        color: $c-primary-light;
 
         h4 {
             width: 50%;
@@ -24,7 +24,7 @@
         grid-column: content-start / content-end;
 
         &__navbar {
-            color: #4C59AD;
+            color: $c-primary-light;
             font-size: 1.6rem;
             width: 100%;
             display: flex;
@@ -41,7 +41,7 @@
 
             &__search {
                 width: 20%;
-                border: 1px solid #e6e6e6;
+                border: 1px solid $c-gray;
                 position: relative;
 
                 &__button {
@@ -59,10 +59,10 @@
                     height: auto;
                     max-height: 30rem;
                     width: 101%;
-                    box-shadow: .1rem .1rem .3rem #ccc;
+                    box-shadow: .1rem .1rem .3rem $c-gray-dark;
                     overflow-y: scroll;
                     text-transform: uppercase;
-                    background-color: #fff;
+                    background-color: $c-light;
                     z-index: -10;
                     opacity: 0;
                     transition: all .3s ease;
@@ -76,7 +76,7 @@
                         }
 
                         & li:hover {
-                            background-color: #e6e6e6;
+                            background-color: $c-gray;
                         }
                     }
                 }
@@ -84,14 +84,14 @@
 
             &__filters {
                 width: 60%;
-                border-top: 1px solid #e6e6e6;
-                border-bottom: 1px solid #e6e6e6;
+                border-top: 1px solid $c-gray;
+                border-bottom: 1px solid $c-gray;
 
                 &__lists {
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: center;
-                    color: #4C59AD;
+                    color: $c-primary-light;
                     list-style: none;
                     width: 100%;
                     height: 100%;
@@ -124,7 +124,7 @@
                                 position: absolute;
                                 bottom: 0;
                                 left: 0;
-                                background-color: #4C59AD;
+                                background-color: $c-primary-light;
                                 transform: scale(0);
                                 transition: all .3s ease;
 
@@ -143,7 +143,7 @@
 
             &__levels {
                 width: 20%;
-                border: 1px solid #e6e6e6;
+                border: 1px solid $c-gray;
                 position: relative;
 
                 & input[type=checkbox] {
@@ -186,10 +186,10 @@
                 &__container {
                     width: 100%;
                     position: absolute;
-                    background-color: #fff;
+                    background-color: $c-light;
                     top: 100%;
                     left: 0;
-                    box-shadow: .1rem .1rem .3rem #ccc;
+                    box-shadow: .1rem .1rem .3rem $c-gray-dark;
                     z-index: -10;
                     opacity: 0;
                     transition: all .3s ease;
@@ -206,13 +206,13 @@
                         cursor: pointer;
 
                         &:hover {
-                            background-color: #e6e6e6;
+                            background-color: $c-gray;
                         }
 
                         &__item {
                             width: 8%;
                             height: 1.5rem;
-                            background-color: #C0C0C0;
+                            background-color: $c-gray;
                             margin-left: 1%;
                         }
                     }
@@ -230,7 +230,7 @@
             margin-bottom: 6rem;
 
             &__title {
-                color:#4C59AD;
+                color:$c-primary-light;
                 margin-right: 2rem;
                 text-transform: uppercase;
             }
@@ -240,10 +240,10 @@
                 align-items: center;
                 border-radius: 2rem;
                 padding: 1rem 1.5rem;
-                background-color: #1C2A8A;
+                background-color: $c-primary;
                 margin-right: 2rem;
                 font-size: 1.6rem;
-                color: #fff;
+                color: $c-light;
                 text-transform: uppercase;
 
                 & i {
@@ -275,11 +275,11 @@
 
             &__card, &__error__card {
 
-                border: 1px solid #fff;
+                border: 1px solid $c-light;
                 opacity: 0;
                 cursor: pointer;
                 transition: all .3s ease;
-                animation-name: fadeIn;
+                animation-name: appear;
                 animation-duration: .3s;
                 animation-fill-mode: forwards;
 
@@ -294,7 +294,7 @@
 
                 &:hover figcaption {
                     transform: translateX(1rem);
-                    color: #fff;
+                    color: $c-light;
                 }
                 
                 &__img {
@@ -318,8 +318,8 @@
 
                 &__figcaption {
                     width: 100%;
-                    background-color: #1C2A8A;
-                    color: #e6e6e6;
+                    background-color: $c-primary;
+                    color: $c-gray;
                     padding: 1rem;
                     text-transform: uppercase;
                     font-size: 1.6rem;
@@ -338,7 +338,7 @@
 
                 &__title {
                     width: 100%;
-                    color: #4C59AD;
+                    color: $c-primary-light;
                     margin-bottom: 3rem;
 
                     & h3 {
@@ -387,7 +387,7 @@
 
     & input[type=text] {
        border: none;
-       color: #4C59AD;
+       color: $c-primary-light;
        width: 100%;
     //    padding-left: 4rem;
     //    padding-right: 4rem;
@@ -399,7 +399,7 @@
     }
 
     & input[type=text]::placeholder {
-        color: #4C59AD;
+        color: $c-primary-light;
     }
 
     & input[type=text]:focus {
@@ -421,14 +421,14 @@
 
 // HELPERS
 .bg-blue {
-    background-color: #1C2A8A;
-    // background-color: #4C59AD;
+    background-color: $c-primary;
+    // background-color: $c-primary-light;
 
 }
 
 .bg-gray {
-    // background-color: #1C2A8A !important;
-    background-color: #4C59AD !important;
+    // background-color: $c-primary !important;
+    background-color: $c-primary-light !important;
 }
 
 .fadeIn {
@@ -441,13 +441,4 @@
 }
 
 
-// ANIMACIONES
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
 
-    to {
-        opacity: 1;
-    }
-}

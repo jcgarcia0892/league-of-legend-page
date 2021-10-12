@@ -1,3 +1,6 @@
 <button
     class="btn-base"
-    [ngClass]="styles">{{text}}</button>
+    [ngClass]="styles">
+    {{text}}
+    <i *ngIf="!text && icon" class="material-icons">{{icon}}</i>
+</button>

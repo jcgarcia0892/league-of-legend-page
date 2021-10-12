@@ -1,1 +1,68 @@
-<p>rules works!</p>
+<!-- RULES SCREEN -->
+<main class="main">
+    <video #rulesVideo loop>
+        <source [src]="videoPath" type="video/mp4">
+    </video>
+    <div class="main__center">
+        <h2>BIENVENIDO A LA GRIETA DEL INVOCADOR</h2>
+        <h1>APRENDE LO BÁSICO PARA JUGAR</h1>
+        <div class="main__center__button">
+            <app-button
+                text="EMPEZAR EL RECORRIDO"
+                size="btn--normal"
+                type="btn--primary"
+                (click)="scrollToRules()"></app-button>
+        </div>
+    </div>
+</main>
+<!-- END RULES SCREEN -->
+
+<section class="rules" #rules>
+    <div class="rules__container">
+        <div class="rules__container__left">
+            <div class="rules__container__left__item">
+                <div class="rules__container__left__item__header">
+                    <h5>OBJETIVO</h5>
+                    <h2>DESTRUYE LA BASE ENEMIGA</h2>
+                    <p>El nexo es el corazon de las bases de ambos equipos.</p>
+                    <p>Destruye el nexo enemigo para ganar la partida</p>
+                </div>
+                <div class="rules__container__left__item__card">
+                    <p>1/2</p>
+                    <h5>TU NEXO</h5>
+                    <p>Tu nexo es donde aparecen los súbditos. Detrás de tu nexo se encuentra el fondo de la base, donde puedes recuperar vida y maná rápidamente, asi como acceder a la tienda</p>
+                    <div class="rules__container__left__item__card">
+                        <app-button
+                        icon="arrow_back_ios"
+                        size="btn--small"
+                        type="btn--secondary"></app-button>
+
+                        <app-button
+                        icon="arrow_forward_ios"
+                        size="btn--small"
+                        type="btn--secondary"></app-button>
+                    </div>
+                </div>
+            </div>
+            <div class="prueba">1</div>
+            <div class="prueba">2</div>
+            <div class="prueba">3</div>
+            <div class="prueba">4</div>
+            <div class="prueba">5</div>
+            <div class="prueba">6</div>
+        </div>
+        <!-- <div class="rules__container__right">
+            <img src="assets/images/map.png" alt="">
+        </div> -->
+    </div>
+
+</section>
+
+<div>
+    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
+    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
+    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
+    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
+    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
+    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
+</div>
