@@ -20,49 +20,71 @@
 <section class="rules" #rules>
     <div class="rules__container">
         <div class="rules__container__left">
-            <div class="rules__container__left__item">
+            <div class="rules__container__left__item" *ngFor="let rule of rulesInfo">
                 <div class="rules__container__left__item__header">
-                    <h5>OBJETIVO</h5>
-                    <h2>DESTRUYE LA BASE ENEMIGA</h2>
-                    <p>El nexo es el corazon de las bases de ambos equipos.</p>
-                    <p>Destruye el nexo enemigo para ganar la partida</p>
+                    <h5>{{rule.header.subtitle}}</h5>
+                    <h2>{{rule.header.title}}</h2>
+                    <p *ngFor="let description of rule.header.descriptions">{{description}}</p>
                 </div>
                 <div class="rules__container__left__item__card">
-                    <p>1/2</p>
-                    <h5>TU NEXO</h5>
-                    <p>Tu nexo es donde aparecen los súbditos. Detrás de tu nexo se encuentra el fondo de la base, donde puedes recuperar vida y maná rápidamente, asi como acceder a la tienda</p>
-                    <div class="rules__container__left__item__card">
-                        <app-button
-                        icon="arrow_back_ios"
-                        size="btn--small"
-                        type="btn--secondary"></app-button>
+                    <p class="rules__container__left__item__card__page">{{rule.card.currentPageNumber}}/{{rule.card.list.length}}</p>
+                    <ul>
+                        <li [ngStyle]="{'transform': 'translateX(' + rule.card.translate() + '%)'}" *ngFor="let item of rule.card.list">
+                            <h5>{{item.title}}</h5>
+                            <p class="rules__container__left__item__card__text">{{item.description}}</p>
+                        </li>
+                    </ul>
+                    <div class="rules__container__left__item__card__buttons">
+                        <div>
+                            <app-button
+                            icon="arrow_back_ios"
+                            size="btn--small"
+                            type="btn--secondary"
+                            (click)="changeItemList(rule.header.subtitle, 'prev', rule.card.currentPageNumber)"></app-button>
+                        </div>
 
-                        <app-button
-                        icon="arrow_forward_ios"
-                        size="btn--small"
-                        type="btn--secondary"></app-button>
+                        <div>
+                            <app-button
+                            icon="arrow_forward_ios"
+                            size="btn--small"
+                            type="btn--secondary"
+                            (click)="changeItemList(rule.header.subtitle, 'next', rule.card.currentPageNumber)"></app-button>
+                        </div>
+
                     </div>
                 </div>
             </div>
-            <div class="prueba">1</div>
-            <div class="prueba">2</div>
-            <div class="prueba">3</div>
-            <div class="prueba">4</div>
-            <div class="prueba">5</div>
-            <div class="prueba">6</div>
         </div>
-        <!-- <div class="rules__container__right">
-            <img src="assets/images/map.png" alt="">
-        </div> -->
     </div>
 
 </section>
 
-<div>
-    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
-    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
-    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
-    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
-    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
-    <div style="width: 300px; height: 600px; background-color: red; margin-bottom: 200px;"></div>
-</div>
+<section class="power">
+    <div class="power__header">
+        <h1>DALE MÁS PODER A TU CAMPEÓN</h1>
+        <p>Los campeones se fortalecen al obtener experiencia para subir de nivel y oro para comprar más objetos poderosos conforme avanza la partida. Es crucial dominar estos dos factores para superar al equipo enemigo y destruir su base.</p>
+    </div>
+
+    <div class="power__body">
+        <div class="power__body__left">
+            <video src="assets/images/get-exp.webm" #getExp loop [ngStyle]="{'transform': 'translateX(' + translateX() + '%)'}"></video>
+            <video #getGold loop src="assets/images/get-gold.webm" [ngStyle]="{'transform': 'translateX(' + translateX() + '%)'}"></video>
+            <img src="assets/images/shop.jpg" [ngStyle]="{'transform': 'translateX(' + translateX() + '%)'}"/>
+        </div>
+
+        <div class="power__body__right">
+            <div>
+                <div class="power__body__right__info" *ngFor="let power of powersInfo">
+                    <div class="power__body__right__info__icon">
+                        <i class="material-icons" *ngIf="!power.isShown" (click)="showSelectedPower(power.title, power.videoPosition)">add</i>
+                        <i class="material-icons" *ngIf="power.isShown">remove</i>
+                    </div>
+                    <div class="power__body__right__info__texto">
+                        <h5 (click)="showSelectedPower(power.title, power.videoPosition)">{{power.title}}</h5>
+                        <p [ngClass]="{'max-height': power.isShown}"> {{power.description}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

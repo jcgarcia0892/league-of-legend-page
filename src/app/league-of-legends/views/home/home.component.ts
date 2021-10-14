@@ -1,6 +1,7 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { fadeInAnimation } from '../../animations/fade-in-animation';
 import { followingMouseXAnimation } from '../../animations/following-mouse-x-animation';
 import { titleAnimation } from '../../animations/title-animation';
@@ -81,7 +82,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   constructor(
-    private animationService: AnimationsService
+    private animationService: AnimationsService,
+    private router: Router,
   ) {
     this.rolSelectionControl = new FormControl('assassins');
 
@@ -94,15 +96,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.playToVideo();
-    this.findYourRolOffsetTop = this.findYourRol.nativeElement.offsetTop;
-    this.findYourRolOffsetHeight = this.findYourRol.nativeElement.offsetHeight;
-    this.legendsLandOffsetTop = this.legendsLand.nativeElement.offsetTop;
-    this.legendsLandOffsetHeight = this.legendsLand.nativeElement.offsetHeight;
+    setTimeout(() => {
+      this.findYourRolOffsetTop = this.findYourRol.nativeElement.offsetTop;
+      this.findYourRolOffsetHeight = this.findYourRol.nativeElement.offsetHeight;
+      this.legendsLandOffsetTop = this.legendsLand.nativeElement.offsetTop;
+      this.legendsLandOffsetHeight = this.legendsLand.nativeElement.offsetHeight;
+    });
     
   }
   
-  goTo() {
-    console.log('prueba');
+  goTo(route: string) {
+    this.router.navigate([`/main/${route}`]);
   }
   randomNumber(): number {
     return Math.floor(Math.random() * this.videoPaths.length);

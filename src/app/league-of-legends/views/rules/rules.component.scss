@@ -86,34 +86,153 @@
         // transition: all ease 2s;
 
         &__left {
-            width: 30%;
-        }
+            width: 37%;
 
-        &__right {
-            width: 70%;
+            &__item {
+                color: $c-light; 
+                margin-top: 2rem;
+                margin-bottom: 20rem;
+                p {
+                    font-size: 1.6rem;
+                    color: $c-gray;
+                }
 
-            
-            // position: absolute;
-            // top: 0;
-            // right: 0;
-            // transition: all 1s ease;
+                &__header {
+                    margin-bottom: 5rem;
+                    padding: 3rem;
 
-            & img {
-                width: 100%;
-                // max-width: 70rem;
-                vertical-align: top;
+                    h2 {
+                        margin-bottom: 2rem;
+                    }
+                }
+
+                &__card {
+                    width: 100%;
+                    padding: 3rem;
+                    border: .1rem solid $c-gray;
+
+                    & h5 {
+                        margin-bottom: 2rem;
+                    }
+
+                    & ul {
+                        overflow: hidden;
+                        white-space: nowrap;
+                        margin-bottom: 4rem;
+                        & li {
+                            display: inline-block;
+                            vertical-align: top;
+                            white-space: normal;
+                            width: 100%;
+                            transition: transform .6s ease;
+                            transform: translateX(0);
+
+                        }
+                    }
+                    
+
+                    &__page {
+                        font-size: 1.4rem;
+                        margin-bottom: 2rem;
+                    }
+
+                    &__buttons {
+                        width: 100%;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+
+                        div {
+                            width: 40%;
+                        }
+                    }
+                }
             }
         }
+
     }
 }
 
-.prueba {
-    width: 40rem;
-    height: 40rem;
-    margin-bottom: 20rem;
-    background-color: transparent;
-    border: 1px solid red;
-    z-index: 10;
+.power {
+    @include css-grid;
+
+    &__header {
+        grid-column: content-start / content-end;
+        grid-row: 1 / 2;
+        color: $c-primary-light;
+        text-align: center;
+        margin-bottom: 6rem;
+
+        & p {
+            font-size: 1.6rem;
+            width: 60%;
+            margin: 0 auto;
+        }
+    }
+
+    &__body {
+        grid-column: content-start / content-end;
+        grid-row: 2 /3;
+        display: flex;
+        flex-wrap: wrap;
+        border: .1rem solid $c-gray-darker;
+        padding: 2rem;
+
+        &__left {
+            width: 65%;
+            white-space: nowrap;
+            overflow: hidden;
+
+            & video, img {
+                width: 100%;
+                transition: transform .6s ease;
+                transform: translateX(0);
+            }
+            & img {
+                vertical-align: top;
+            }
+        }
+        
+        &__right {
+            padding-left: 2rem;
+            width: 35%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+            &__info {
+                border-bottom: .1rem solid $c-gray;
+                display: flex;
+                padding: 2rem 0;
+
+                &__icon {
+                    & i {
+                        margin-right: 1.5rem;
+                        color: $c-primary;
+                        cursor: pointer;
+                    }
+                }
+
+                &__texto {
+                    color: $c-primary-light;
+
+                    & h5 {
+                        cursor: pointer;
+                    }
+                    & p {
+                        max-height: 0rem;
+                        overflow: hidden;
+                        transition: max-height .3s linear;
+                        font-size: 1.6rem;
+                        color: $c-gray-darker;
+                    }
+                }
+            
+            }
+            
+        }
+    }
+
 }
 
 .p-fixed {
@@ -121,3 +240,16 @@
     background-position: 80% center;
 }
 
+.translateX {
+    transform: translateX(-100%) !important;
+}
+
+.prueba {
+
+
+}
+
+.max-height {
+    margin-top: 2rem;
+    max-height: 6rem !important;
+}
