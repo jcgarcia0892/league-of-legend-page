@@ -1,0 +1,18 @@
+@import 'variables';
+footer {
+    height: 8rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: $c-primary;
+    position: relative;
+    bottom: 0;
+    left: 0;
+
+    & p {
+        font-size: 1.6rem;
+        color: $c-light;
+    }
+}

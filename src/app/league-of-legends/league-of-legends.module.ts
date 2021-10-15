@@ -13,6 +13,7 @@ import { RulesComponent } from './views/rules/rules.component';
 import { MainComponent } from './views/main/main.component';
 import { SwiperModule } from 'swiper/angular';
 import { LoadingComponent } from './components/loading/loading.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     RulesComponent,
     MainComponent,
     LoadingComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
