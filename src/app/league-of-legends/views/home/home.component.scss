@@ -70,12 +70,7 @@
 
 
 .findRol {
-    // display: grid;
-    // width: 100%;
-    // grid-template-columns:  [space-left-start] calc(((100%) - (100% / 1.1707)) / 2) [space-left-end content-start] calc(100% / 1.1707)
-    //                         [content-end space-right-start] calc(((100%) - (100% / 1.1707)) / 2) [space-right-end];
-    // grid-template-rows: repeat(2, auto);
-    // padding: 8rem 0;
+
     @include css-grid;
     
     &__title {
@@ -103,42 +98,45 @@
         flex-wrap: wrap;
         flex-direction: column;
         justify-content: space-between;
-        & input {
-            display: none;
-        }
-        & input[type="radio"]:checked + &__item {
-            svg {
+
+        &__imgs {
+            & input {
+                display: none;
+            }
+            & input[type="radio"]:checked + &__item {
+                svg {
+                    transition: all .3s ease;
+                    fill: $c-primary-light;
+                }
+                h3 {
+                    transition: all .3s ease;
+                    color: $c-primary-light;
+                }
+            }
+            &__item {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+                padding-left: 4.5rem;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
                 transition: all .3s ease;
-                fill: $c-primary-light;
-            }
-            h3 {
-                transition: all .3s ease;
-                color: $c-primary-light;
-            }
-        }
-        &__item {
-            padding-top: 20px;
-            padding-bottom: 20px;
-            padding-left: 45px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            transition: all .3s ease;
-            cursor: pointer;
-
-            &:hover {
-                background-color: rgba(192, 192, 192, .5);
-            }
-
-            svg {
-                margin-right: 4rem;
-                width: 7.4rem;
-                fill: $c-gray-darker;
-            }
-
-            h3 {
-                color: $c-gray-darker;
-            }
+                cursor: pointer;
+    
+                &:hover {
+                    background-color: rgba(192, 192, 192, .5);
+                }
+    
+                svg {
+                    margin-right: 4rem;
+                    width: 7.4rem;
+                    fill: $c-gray-darker;
+                }
+    
+                h3 {
+                    color: $c-gray-darker;
+                }
+            }   
         }
 
         &__button {
@@ -147,7 +145,7 @@
     };
 
     &__mid {
-        width: 22%;
+        width: 12%;
         height: 100%;
         border-left: 1px solid $c-gray-darker;
 
@@ -160,9 +158,17 @@
     }
 
     &__illus {
-        width: 50%;
-        overflow: hidden;
+        width: 60%;
+        // overflow: hidden;
         position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+
+        & div:first-child {
+            width: 100%;
+        }
 
         &__circle {
             width: 100%;
@@ -187,16 +193,12 @@
                 top: 2%;
                 left: 50%;
                 transform: translateX(-50%);
+                width: 100%;
                 color: $c-primary-light;
                 text-align: center;
-                
-                &--name {
-                    font-size: 32px;
-                    font-weight: bold;
-                }
 
-                &--nickname {
-                    font-size: 24px;
+                &__nickname {
+                    font-size: 2.4rem;
                 }
             }
 
@@ -231,13 +233,6 @@
 
 
 .legendsLand {
-    // display: grid;
-    // width: 100%;
-    // grid-template-columns:  [space-left-start] calc(((100%) - (100% / 1.1707)) / 2) [space-left-end content-start] calc(100% / 1.1707)
-    //                         [content-end space-right-start] calc(((100%) - (100% / 1.1707)) / 2) [space-right-end];
-    // grid-template-rows: repeat(2, auto);
-    // padding-top: 8rem;
-    // padding-bottom: 5rem;
     @include css-grid(8rem 0 5rem 0);
     background-color: $c-dark;
     
@@ -253,7 +248,6 @@
 
     &__body {
         display: flex;
-        flex-wrap: wrap;
         justify-content: space-between;
         grid-row: 2 / 3;
         grid-column: content-start / content-end;
@@ -272,7 +266,7 @@
             width: 30%;
             z-index: 1;
             color: $c-light;
-            margin-top: 20rem;
+            margin-top: 10rem;
             
             & h2 {
                 margin-bottom: 3.2rem;
@@ -299,4 +293,316 @@
 
 .w-95p {
     width: 95%;
+}
+
+@media screen and (max-width: 1400px) {
+    .findRol {
+        &__rolesBox {
+            &__imgs {
+                &__item {
+                    padding-left: 2rem;
+                }
+    
+                svg {
+                    margin-right: 2rem;
+                }
+            }
+        }
+    }
+
+    .legendsLand {
+        &__body {
+            &__img {
+                width: 60%;
+                img {
+                    transform: translateX(-100px);
+                }
+            }
+            &__content {
+                margin-top: 5rem;
+                width: 40%;
+            }
+        }
+
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .main {
+        &__center {
+            // width: 100%;
+            & img {
+                width: 100%;
+
+    
+            }
+    
+            & div {
+                width: 80%;
+            }
+        }
+    }
+    .findRol {
+        &__rolesBox {
+            &__imgs {
+
+                &__item {
+                    padding-top: 1.5rem;
+                    padding-bottom: 1.5rem;
+    
+                    svg {
+                        width: 4.4rem;
+                    }
+    
+                    h3 {
+                        font-size: 2.4rem;
+                    }
+                }
+            }
+
+            &__button {
+                & app-button {
+                    & button {
+                        font-size: 1.6rem !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .legendsLand {
+        &__body {
+            &__img {
+                img {
+                    transform: translateX(-50px);
+                }
+            }
+
+            &__content {
+                // width: 50%;
+                & h2 {
+                    font-size: 3.2rem;
+                }
+                & p {
+                    font-size: 1.6rem;
+                }
+            }
+            
+        }
+
+    }
+}
+
+@media screen and (max-width: 1040px) {
+    .findRol {
+        &__rolesBox {
+            &__imgs {
+
+                &__item {
+                    padding-top: 1rem;
+                    padding-bottom: 1rem;
+                    margin-bottom: 2rem;
+
+                    &__svg {
+                        width: 3rem;
+                    }
+        
+                    & h3 {
+                        font-size: 2rem;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .findRol__illus {
+
+        &__circle {
+
+            &__text {
+                top: -3%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 925px) {
+    .main {
+        &__center {
+            width: 70%;
+
+        }
+    }
+    .findRol {
+        & .content {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__rolesBox {
+            width: 100%;
+            margin-bottom: 4rem;
+
+            &__imgs {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                &__item {
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 0 1rem;
+
+                    & svg {
+                        margin-right: unset;
+                    }
+                }
+            }
+
+            &__button {
+                width: 60%;
+                margin: 0 auto;
+            }
+        }
+
+        &__mid {
+            display: none;
+        }
+
+        &__illus {
+            width: 80%;
+            margin-top: 12%;
+
+            & div:first-child {
+                width: 100%;
+            }
+
+            &__circle {
+                &__text {
+                    top: -15%;
+                }
+            }
+        }
+    }
+
+    .legendsLand {
+        &__body {
+            flex-wrap: wrap;
+            &__img {
+                width: 100%;
+                & img {
+                    width: 100%;
+                    transform: translateX(0);
+                }
+            }
+
+            &__content {
+                // margin-top: unset;
+                width: 100%;
+
+                & p {
+                    font-size: 2.4rem;
+                }
+
+                &__button {
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 625px) {
+    h1 {
+        font-size: 4.8rem;
+    }
+
+    h2 {
+        font-size: 3.2rem;
+    }
+
+    h3 {
+        font-size: 2.4rem;
+    }
+
+    .main {
+        &__center {
+            width: 80%;
+
+        }
+    }
+    .findRol {
+        &__rolesBox {
+
+            &__button {
+                width: 80%;
+            }
+        }
+    }
+
+    .legendsLand {
+        &__body {
+            &__content {
+                & p {
+                    font-size: 2rem;
+                }
+
+                &__button {
+                    width: 70%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 420px) {
+    h1 {
+        font-size: 4rem;
+    }
+    .main {
+        &__center {
+            width: 100%;
+            & img {
+                width: 80%;
+            }
+        }
+    }
+    .findRol {
+
+        &__rolesBox {
+            &__imgs {
+                &__item {
+                    width: 50%;
+                }
+            }
+            &__button {
+                width: 100%;
+            }
+        }
+        &__illus {
+            &__circle {
+                &__text {
+                    top: -20%;
+                    & h3 {
+                        font-size: 2rem;
+                    }
+
+                    & p {
+                        font-size: 1.6rem;
+                    }
+                }
+            }
+        }
+    }
+    .legendsLand {
+        &__body {
+            &__content {
+                &__button {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
 }
