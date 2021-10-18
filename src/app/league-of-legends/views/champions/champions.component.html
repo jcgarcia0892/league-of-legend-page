@@ -82,7 +82,7 @@
                 <label *ngIf="difficultChamp === 0"  for="levels">TODAS LAS DIFICULTADES </label>
                 <label *ngIf="difficultChamp !== 0" for="levels">
                     DIFICULTAD: {{difficultChamp}}
-                    <i class="material-icons icon-asset" (click)="resetDifficultFilters()">close</i>
+                    <!-- <i class="material-icons icon-asset" (click)="resetDifficultFilters()">close</i> -->
                 </label>
                 <div class="findChamps__body__navbar__levels__icons">
                     <i class="material-icons icon-asset" *ngIf="!levelsControl.value"> keyboard_arrow_down</i>
@@ -106,19 +106,21 @@
         </div>
 
         <div class="findChamps__body__chips" *ngIf="filters.length > 0">
-            <h3 class="findChamps__body__chips__title">Filtros:</h3>
+            <div class="findChamps__body__chips__filters">
+                <h3 class="findChamps__body__chips__filters__title">Filtros:</h3>
+                <div class="findChamps__body__chips__filters__button">
+                    <app-button
+                    text="Limpiar filtro(s)"
+                    size="btn--normal"
+                    [type]="'btn--secondary'"
+                    (click)="cleanFilters()"></app-button>
+                </div>
+            </div>
             <div class="findChamps__body__chips__chip" *ngFor="let filter of filters">
                 <span >{{filter.field}}: {{filter.value}}</span>
                 <i class="material-icons icon-asset" (click)="cleanChipFilter(filter.field)">close</i>
             </div>
 
-            <div class="findChamps__body__chips__button">
-                <app-button
-                text="Limpiar filtro(s)"
-                size="btn--normal"
-                [type]="'btn--secondary'"
-                (click)="cleanFilters()"></app-button>
-            </div>
         </div>
 
         <div class="findChamps__body__cards">

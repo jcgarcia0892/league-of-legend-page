@@ -34,6 +34,11 @@
 };
 
 .btn--secondary {
+    border: .1rem solid $c-primary;
     background-color: $c-light;
-    color: $c-primary;
+    color: $c-primary-light;
+}
+
+.btn-no--border {
+    border: none !important;
 }
