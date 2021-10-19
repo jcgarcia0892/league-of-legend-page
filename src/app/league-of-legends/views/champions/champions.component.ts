@@ -99,9 +99,7 @@ export class ChampionsComponent implements OnInit, OnDestroy {
         this.filtersActive.searcherFilter = false;
         this.championsCardsFilter = this._championsCards;
         if(this.championsRolesControl.value !== 'all') {
-          console.log(this.championsCardsFilter);
           this.nameConditionsFilter();
-          console.log(this.championsCardsFilter);
         }
 
       } else {
@@ -116,7 +114,6 @@ export class ChampionsComponent implements OnInit, OnDestroy {
         map((champions: ChampionsObject) => {
           let championsCards: ChampionCard[] = [];
           let championsArr: any = Object.values(champions.data);
-          console.log(championsArr);
           for(let champion of championsArr) {
             const name = champion.name;
             const img = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`;
@@ -235,17 +232,12 @@ export class ChampionsComponent implements OnInit, OnDestroy {
 
   difficultConditionsFilters(): void {
     if(this.filtersActive.searcherFilter && !this.filtersActive.rolFilter) {
-      console.log('seacher');
+      this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp);
 
-      this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
     } else if(!this.filtersActive.searcherFilter && this.filtersActive.rolFilter) {
-      console.log('rol');
-
       this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
-      console.log(this.championsCardsFilter);
+      
     } else if(this.filtersActive.searcherFilter && this.filtersActive.rolFilter) {
-      console.log('ambos');
-
       this.championsCardsFilter = this.filterArrayById(this.championsCardsFilter, this.idChamp)
       this.championsCardsFilter = this.filterArrayByRoles(this.championsCardsFilter, this.championsRolesControl.value);
     }
@@ -307,10 +299,9 @@ export class ChampionsComponent implements OnInit, OnDestroy {
   };
 
   cleanChipFilter(field: string): void {
-    console.log(field);
     let index = this.filters.findIndex((element: any) => element.field === field);
     this.filters.splice(index, 1);
-
+    
     switch (field.toLowerCase()) {
       case 'nombre':
         this.deleteText();
@@ -318,7 +309,6 @@ export class ChampionsComponent implements OnInit, OnDestroy {
       case 'rol':
         // this.rolesConditionsFilters();
         this.championsRolesControl.setValue('all');
-        console.log('hola');
         break;
       case 'dificultad':
         this.resetDifficultFilters();

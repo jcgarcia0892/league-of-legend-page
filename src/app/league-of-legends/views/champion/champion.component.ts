@@ -96,7 +96,6 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
           return this.championsDataService.getChampion(id)
         }),
         map(({data}) => {
-          console.log(data);
           data[this.idChamp].imgSplash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.idChamp}_0.jpg`;
           data[this.idChamp].imgSquare = `http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/${this.idChamp}.png`;
           data[this.idChamp].imgLoading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${this.idChamp}_0.jpg`;
@@ -122,7 +121,6 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
       this.champion.skills[0].checked = true;
       this.skillsControl.setValue(this.champion.skills[0].name);
       this.loading = true;
-      console.log(this.champion);
     });
 
     this.skillsControlObservable();
@@ -199,10 +197,8 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSwiper(swiper: any) {
-    console.log(swiper);
   }
   onSlideChange() {
-    console.log('slide change');
   }
 
 }

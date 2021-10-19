@@ -1,17 +1,24 @@
 @import 'variables';
+@import 'mixins';
 footer {
+    @include css-grid(0 0 0 0);
     height: 8rem;
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    // display: flex;
+    // flex-wrap: wrap;
+    // align-items: center;
+    // justify-content: center;
     background-color: $c-primary;
     position: relative;
     bottom: 0;
     left: 0;
 
     & p {
+        grid-column: content-start / content-end;
+        grid-row: 1/ 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 1.6rem;
         color: $c-light;
     }

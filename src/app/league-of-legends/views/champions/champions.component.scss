@@ -84,7 +84,6 @@
 
             &__filters {
                 width: 60%;
-                height: auto !important;
                 border-top: 1px solid $c-gray;
                 border-bottom: 1px solid $c-gray;
 
@@ -217,7 +216,7 @@
                         &__item {
                             width: 8%;
                             height: 1.5rem;
-                            background-color: $c-gray;
+                            background-color: $c-gray-dark;
                             margin-left: 1%;
                         }
                     }
@@ -546,6 +545,8 @@
 
             &__navbar {
                 &__filters {
+                height: auto !important;
+
                     &__lists {
                         justify-content: space-evenly;
                     }

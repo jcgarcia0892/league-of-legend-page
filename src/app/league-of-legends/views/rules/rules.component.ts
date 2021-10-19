@@ -154,7 +154,6 @@ export class RulesComponent implements OnInit, AfterViewInit {
   };
 
   scrollToRules(): void {
-    console.log();
     window.scrollTo({
       top: this.scollInY,
       behavior: 'smooth'
@@ -162,7 +161,6 @@ export class RulesComponent implements OnInit, AfterViewInit {
   };
 
   changeItemList(subtitle: string, action: string, currentPageNumber: number): void {
-    console.log(currentPageNumber);
     let index = this.rulesInfo.findIndex((rule) => rule.header.subtitle === subtitle);
     if(action === 'prev') {
       if(currentPageNumber <= 1) {
@@ -185,7 +183,6 @@ export class RulesComponent implements OnInit, AfterViewInit {
     this.hidePowers();
     this.powersInfo[index].isShown = true;
     this.videoPowerPath = this.powersInfo[index].videoPath;
-    console.log(this.videoPowerPath);
   }
 
   hidePowers(): void {

@@ -29,6 +29,7 @@
             position: relative;
             transform: translateY(10%);
             width: 70%;
+            max-width: 152rem;
             // padding-top: 41.42%;
 
             &::before {
@@ -183,9 +184,10 @@
 
             &__imgs {
                 width: 35%;
+                // padding-top: 3rem;
 
                 & h2 {
-                    margin-bottom: 6rem;
+                    margin-bottom: 5rem;
                 }
                 &__assets {
                     position: relative;
@@ -251,7 +253,7 @@
 
                 & img {
                     display: block;
-                    width: 80%;
+                    width: 54%;
                     margin: 0 auto;
                 }
             }
@@ -274,10 +276,13 @@
             }
 
             &__description {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
                 width: 35%;
-                padding-top: 4rem;
-                height: 26rem;
-                max-height: 26rem;
+                // padding-top: 3rem;
+                height: 24rem;
+                max-height: 24rem;
                 padding-right: 1rem;
                 overflow-y: auto;
                 scrollbar-width: thin;
@@ -398,9 +403,16 @@
         vertical-align: top;
     }
 }
-
+.swiper-pagination-horizontal {
+    bottom: 0 !important;
+}
 .swiper-pagination-bullet {
     opacity: 1;
+    background-color: $c-gray-dark;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: $c-primary;
 }
 
 .mySwiper .swiper-slide {
@@ -441,6 +453,22 @@
                 }
             }
         }
+
+        &__skills {
+            &__container {
+                &__logo {
+                    width: 25%;
+                    & img {
+                        width: 90%;
+                    }
+                }
+
+                &__description {
+                    max-height: 21rem;
+                    width: 40%;
+                }
+            }
+        }
     }
 }
 
@@ -473,14 +501,22 @@
 
         &__skills {
             &__container {
+                flex-direction: column;
+                align-items: center;
+                
+                &__imgs {
+                    width: 100%;
+                    padding-top: 0;
+                }
                 &__logo {
-                    & img {
-                        // width: 90%;
-                    }
+                    display: none;
                 }
 
                 &__description {
                     padding-top: 0;
+                    width: 100%;
+                    padding-right: unset;
+                    max-height: 20rem;
                 }
             }
         }
@@ -495,25 +531,6 @@
             &__presentation {
                 width: 100%;
                 transform: translateY(0);
-            }
-        }
-        &__skills {
-            &__container {
-                flex-direction: column;
-                align-items: center;
-                &__imgs {
-                    width: 100%;
-                }
-
-                &__logo {
-                    display: none;
-                }
-
-                &__description {
-                    width: 100%;
-                    padding-right: unset;
-                    max-height: 20rem;
-                }
             }
         }
     }

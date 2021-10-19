@@ -110,7 +110,7 @@
                 <h3 class="findChamps__body__chips__filters__title">Filtros:</h3>
                 <div class="findChamps__body__chips__filters__button">
                     <app-button
-                    text="Limpiar filtro(s)"
+                    [text]="(filters.length <= 1) ? 'Limpiar filtro' : 'Limpiar filtros'"
                     size="btn--normal"
                     [type]="'btn--secondary'"
                     (click)="cleanFilters()"></app-button>

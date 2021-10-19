@@ -54,6 +54,10 @@
             animation-fill-mode: forwards;
         }
 
+        h1 {
+            margin-bottom: 2rem;
+        }
+
         &__button {
             width: 50%;
             opacity: 0;            
@@ -163,6 +167,9 @@
         text-align: center;
         margin-bottom: 6rem;
 
+        & h1 {
+            margin-bottom: 2rem;
+        }
         & p {
             font-size: 1.6rem;
             width: 60%;
@@ -175,6 +182,7 @@
         grid-row: 2 /3;
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         border: .1rem solid $c-gray-darker;
         padding: 2rem;
 
@@ -251,5 +259,121 @@
 
 .max-height {
     margin-top: 2rem;
-    max-height: 6rem !important;
+    max-height: 40rem !important;
+}
+
+@media screen and (max-width: 1250px) {
+    .rules {
+        &__container {
+            &__left {
+                width: 60%;
+            }
+        }
+    }
+    .power {
+        &__body {
+            &__left {
+                width: 50%;
+            }
+
+            &__right {
+                width: 50%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .main {
+        &__center {
+            width: 80%;
+
+            &__button {
+                width: 60%;
+            }
+        }
+    }
+    .rules {
+        &__container {
+            background-position: center;
+            &__left {
+                width: 100%;
+            }
+        }
+    }
+
+    .power {
+        &__header {
+            & p {
+                width: 80%;
+            }
+        }
+        &__body {
+            &__left {
+                width: 100%;
+            }
+
+            &__right {
+                padding-left: 0;
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    h1 {
+        font-size: 4.8rem;
+    }
+
+    h2 {
+        font-size: 3.2rem;
+    }
+    .main {
+        &__center {
+            &__button {
+                width: 80%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 450px) {
+    h1 {
+        font-size: 4rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    .main {
+        &__center {
+            width: 80%;
+
+            &__button {
+                width: 100%;
+            }
+        }
+    }
+
+    .power {
+        p {
+            font-size: 1.4rem;
+        }
+
+        i {
+            font-size: 2rem;
+        }
+
+        &__header {
+            & p {
+                width: 100%;
+            }
+        }
+
+        &__body {
+
+        }
+    }
 }

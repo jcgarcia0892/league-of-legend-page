@@ -12,13 +12,13 @@
 };
 
 .btn--big {
-    padding: 5rem 2rem;
+    padding: 5rem 2.5rem;
     font-size:3.2rem;
 
 }
 
 .btn--normal {
-    padding: 2.4rem 1rem;
+    padding: 2.4rem 2rem;
     font-size: 2rem;
 }
 
@@ -31,12 +31,22 @@
 .btn--primary {
     background-color: $c-primary;
     color: $c-light;
+    transition: background-color .3s ease;
 };
 
 .btn--secondary {
     border: .1rem solid $c-primary;
     background-color: $c-light;
     color: $c-primary-light;
+    transition: background-color .3s ease;
+}
+
+.btn--primary:hover {
+    background-color: $c-primary-dark;
+}
+
+.btn--secondary:hover {
+    background-color: $c-gray;
 }
 
 .btn-no--border {
