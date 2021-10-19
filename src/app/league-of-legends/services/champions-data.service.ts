@@ -8,7 +8,7 @@ import { ChampionsObject } from '../interfaces/champions.interface';
 })
 export class ChampionsDataService {
 
-  baseUrl: string = 'http://ddragon.leagueoflegends.com/cdn';
+  baseUrl: string = 'https://ddragon.leagueoflegends.com/cdn';
 
   constructor(
     private http: HttpClient
