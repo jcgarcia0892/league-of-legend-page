@@ -5,7 +5,7 @@ export const translateAnimation = trigger("translateAnimation", [
     state(
       'disappear',
       style({
-        transform: 'translate(100%, -50%)'
+        transform: 'translate(200%, -50%)'
       })
     ),
     state(

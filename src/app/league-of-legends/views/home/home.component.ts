@@ -22,7 +22,7 @@ import { AnimationsService } from '../../services/animations.service';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   // ANIMATIONS VAR
-  imgAnimation: boolean = true;
+  imgAnimation: boolean = false;
   fadeInAnimation: boolean = true;
   findYourRolTitleAnimation: boolean = true;
   legendsLandTitleAnimation: boolean = true;
