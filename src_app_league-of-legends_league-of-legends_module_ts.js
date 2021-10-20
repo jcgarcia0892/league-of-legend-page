@@ -9907,7 +9907,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const translateAnimation = (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.trigger)("translateAnimation", [
     (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.state)('disappear', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.style)({
-        transform: 'translate(100%, -50%)'
+        transform: 'translate(200%, -50%)'
     })),
     (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.state)('appear', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.style)({
         transform: 'translate(-50%, -50%)'
@@ -11495,7 +11495,7 @@ class HomeComponent {
         this.animationService = animationService;
         this.router = router;
         // ANIMATIONS VAR
-        this.imgAnimation = true;
+        this.imgAnimation = false;
         this.fadeInAnimation = true;
         this.findYourRolTitleAnimation = true;
         this.legendsLandTitleAnimation = true;
