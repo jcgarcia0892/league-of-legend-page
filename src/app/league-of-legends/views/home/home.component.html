@@ -102,7 +102,7 @@
                     <div class="findRol__illus__circle--animation">
                         <div></div>
                     </div>
-                    <img [@translateAnimation]="imgAnimation ? 'appear' : 'disappear'" [src]="imgRolPath" alt="">
+                    <img [@translateAnimation]="imgAnimation ? 'disappear' : 'appear'" [src]="imgRolPath" alt="">
                     <div class="findRol__illus__circle__text" [@fadeInAnimation]="fadeInAnimation ? 'fadeIn' :  'fadeOut'">
                         <h3 class="findRol__illus__circle__text__name">{{champion.name}}</h3>
                         <p class="findRol__illus__circle__text__nickname">{{champion.nickName}}</p>
@@ -134,7 +134,7 @@
             <div class="legendsLand__body__content__button">
                 <app-button
                     (click)="goTo('rules')"
-                    text="EXPLORAME"
+                    text="EXPÓRAME"
                     size="btn--normal"
                     type="btn--primary">
                 </app-button>

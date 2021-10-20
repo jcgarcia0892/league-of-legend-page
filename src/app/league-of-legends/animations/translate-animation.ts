@@ -3,19 +3,16 @@ import { animate, keyframes, state, style, transition, trigger } from "@angular/
 
 export const translateAnimation = trigger("translateAnimation", [
     state(
-      'appear',
-      style({})
+      'disappear',
+      style({
+        transform: 'translate(100%, -50%)'
+      })
     ),
     state(
-      'disappear',
-      style({}),
+      'appear',
+      style({
+        transform: 'translate(-50%, -50%)'
+      }),
     ),
-    transition("appear <=> disappear", [animate("1s ease-out",
-      keyframes([
-        style({transform: 'translate(-50%, -50%)'}),
-        style({transform: 'translate(100%, -50%)'}),
-        style({transform: 'translate(-50%, -50%)'})
-
-      ])
-    )]),
+    transition("appear <=> disappear", [animate(".8s ease-out")]),
 ])
