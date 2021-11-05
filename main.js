@@ -79,6 +79,11 @@ class AppComponent {
         this.router = router;
         this.viewPortScroller = viewPortScroller;
         this.title = 'lol-page';
+        let path = localStorage.getItem('path');
+        if (path) {
+            localStorage.removeItem('path');
+            this.router.navigate([path]);
+        }
         this.router.events.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_0__.filter)(event => event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__.NavigationEnd))
             .subscribe(() => this.viewPortScroller.scrollToPosition([0, 0]));
     }
