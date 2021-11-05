@@ -15,6 +15,11 @@ export class AppComponent {
     private router: Router,
     private viewPortScroller: ViewportScroller
   ) {
+    let path = localStorage.getItem('path');
+    if(path) {
+      localStorage.removeItem('path');
+      this.router.navigate([path]);
+    }
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd))
       .subscribe(() => this.viewPortScroller.scrollToPosition([0, 0]));

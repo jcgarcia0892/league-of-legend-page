@@ -1,0 +1,58 @@
+import { Router, UrlSerializer } from "@angular/router";
+import { AnimationsService } from "../../services/animations.service";
+import { HomeComponent } from "./home.component";
+
+
+describe('HomeComponent Unit Test',() => {
+
+    let component: HomeComponent;
+    let router: Router;
+
+    beforeEach(() => {
+        component = new HomeComponent( new AnimationsService(), router );
+    })
+
+    it('Verificar que el número aleatorio sea menor o igual a la longitud del array videoPaths', () => {
+
+        const arrayLength = component.videoPaths.length;
+        const randomNumber = component.randomNumber();
+        
+        expect(randomNumber).toBeLessThanOrEqual(arrayLength);
+    });
+
+    it('Verificar que despues del ngOnInit se obtenga la ruta de un video', () => {
+
+        component.ngOnInit();
+        const videoPath = component.videoPath;
+        expect(videoPath).toContain('assets/videos/');
+    });
+
+    it('Verificar que se haya creado el FormControl de los roles con el valor de assassins', () => {
+        const rolValue = component.rolSelectionControl.value;
+        expect(rolValue).toBe('assassins');
+    });
+
+    it('Cada vez que se escoge un rol debe ocurrir una animación en la imagen', () => {
+        component.rolSelectionFunction();
+        component.rolSelectionControl.setValue('supports');
+        expect(component.imgAnimation).toBeTruthy();
+    });
+
+    it('Cada vez que se escoge un rol debe cambiar el valor de fadeInAnimation', () => {
+        const fadeInAnimation = component.fadeInAnimation;
+        component.rolSelectionFunction();
+        component.rolSelectionControl.setValue('supports');
+        expect(component.fadeInAnimation === !fadeInAnimation).toBeTruthy();
+    });
+
+    it('Cada vez que se escoge un rol debe cambiar el valor de champion', (done) => {
+
+        component.rolSelectionFunction();
+        component.rolSelectionControl.setValue('supports');
+        setTimeout(() => {
+            expect(component.champion.name).toBe('Thresh');
+            done();
+        }, 400);
+
+    });
+})

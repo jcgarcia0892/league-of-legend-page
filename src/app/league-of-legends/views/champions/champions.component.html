@@ -82,7 +82,6 @@
                 <label *ngIf="difficultChamp === 0"  for="levels">TODAS LAS DIFICULTADES </label>
                 <label *ngIf="difficultChamp !== 0" for="levels">
                     DIFICULTAD: {{difficultChamp}}
-                    <!-- <i class="material-icons icon-asset" (click)="resetDifficultFilters()">close</i> -->
                 </label>
                 <div class="findChamps__body__navbar__levels__icons">
                     <i class="material-icons icon-asset" *ngIf="!levelsControl.value"> keyboard_arrow_down</i>
@@ -128,7 +127,7 @@
                 <figure
                     class="findChamps__body__cards__card"
                     *ngFor="let championCard of championsCardsFilter"
-                    (click)="redirectTo(championCard.id)">
+                    (click)="goTo(championCard.id)">
                     <div class="findChamps__body__cards__card__img">
                         <img [src]="championCard.img" loading="lazy" alt="">
                     </div>
@@ -143,7 +142,7 @@
                     <h3>No hay campeones que cumplan con el criterio de filtro</h3>
                     <h4>Campeones que te puedan interesar:</h4>
                 </div>
-                <figure class="findChamps__body__cards__error__card" *ngFor="let championCard of randomChampionsCard">
+                <figure class="findChamps__body__cards__error__card" *ngFor="let championCard of randomChampionsCard" (click)="goTo(championCard.id)">
                     <div class="findChamps__body__cards__error__card__img">
                         <img [src]="championCard.img" alt="">
                     </div>

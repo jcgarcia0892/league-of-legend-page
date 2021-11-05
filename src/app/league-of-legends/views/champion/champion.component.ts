@@ -1,9 +1,9 @@
-import { state, style, transition, trigger, useAnimation } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { transition, trigger, useAnimation } from '@angular/animations';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { fadeAnimation, fadeInAnimation, sasa } from '../../animations/fade-in-animation';
+import { fadeAnimation } from '../../animations/fade-in-animation';
 import { ChampionsDataService } from '../../services/champions-data.service';
 
 // import Swiper core and required modules
@@ -80,7 +80,6 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private acRoute: ActivatedRoute,
     private championsDataService: ChampionsDataService,
-    private render: Renderer2
   ) {
     this.skillsControl = new FormControl('');
   }

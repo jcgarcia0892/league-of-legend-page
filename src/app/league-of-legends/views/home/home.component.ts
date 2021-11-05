@@ -1,4 +1,3 @@
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -27,6 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   findYourRolTitleAnimation: boolean = true;
   legendsLandTitleAnimation: boolean = true;
   followingMouseXAnimation!: string;
+  loading: boolean = false;
   // END ANIMATION VAR
   // GETTING HTML ELEMENTS
   @ViewChild('homeVideo') homeVideo!: ElementRef;
@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('legendsLand') legendsLand!: ElementRef;
   // END GETTIN HTML ELEMENTS
   findYourRolOffsetTop!: number;
+  scrollPositionY!: number;
   findYourRolOffsetHeight!: number;
   legendsLandOffsetTop!: number;
   legendsLandOffsetHeight!: number;
@@ -96,13 +97,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.playToVideo();
     setTimeout(() => {
+      this.playToVideo();
       this.findYourRolOffsetTop = this.findYourRol.nativeElement.offsetTop;
       this.findYourRolOffsetHeight = this.findYourRol.nativeElement.offsetHeight;
       this.legendsLandOffsetTop = this.legendsLand.nativeElement.offsetTop;
       this.legendsLandOffsetHeight = this.legendsLand.nativeElement.offsetHeight;
-    });
+    },10);
     
   }
   
@@ -114,20 +115,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
   };
   playToVideo(): void {
     this.homeVideo.nativeElement.muted = true;
-    this.homeVideo.nativeElement.play();
+    this.homeVideo.nativeElement.play()
+      .then()
+      .catch()
+      .finally(() => this.loading = true);
   }
   // HOSTLISTENER
   @HostListener('window:scroll', ['$event'])
   scrollDetection(event: any): void {
     let scrollTop = event.srcElement.scrollingElement.scrollTop;
     let clientHeight = event.srcElement.scrollingElement.clientHeight;
-    let scrollPositionY = scrollTop + clientHeight;
+    this.scrollPositionY = scrollTop + clientHeight;
     // HEIGHT DE LOS ELEMENTOS
     let findYourRolPositionY = this.findYourRolOffsetTop + this.findYourRolOffsetHeight;
     let legendsLandPositionY = this.legendsLandOffsetTop + this.legendsLandOffsetHeight;
     // END HEIGHT DE LOS ELEMENTOS
-    this.findYourRolTitleAnimation = this.animationService.positionYFadeIn(findYourRolPositionY, scrollPositionY);
-    this.legendsLandTitleAnimation = this.animationService.positionYFadeIn(legendsLandPositionY, scrollPositionY);
+    this.findYourRolTitleAnimation = this.animationService.positionYFadeIn(findYourRolPositionY, this.scrollPositionY);
+    this.legendsLandTitleAnimation = this.animationService.positionYFadeIn(legendsLandPositionY, this.scrollPositionY);
 
   };
 

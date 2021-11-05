@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { titleAnimation } from '../../animations/title-animation';
 import { AnimationsService } from '../../services/animations.service';
@@ -6,7 +6,7 @@ import { ChampionsDataService } from '../../services/champions-data.service';
 import { map } from 'rxjs/operators'
 import { ChampionsObject } from '../../interfaces/champions.interface';
 import { ChampionCard } from '../../interfaces/champion-card.interface';
-import { Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
   interface FiltersActive {
@@ -320,8 +320,8 @@ export class ChampionsComponent implements OnInit, OnDestroy {
 
   }
 
-  redirectTo(id: string): void {
-    this.router.navigate(['main/champion', id]);
+  goTo(id: string): void {
+    this.router.navigate(['/main/champion', id]);
   }
 
 }

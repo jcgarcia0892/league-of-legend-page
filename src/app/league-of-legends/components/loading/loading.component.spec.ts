@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { LoadingComponent } from './loading.component';
 
@@ -19,7 +20,21 @@ describe('LoadingComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Debe de crear el componente', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Debe de ocultarse el componente cuando cargue la pantalla', (done) => {
+    component.animationVar = true;
+    component.ngOnChanges();
+    setTimeout(() => {
+      fixture.detectChanges();
+      const section = fixture.debugElement.query( By.css('section') );
+      fixture.whenStable().then(() => {
+        expect(section).toBeNull();    
+        done();
+      });
+    }, 1000)
+
+  })
 });

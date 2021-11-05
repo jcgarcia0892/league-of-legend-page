@@ -1,35 +1,57 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { from, Observable, of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { LoadingComponent } from './league-of-legends/components/loading/loading.component';
+import { RulesComponent } from './league-of-legends/views/rules/rules.component';
+
+let jeje = new NavigationEnd(0, '/main/home', '/main/champions');
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule.withRoutes([
+          { path: 'main/rules', component: RulesComponent },
+        ])
       ],
       declarations: [
-        AppComponent
+        AppComponent,
       ],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('Debe crear la aplicación', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'lol-page'`, () => {
+  it('Debe de tener un router-oulet', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('lol-page');
+    const debugElement = fixture.debugElement.query( By.directive(RouterOutlet) );
+    expect(debugElement).not.toBeNull();
   });
 
-  it('should render title', () => {
+  it('El scroll debe regresar a la posicion 0, 0', (done) => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('lol-page app is running!');
+    document.body.style.minHeight = '9000px';
+    document.body.style.minWidth = '9000px';
+    window.scroll(0, 1000);
+    const router = TestBed.inject(Router);
+    router.navigate(['main/rules']);
+    fixture.whenStable().then(() => {
+      expect(window.scrollY).toBe(0);
+      done();
+    })
+
   });
+
+
+
+
+
 });

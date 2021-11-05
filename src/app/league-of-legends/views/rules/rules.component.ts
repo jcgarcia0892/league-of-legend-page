@@ -10,6 +10,7 @@ export class RulesComponent implements OnInit, AfterViewInit {
   @ViewChild('getExp') getExp!: ElementRef;
   @ViewChild('getGold') getGold!: ElementRef;
   @ViewChild('rules') rules!: ElementRef;
+  loading: boolean = false;
   videoPath!: string;
   videoPaths: string[] = ['caitlyn', 'kaisa', 'sylas-entrace', 'sylas'];
   scollInY: number = 0;
@@ -134,10 +135,10 @@ export class RulesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.playToVideo();
     setTimeout(() => {
+      this.playToVideo();
       this.scollInY = this.rules.nativeElement.getBoundingClientRect().top;
-    });
+    }, 10);
 
   }
 
@@ -145,9 +146,18 @@ export class RulesComponent implements OnInit, AfterViewInit {
     this.rulesVideo.nativeElement.muted = true;
     this.getExp.nativeElement.muted = true;
     this.getGold.nativeElement.muted = true;
-    this.rulesVideo.nativeElement.play();
-    this.getExp.nativeElement.play();
-    this.getGold.nativeElement.play();
+    this.rulesVideo.nativeElement.play()
+      .then()
+      .catch()
+      .finally(() => this.loading = true);
+    this.getExp.nativeElement.play()
+      .then()
+      .catch()
+      .finally();
+    this.getGold.nativeElement.play()
+      .then()
+      .catch()
+      .finally();
   }
   randomNumber(): number {
     return Math.floor(Math.random() * this.videoPaths.length);
