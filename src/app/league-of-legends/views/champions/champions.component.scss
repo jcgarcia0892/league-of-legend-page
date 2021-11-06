@@ -94,7 +94,6 @@
                     color: $c-primary-light;
                     list-style: none;
                     width: 100%;
-                    // height: 100%;
 
                     &__item {
                         height: 6rem;
@@ -162,15 +161,11 @@
                 & label {
                     display: flex;
                     flex-wrap: wrap;
-                    // justify-content: space-around;
                     padding-left: 1.8rem;
                     align-items: center;
                     width: 85%;
                     cursor: pointer;
-                    // & i {
-                    //     font-size: 3.2rem;
-                    //     z-index: 100;
-                    // }
+
                 
                 }
 
@@ -277,69 +272,17 @@
                 display: flex;
                 flex-wrap: wrap;
                 justify-content:start;
-            }
 
-            &__card {
-                width: 12.5%;
-                margin-bottom: 2rem;
-            }
-
-            &__card, &__error__card {
-
-                border: 1px solid $c-light;
-                opacity: 0;
-                cursor: pointer;
-                transition: all .3s ease;
-                animation-name: appear;
-                animation-duration: .3s;
-                animation-fill-mode: forwards;
-
-                &:hover &__img {
-                    clip-path: polygon(100% 0, 100% 0%, 100% 100%, 0 100%, 0 0);
-
-                }
-                
-                &:hover img {
-                    transform: scale(1.2);
-                }
-
-                &:hover figcaption {
-                    transform: translateX(1rem);
-                    color: $c-light;
-                }
-                
-                &__img {
-                    overflow: hidden;
-                    clip-path: polygon(90% 0, 100% 10%, 100% 100%, 0 100%, 0 0);
-                    transition: all .3s ease;
-                    position: relative;
-                    padding-top: 150%;
-
-                    & img {
-                        width: 100%;
-                        height: 100%;
-                        transform: scale(1.1);
-                        vertical-align: top;
-                        transition: all .3s ease;
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                    }
-                }
-
-                &__figcaption {
-                    width: 100%;
-                    background-color: $c-primary;
-                    color: $c-gray;
-                    padding: 1rem;
-                    text-transform: uppercase;
-                    font-size: 1.6rem;
-
-                    & figcaption {
-                        transition: all .3s ease;
-                    }
+                &__card {
+                    width: 12.5%;
+                    margin-bottom: 2rem;
                 }
             }
+            &__error {
+                &__card {
+                    width: 25%;
+                }
+            }       
 
             &__error {
                 width: 100%;
@@ -433,12 +376,10 @@
 // HELPERS
 .bg-blue {
     background-color: $c-primary;
-    // background-color: $c-primary-light;
 
 }
 
 .bg-gray {
-    // background-color: $c-primary !important;
     background-color: $c-primary-light !important;
 }
 
@@ -477,8 +418,10 @@
                 }
             }
             &__cards {
-                &__card {
-                    width: 20%;
+                &__container {
+                    &__card {
+                        width: 20%;
+                    }
                 }
 
                 &__error {
@@ -501,11 +444,9 @@
         }
         &__body {
             &__cards {
-                &__card {
-                    width: 25%;
-
-                    & figcaption{
-                        font-size: 1.4rem;
+                &__contianer {
+                    &__card {
+                        width: 25%;
                     }
                 }
             }
@@ -561,9 +502,10 @@
                 }
             }
             &__cards {
-                &__card {
-                    width: 50%;
-
+                &__container {
+                    &__card {
+                        width: 50%;
+                    }
                 }
 
                 &__error {
