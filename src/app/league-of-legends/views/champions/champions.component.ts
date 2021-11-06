@@ -114,7 +114,7 @@ export class ChampionsComponent implements OnInit, OnDestroy {
   // CARDS FILTERS
   filterChampionByName(id: string): void {
     this.idChamp = id;
-    this.filtradorImprovisado(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
+    this.champsFilter(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
     const champion: ChampionCard | undefined = this._championsCards.find((ch: ChampionCard) => ch.id === id)
     this.championsSearcherControl.setValue(champion?.name);
     let filter = {field: 'nombre', value: this.championsSearcherControl.value};
@@ -130,7 +130,7 @@ export class ChampionsComponent implements OnInit, OnDestroy {
 
   championsRolesControlFunction(): void {
     this.championsRolesControl.valueChanges.subscribe((rol: string) => {
-      this.filtradorImprovisado(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
+      this.champsFilter(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
       if(rol !== '') {
         let filter = {field: 'rol', value: rol};
         let index = this.filters.findIndex((element: any) => element.field === filter.field);
@@ -145,7 +145,7 @@ export class ChampionsComponent implements OnInit, OnDestroy {
 
   filterChampionByDifficulty(difficulty: number): void {
     this.difficultChamp = difficulty;
-    this.filtradorImprovisado(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
+    this.champsFilter(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
     let filter = {field: 'dificultad', value: difficulty};
     let index = this.filters.findIndex((element: any) => element.field === filter.field);
     if(index === -1) {
@@ -195,7 +195,7 @@ export class ChampionsComponent implements OnInit, OnDestroy {
     this.championsRolesControl.setValue('');
     this.difficultChamp = 0;
     this.filters = [];
-    this.filtradorImprovisado(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
+    this.champsFilter(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
   };
 
   // END RESET FILTERS
@@ -227,26 +227,26 @@ export class ChampionsComponent implements OnInit, OnDestroy {
         this.difficultChamp = 0;
         break;
     };
-    this.filtradorImprovisado(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
+    this.champsFilter(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
     
     
   };
 
-  filtradorImprovisado(id: string = '', rol: string = '', difficulty: number = 0): any {
-    let filtrador = this._championsCards;
+  champsFilter(id: string, rol: string, difficulty: number): any {
+    let filter = this._championsCards;
 
     if(id) {
-      filtrador = this.filterArrayById(filtrador, id);
+      filter = this.filterArrayById(filter, id);
     };
     
     if(rol) {
-      filtrador = this.filterArrayByRoles(filtrador, rol);
+      filter = this.filterArrayByRoles(filter, rol);
     };
 
     if(difficulty) {
-      filtrador = this.filterArrayByDifficulty(filtrador, difficulty);
+      filter = this.filterArrayByDifficulty(filter, difficulty);
     }
-    this.championsCardsFilter = filtrador;
+    this.championsCardsFilter = filter;
 
   }
 
