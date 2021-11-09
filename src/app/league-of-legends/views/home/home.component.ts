@@ -5,8 +5,9 @@ import { fadeInAnimation } from '../../animations/fade-in-animation';
 import { followingMouseXAnimation } from '../../animations/following-mouse-x-animation';
 import { titleAnimation } from '../../animations/title-animation';
 import { translateAnimation } from '../../animations/translate-animation';
+import { Roles } from '../../interfaces/roles.interface';
 import { AnimationsService } from '../../services/animations.service';
-
+import * as data from './../../../../assets/json/roles.json';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -45,44 +46,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   imgRolPath: string = 'assets/images/champions-role/assassins.png';
 
 
-  rolsArray = [
-    {
-      rol: 'assassins',
-      name: 'Akali',
-      nickName: 'La Asesina Furtiva'
-    },
-    {
-      rol: 'fighters',
-      name: 'Yasuo',
-      nickName: 'El Imperdonable'
-    },
-    {
-      rol: 'mages',
-      name: 'Lux',
-      nickName: 'La Dama Luminosa'
-    },
-    {
-      rol: 'marksmen',
-      name: 'Jink',
-      nickName: 'La Bala Perdida'
-    },
-    {
-      rol: 'supports',
-      name: 'Thresh',
-      nickName: 'El Carcelero Implacable'
-    },
-    {
-      rol: 'tanks',
-      name: 'Leona',
-      nickName: 'El Radiante Amanecer'
-    },
-  ];
 
-  champion: any = {
+
+  champion: Roles = {
     name: 'Akali',
     nickName: 'La Asesina Furtiva'
   }
-
+  rolesArray: Roles[] = (data as any).default;
   constructor(
     private animationService: AnimationsService,
     private router: Router,
@@ -147,10 +117,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.rolSelectionControl.valueChanges.subscribe((rol: string) => {
       this.imgAnimation = true;
       this.fadeInAnimation = !this.fadeInAnimation;
-      let index = this.rolsArray.findIndex(element => element.rol === rol);
+      let index = this.rolesArray.findIndex(element => element.rol === rol);
       setTimeout(() => {
-        this.champion.name = this.rolsArray[index].name;
-        this.champion.nickName = this.rolsArray[index].nickName;
+        this.champion.name = this.rolesArray[index].name;
+        this.champion.nickName = this.rolesArray[index].nickName;
         this.imgRolPath = `assets/images/champions-role/${rol}.png`;
         this.imgAnimation = false;
       }, 400);

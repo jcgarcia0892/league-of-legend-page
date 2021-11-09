@@ -13,11 +13,6 @@ import { Champion, Skill } from '../../interfaces/champion.interface';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs, Pagination]);
-interface Rol {
-  value: string;
-  spanish: string;
-}
-
 
 @Component({
   selector: 'app-champion',
@@ -46,36 +41,7 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   getChampionObs!: Subscription;
   loading: boolean = false;
 
-  thumbsSwiper: any;
-
-  rolArray: Rol[] = [
-    {
-      value: 'Assassin',
-      spanish: 'Asesino'
-    },
-    {
-      value: 'Fighter',
-      spanish: 'Luchador'
-    },
-    {
-      value: 'Mage',
-      spanish: 'Mago'
-    },
-    {
-      value: 'Marksman',
-      spanish: 'Tirador'
-    },
-    {
-      value: 'Support',
-      spanish: 'Soportes'
-    },
-    {
-      value: 'Tank',
-      spanish: 'Tanque'
-    },
-  ]
-    
-  
+  thumbsSwiper: any;  
 
   constructor(
     private acRoute: ActivatedRoute,
@@ -138,11 +104,21 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   translateRol(value: string): string {
-    let index = this.rolArray.findIndex((rol: Rol) => {
-      return rol.value === value;
-    });
-    return this.rolArray[index].spanish;
-
+    console.log(value);
+    switch (value) {
+      case 'Assassin':
+        return 'Asesino';
+      case 'Fighter':
+        return 'Luchador';
+      case 'Mage':
+        return 'Mago';
+      case 'Marksman':
+        return 'Tirador';
+      case 'Support':
+        return 'Soporte';
+      default:
+        return 'Tanque';
+    }
   }
 
   mapSkills(element: any, index: number = 5): Skill {

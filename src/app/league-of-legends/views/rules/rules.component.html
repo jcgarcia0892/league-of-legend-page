@@ -33,7 +33,7 @@
                 <div class="rules__container__left__item__card">
                     <p class="rules__container__left__item__card__page">{{rule.card.currentPageNumber}}/{{rule.card.list.length}}</p>
                     <ul>
-                        <li [ngStyle]="{'transform': 'translateX(' + rule.card.translate() + '%)'}" *ngFor="let item of rule.card.list">
+                        <li [ngStyle]="{'transform': 'translateX(' + rule.card.translate + '%)'}" *ngFor="let item of rule.card.list">
                             <h5>{{item.title}}</h5>
                             <p class="rules__container__left__item__card__text">{{item.description}}</p>
                         </li>
