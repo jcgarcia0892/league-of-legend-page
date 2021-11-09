@@ -117,14 +117,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.rolSelectionControl.valueChanges.subscribe((rol: string) => {
       this.imgAnimation = true;
       this.fadeInAnimation = !this.fadeInAnimation;
-      let index = this.rolesArray.findIndex(element => element.rol === rol);
       setTimeout(() => {
-        this.champion.name = this.rolesArray[index].name;
-        this.champion.nickName = this.rolesArray[index].nickName;
         this.imgRolPath = `assets/images/champions-role/${rol}.png`;
-        this.imgAnimation = false;
-      }, 400);
+      }, 300);
 
     });
+  }
+
+  loadImg(): any {
+    let index = this.rolesArray.findIndex(element => element.rol === this.rolSelectionControl.value);
+    this.champion.name = this.rolesArray[index].name;
+    this.champion.nickName = this.rolesArray[index].nickName;
+    this.imgAnimation = false;
   }
 }
