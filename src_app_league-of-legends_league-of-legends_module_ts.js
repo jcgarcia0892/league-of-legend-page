@@ -11913,7 +11913,6 @@ class RulesComponent {
         this.videoPowerPostion = 0;
         this.rulesInfo = _assets_json_rulesInfo_json__WEBPACK_IMPORTED_MODULE_0__;
         this.powersInfo = _assets_json_powersInfo_json__WEBPACK_IMPORTED_MODULE_1__;
-        this.addTranslatePage();
     }
     ngOnInit() {
         this.videoPath = `assets/videos/${this.videoPaths[this.randomNumber()]}.mp4`;
@@ -11947,20 +11946,23 @@ class RulesComponent {
         let index = this.rulesInfo.findIndex((rule) => rule.header.subtitle === subtitle);
         if (action === 'prev') {
             if (currentPageNumber <= 1) {
-                this.rulesInfo[index].card.currentPageNumber = 1;
+                currentPageNumber = 1;
             }
             else {
-                this.rulesInfo[index].card.currentPageNumber--;
+                currentPageNumber--;
             }
         }
         else {
             if (currentPageNumber >= this.rulesInfo[index].card.list.length) {
-                this.rulesInfo[index].card.currentPageNumber = this.rulesInfo[index].card.list.length;
+                currentPageNumber = this.rulesInfo[index].card.list.length;
             }
             else {
-                this.rulesInfo[index].card.currentPageNumber++;
+                currentPageNumber++;
             }
         }
+        ;
+        this.rulesInfo[index].card.currentPageNumber = currentPageNumber;
+        this.addTranslatePage(index, currentPageNumber);
     }
     ;
     showSelectedPower(title, videoPosition) {
@@ -11982,11 +11984,8 @@ class RulesComponent {
     translatePage(pageNumber) {
         return (pageNumber - 1) * 100 * -1;
     }
-    addTranslatePage() {
-        for (let rule of this.rulesInfo) {
-            rule.card.translate = this.translatePage(rule.card.currentPageNumber);
-        }
-        ;
+    addTranslatePage(index, currentPageNumber) {
+        this.rulesInfo[index].card.translate = this.translatePage(currentPageNumber);
     }
     ;
 }
