@@ -1,0 +1,23 @@
+[
+    {
+      "videoPosition": 0,
+      "isShown": true,
+      "videoPath": "assets/images/get-exp.webm",
+      "title": "OBTENER EXPERIENCIA",
+      "description": "Cuando los campeones obtienen cierta cantidad de experiencia, suben de nivel y pueden desbloquear o fortalecer habilidades y aumentar sus estadísticas básicas. Obtén experiencia al matar unidades y campeones enemigos, asistir en un asesinato y destruir estructuras defensivas."
+    },
+    {
+      "videoPosition": 1,
+      "isShown": false,
+      "videoPath": "assets/images/get-gold.webm",
+      "title": "OBTENER ORO",
+      "description": "El oro es la moneda del juego con la que puedes comprar objetos para tu campeón. Obtén oro al matar unidades y campeones enemigos, asistir en un asesinato, destruir estructuras defensivas y equipar objetos que acumulan oro."
+    },
+    {
+      "videoPosition": 2,
+      "isShown": false,
+      "videoPath": "assets/images/shop.jpg",
+      "title": "TIENDA",
+      "description": "La tienda es el lugar en el que puedes comprar y vender objetos con el oro que obtengas. Solo se puede acceder a ella cuando estás en la base."
+    }
+]
