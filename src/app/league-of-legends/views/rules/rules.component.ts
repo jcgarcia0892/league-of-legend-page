@@ -23,10 +23,7 @@ export class RulesComponent implements OnInit, AfterViewInit {
   rulesInfo: RulesInfo[] = (rules as any).default;
   powersInfo: PowerInfo[] = (powers as any).default;
 
-
-
   constructor() {
-    this.addTranslatePage();
   }
 
   ngOnInit(): void {
@@ -65,17 +62,19 @@ export class RulesComponent implements OnInit, AfterViewInit {
     let index = this.rulesInfo.findIndex((rule) => rule.header.subtitle === subtitle);
     if(action === 'prev') {
       if(currentPageNumber <= 1) {
-        this.rulesInfo[index].card.currentPageNumber = 1;
+        currentPageNumber = 1;
       } else {
-        this.rulesInfo[index].card.currentPageNumber--;
+        currentPageNumber--;
       }
     } else {
       if(currentPageNumber >= this.rulesInfo[index].card.list.length) {
-        this.rulesInfo[index].card.currentPageNumber = this.rulesInfo[index].card.list.length;
+        currentPageNumber = this.rulesInfo[index].card.list.length;
       } else {
-        this.rulesInfo[index].card.currentPageNumber++;
+        currentPageNumber++
       }
-    }
+    };
+    this.rulesInfo[index].card.currentPageNumber = currentPageNumber;
+    this.addTranslatePage(index, currentPageNumber);
   };
 
   showSelectedPower(title: string, videoPosition: number): void {
@@ -99,10 +98,8 @@ export class RulesComponent implements OnInit, AfterViewInit {
   translatePage(pageNumber: number): number {
     return (pageNumber - 1) * 100 * -1;
   }
-  addTranslatePage(): void {
-    for(let rule of this.rulesInfo) {
-      rule.card.translate = this.translatePage(rule.card.currentPageNumber);
-    };
+  addTranslatePage(index: number, currentPageNumber: number): void {
+    this.rulesInfo[index].card.translate = this.translatePage(currentPageNumber);
   };
 
 }

@@ -7,30 +7,16 @@ export const fadeAnimation = animation([
 export const fadeInAnimation = trigger('fadeInAnimation', [
     state(
       'fadeIn',
-      style({})
+      style({
+        opacity: '1'
+      })
     ),
     state(
       'fadeOut',
-      style({})
+      style({
+        opacity: '0'
+      }),
     ),
-    transition("fadeIn <=> fadeOut", [animate("1s ease-out", 
-      keyframes([
-        style({opacity: '1'}),
-        style({opacity: '0'}),
-        style({opacity: '1'}),
-      ])
-    )])
-  ])
-
-  export const sasa = trigger('sasa', [
-    state(
-      'fadeIn',
-      style({})
-    ),
-    state(
-      'fadeOut',
-      style({})
-    ),
-    transition("fadeIn <=> fadeOut", [useAnimation(fadeAnimation)])
-  ])
+    transition("fadeIn <=> fadeOut", [animate(".4s ease-out")]),
+  ]);
 

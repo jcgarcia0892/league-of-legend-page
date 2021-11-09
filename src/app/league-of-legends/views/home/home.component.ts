@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   rolSelectionFunction(): void {
     this.rolSelectionControl.valueChanges.subscribe((rol: string) => {
       this.imgAnimation = true;
-      this.fadeInAnimation = !this.fadeInAnimation;
+      this.fadeInAnimation = false;
       setTimeout(() => {
         this.imgRolPath = `assets/images/champions-role/${rol}.png`;
       }, 300);
@@ -129,5 +129,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.champion.name = this.rolesArray[index].name;
     this.champion.nickName = this.rolesArray[index].nickName;
     this.imgAnimation = false;
+    this.fadeInAnimation = true;
   }
 }
