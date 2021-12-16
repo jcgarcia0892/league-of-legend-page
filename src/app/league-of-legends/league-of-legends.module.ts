@@ -14,6 +14,9 @@ import { MainComponent } from './views/main/main.component';
 import { SwiperModule } from 'swiper/angular';
 import { LoadingComponent } from './components/loading/loading.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { NoImageDirective } from './directives/noImage/no-image.directive';
+import { MoveDetectionDirective } from './directives/moveDetection/move-detection.directive';
+import { TitleAppearsDirective } from './directives/titleAppears/title-appears.directive';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { FooterComponent } from './components/footer/footer.component';
     MainComponent,
     LoadingComponent,
     FooterComponent,
+    NoImageDirective,
+    MoveDetectionDirective,
+    TitleAppearsDirective,
   ],
   imports: [
     CommonModule,
