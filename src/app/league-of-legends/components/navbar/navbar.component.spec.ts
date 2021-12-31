@@ -38,7 +38,6 @@ describe('NavbarComponent', () => {
 
   it('Debe tener dos links a la página de home', () => {
     const links = fixture.debugElement.queryAll( By.css('a') );
-    console.log(links);
     let linksToHome = 0;
     for(let link of links) {
       if( link['attributes'].routerLink === '/main/home' ) {

@@ -1,21 +1,17 @@
     export interface Champion {
         allytips: string[];
-        blurb: string;
         enemytips: string[];
         id: string;
         image: ChampionImg;
         imgLoading: string;
         imgSplash: string;
         imgSquare: string;
-        info: ChampionInfo;
         key: string;
         lore: string;
         name: string;
-        partype: string;
         passive: ChampionPassive;
-        recommended: string[]
         rolArray: string[];
-        skillSelected: Skill;
+        skillSelected?: Skill;
         skills: Skill[];
         skins: Skin[];
         tags: string[];
@@ -30,13 +26,6 @@
         w: number;
         x: number;
         y: number;
-    }
-
-    export interface ChampionInfo {
-        attack: number;
-        defense: number;
-        difficulty: number;
-        magic: number;
     }
 
     export interface ChampionPassive {

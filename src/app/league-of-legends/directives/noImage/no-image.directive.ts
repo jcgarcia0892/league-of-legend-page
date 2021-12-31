@@ -11,7 +11,6 @@ export class NoImageDirective {
 
   @HostListener('error')
   showErrorImage() {
-    console.log(this.elementRef.nativeElement)
     this.elementRef.nativeElement.src = 'assets/images/no-image.jpg'
   }
 

@@ -40,6 +40,7 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   fadeAnimation: boolean = true;
   getChampionObs!: Subscription;
   loading: boolean = false;
+  baseUrl: string = 'https://ddragon.leagueoflegends.com/cdn';
 
   thumbsSwiper: any;  
 
@@ -60,29 +61,32 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
           this.idChamp = id;
           return this.championsDataService.getChampion(id)
         }),
-        map(({data}) => {
-          data[this.idChamp].imgSplash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.idChamp}_0.jpg`;
-          data[this.idChamp].imgSquare = `http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/${this.idChamp}.png`;
-          data[this.idChamp].imgLoading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${this.idChamp}_0.jpg`;
-          data[this.idChamp].skills = [];
-          data[this.idChamp].skillSelected = {};
-          data[this.idChamp].rolArray = [];
+        map(({data, version}) => {
+          const imagesPath = this.getImagesPath(this.idChamp, version);
+          const skills = [];
+          const skillSelected = {};
+          const rolArray = [];
           for(let rol of data[this.idChamp].tags) {
-            data[this.idChamp].rolArray.push(this.translateRol(rol));
+            rolArray.push(this.translateRol(rol));
           }
-          data[this.idChamp].skills.push(this.mapSkills(data[this.idChamp].passive));
+          skills.push(this.mapSkills(data[this.idChamp].passive, version));
           
           for(let i = 0; i < data[this.idChamp].spells.length; i++) {
-            data[this.idChamp].skills.push(this.mapSkills(data[this.idChamp].spells[i], i));
+            skills.push(this.mapSkills(data[this.idChamp].spells[i], version, i));
           }
-          delete data[this.idChamp].spells;
-          delete data[this.idChamp].stats;
-          return data[this.idChamp]
+          const {spells, stats, blurb, info, partype, recommended, ...champProps} = data[this.idChamp]
+          const champion: Champion = {
+            skills,
+            rolArray,
+            ...imagesPath,
+            ...champProps
+          }
+          return champion;
         })
       )
 
-    .subscribe((data: Champion) => {
-      this.champion = data;
+    .subscribe((champion: Champion) => {
+      this.champion = champion;
       this.champion.skills[0].checked = true;
       this.skillsControl.setValue(this.champion.skills[0].name);
       this.loading = true;
@@ -104,7 +108,6 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   translateRol(value: string): string {
-    console.log(value);
     switch (value) {
       case 'Assassin':
         return 'Asesino';
@@ -121,7 +124,7 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  mapSkills(element: any, index: number = 5): Skill {
+  mapSkills(element: any, version: string, index: number = 5,): Skill {
     let key = '';
     let {id, name, description, image} = element;
     switch (index) {
@@ -142,11 +145,10 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
     }
     return {
-      // id,
       checked: false,
       name,
       description,
-      img: `https://ddragon.leagueoflegends.com/cdn/11.19.1/img/${image.group}/${image.full}`,
+      img: `${this.baseUrl}/${version}/img/${image.group}/${image.full}`,
       key
     }
 
@@ -158,7 +160,6 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
       skill.checked = false;
     };
     this.champion.skills[index].checked = true;
-    this.champion.skillSelected = this.champion.skills[index];
     this.skillSelectedHtml.nativeElement.innerHTML = this.showSkillSelectedHTML(index);
 
   }
@@ -169,6 +170,17 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
     <h4>${this.champion.skills[index].name}</h4>
     <p class="champion__skills__container__description__text">${this.champion.skills[index].description}</p>
     `;
+  }
+
+  getImagesPath(idChamp: string, version: string): {imgSplash: string, imgSquare: string, imgLoading: string} {
+    const imgSplash = `${this.baseUrl}/img/champion/splash/${idChamp}_0.jpg`;
+    const imgSquare = `${this.baseUrl}/${version}/img/champion/${idChamp}.png`;
+    const imgLoading = `${this.baseUrl}/img/champion/loading/${idChamp}_0.jpg`;
+    return {
+      imgSplash,
+      imgSquare,
+      imgLoading
+    }
   }
 
   onSwiper(swiper: any) {

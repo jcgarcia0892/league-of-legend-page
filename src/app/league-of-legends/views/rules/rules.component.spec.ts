@@ -82,7 +82,6 @@ describe('RulesComponent', () => {
 
   it('Debe mover el scroll hacia la zona de rules', (done) => {
     document.body.style.minHeight = '1000px';
-    console.log(component.scollInY);
     let element = fixture.debugElement.query( By.css('.rules') );
     fixture.whenStable().then(() => {
       const elementPositionY = element.nativeElement.getBoundingClientRect().top;
