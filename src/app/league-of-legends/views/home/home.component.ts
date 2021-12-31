@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private router: Router,
   ) {
     this.rolSelectionControl = new FormControl('assassins');
-
   }
 
   ngOnInit(): void {
