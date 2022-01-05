@@ -63,11 +63,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
   };
 
   playToVideo(): void {
-    this.homeVideo.nativeElement.muted = true;
-    this.homeVideo.nativeElement.play()
+    const isPlaying = this.homeVideo.nativeElement.currentTime > 0 && !this.homeVideo.nativeElement.paused && !this.homeVideo.nativeElement.ended && this.homeVideo.nativeElement.readyState > this.homeVideo.nativeElement.HAVE_CURRENT_DATA
+    if(!isPlaying) {
+      this.homeVideo.nativeElement.muted = true;
+      this.homeVideo.nativeElement.play()
       .then()
       .catch()
       .finally(() => this.loading = true);
+    }
+    setTimeout(() => {
+      // console.log(this.homeVideo.nativeElement.currentTime);
+
+    }, 300);
   }
 
   rolSelectionFunction(): void {

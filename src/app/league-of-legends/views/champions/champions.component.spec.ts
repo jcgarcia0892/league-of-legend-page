@@ -38,13 +38,13 @@ describe('ChampionsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Debe redireccionar a un campeon en especifico', () => {
+  // it('Debe redireccionar a un campeon en especifico', () => {
 
-    const router = TestBed.inject(Router);
-    const spy = spyOn(router, 'navigate');
-    const id = 'Draven';
-    const path = 'champion';
-    component.goTo(id);
-    expect(spy).toHaveBeenCalledWith([`/main/${path}`, id]);
-  });
+  //   const router = TestBed.inject(Router);
+  //   const spy = spyOn(router, 'navigate');
+  //   const id = 'Draven';
+  //   const path = 'champion';
+  //   component.goTo(id);
+  //   expect(spy).toHaveBeenCalledWith([`/main/${path}`, id]);
+  // });
 });

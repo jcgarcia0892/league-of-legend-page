@@ -1,3 +1,4 @@
+import { fakeAsync, tick } from "@angular/core/testing";
 import { Router, UrlSerializer } from "@angular/router";
 import { AnimationsService } from "../../services/animations.service";
 import { HomeComponent } from "./home.component";
@@ -9,7 +10,7 @@ describe('HomeComponent Unit Test',() => {
     let router: Router;
 
     beforeEach(() => {
-        component = new HomeComponent( new AnimationsService(), router );
+        component = new HomeComponent( router );
     })
 
     it('Verificar que el número aleatorio sea menor o igual a la longitud del array videoPaths', () => {
@@ -32,27 +33,16 @@ describe('HomeComponent Unit Test',() => {
         expect(rolValue).toBe('assassins');
     });
 
-    it('Cada vez que se escoge un rol debe ocurrir una animación en la imagen', () => {
-        component.rolSelectionFunction();
-        component.rolSelectionControl.setValue('supports');
-        expect(component.imgAnimation).toBeTruthy();
-    });
+    // it('Cada vez que se escoge un rol debe ocurrir una animación en la imagen', () => {
+    //     component.rolSelectionFunction();
+    //     component.rolSelectionControl.setValue('supports');
+    //     expect(component.imgAnimation).toBeTruthy();
+    // });
 
-    it('Cada vez que se escoge un rol debe cambiar el valor de fadeInAnimation', () => {
-        const fadeInAnimation = component.fadeInAnimation;
-        component.rolSelectionFunction();
-        component.rolSelectionControl.setValue('supports');
-        expect(component.fadeInAnimation === !fadeInAnimation).toBeTruthy();
-    });
-
-    it('Cada vez que se escoge un rol debe cambiar el valor de champion', (done) => {
-
-        component.rolSelectionFunction();
-        component.rolSelectionControl.setValue('supports');
-        setTimeout(() => {
-            expect(component.champion.name).toBe('Thresh');
-            done();
-        }, 400);
-
-    });
+    // it('Cada vez que se escoge un rol debe cambiar el valor de fadeInAnimation', () => {
+    //     const fadeInAnimation = component.fadeInAnimation;
+    //     component.rolSelectionFunction();
+    //     component.rolSelectionControl.setValue('supports');
+    //     expect(component.fadeInAnimation === !fadeInAnimation).toBeTruthy();
+    // });
 })

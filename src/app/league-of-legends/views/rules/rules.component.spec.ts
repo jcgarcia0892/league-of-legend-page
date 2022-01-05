@@ -63,6 +63,7 @@ describe('RulesComponent', () => {
   });
 
   it('Debe mantener el item de la carta en 1', () => {
+    component.rulesInfo[0].card.currentPageNumber = 1;
     const prevPageNumber = component.rulesInfo[0].card.currentPageNumber;
     component.changeItemList('objetivo', 'prev', 1);
     const isEqual = prevPageNumber === component.rulesInfo[0].card.currentPageNumber;
