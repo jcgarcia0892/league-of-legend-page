@@ -12,14 +12,14 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit{
   isOpenMenu: boolean = false;
   screenWidth: number;
   constructor(
-    private router: Router
+    public router: Router
   ) {
     this.screenWidth = document.body.clientWidth;
   }
 
   ngOnInit(): void {
-    this.eventObs = fromEvent(window, 'resize').subscribe((data: any) => {
-      this.screenWidth = data.target.screen.width
+    this.eventObs = fromEvent(window, 'resize').subscribe((event: Event) => {
+      this.screenWidth = (event.target as Window).document.body.clientWidth;
     });
   }
 

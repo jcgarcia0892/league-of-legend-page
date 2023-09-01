@@ -159,7 +159,6 @@
 
     &__illus {
         width: 60%;
-        // overflow: hidden;
         position: relative;
         display: flex;
         flex-wrap: wrap;
@@ -330,7 +329,6 @@
 @media screen and (max-width: 1200px) {
     .main {
         &__center {
-            // width: 100%;
             & img {
                 width: 100%;
 
@@ -379,7 +377,6 @@
             }
 
             &__content {
-                // width: 50%;
                 & h2 {
                     font-size: 3.2rem;
                 }
@@ -498,7 +495,6 @@
             }
 
             &__content {
-                // margin-top: unset;
                 width: 100%;
 
                 & p {

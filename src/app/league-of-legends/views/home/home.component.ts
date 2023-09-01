@@ -71,10 +71,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       .catch()
       .finally(() => this.loading = true);
     }
-    setTimeout(() => {
-      // console.log(this.homeVideo.nativeElement.currentTime);
-
-    }, 300);
   }
 
   rolSelectionFunction(): void {

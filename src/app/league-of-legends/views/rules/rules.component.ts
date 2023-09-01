@@ -34,7 +34,7 @@ export class RulesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.playToVideo();
-      this.scollInY = this.rules.nativeElement.getBoundingClientRect().top;
+      this.scollInY = this.rules.nativeElement.offsetTop;
     }, 10);
 
   }

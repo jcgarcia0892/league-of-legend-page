@@ -126,7 +126,7 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   mapSkills(element: any, version: string, index: number = 5,): Skill {
     let key = '';
-    let {id, name, description, image} = element;
+    let {name, description, image} = element;
     switch (index) {
       case 0:
         key = 'Q'

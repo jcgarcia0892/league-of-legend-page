@@ -82,31 +82,13 @@ describe('HomeComponent', () => {
   });
 
   it('Cada vez que se escoge un rol debe ocurrir una animación en la imagen', () => {
-    // component.rolSelectionFunction();
     component.rolSelectionControl.setValue('supports');
     expect(component.imgAnimation).toBeTruthy();
   });
 
   it('Cada vez que se escoge un rol debe cambiar el valor de fadeInAnimation', () => {
     const fadeInAnimation = component.fadeInAnimation;
-    // component.rolSelectionFunction();
     component.rolSelectionControl.setValue('supports');
     expect(component.fadeInAnimation === !fadeInAnimation).toBeTruthy();
   });
-
-  // it('El método mouseMoveDetection debe ser ejecutado', () => {
-  //   spyOn(component, 'mouseMoveDetection');
-  //   document.dispatchEvent(new MouseEvent('mousemove', {clientX: 50, clientY: 150, buttons: 1}));
-  //   expect(component.mouseMoveDetection).toHaveBeenCalled();
-
-  // });
-
-  // it('La sección de TIERRA DE LEGENDAS debe tener la animación de la imagen', () => {
-  //   let tag = fixture.debugElement.query( By.css('.legendsLand__body__img') );
-  //   let clases = tag.classes['ng-trigger-followingMouseXAnimation'];
-  //   spyOn(component, 'mouseMoveDetection');
-  //   component.mouseMoveDetection(null);
-  //   component.followingMouseXAnimation = 'toXsLeft';
-  //   expect(true).toBeTruthy();
-  // });
 });

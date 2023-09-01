@@ -12,16 +12,7 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 import { ChampionComponent } from './champion.component';
 
 class FakeActivatedRoute {
-  // private subject = new Subject<string>();
   params: Observable<any> = from([{id: 'Draven'}]);
-
-  // push(valor: string) {
-  //   this.params.next(valor);
-  // }
-
-  // get params(): Observable<string> {
-  //   return this.subject.asObservable();
-  // }
 }
 
 describe('ChampionComponent', () => {
@@ -53,7 +44,6 @@ describe('ChampionComponent', () => {
   it('Debe recibir el id de los parametros', () => {
 
     const activatedRoute: FakeActivatedRoute = TestBed.inject(ActivatedRoute);
-    // activatedRoute.push('Draven');
     
     expect(component.idChamp).toBe('Draven');
 

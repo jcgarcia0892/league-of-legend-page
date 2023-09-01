@@ -18,15 +18,15 @@
     
         <ul class="navbar__container__links" [ngClass]="{'translateX': isOpenMenu}">
             <li (click)="goTo('home')">
-                <p>INICIO</p>
+                <p [class.active-link]="router.url === '/main/home'">INICIO</p>
             </li>
     
             <li (click)="goTo('champions')">
-                <p>CAMPEONES</p>
+                <p [class.active-link]="router.url === '/main/champions'">CAMPEONES</p>
             </li>
     
             <li (click)="goTo('rules')">
-                <p>EXPLORAR</p>
+                <p [class.active-link]="router.url === '/main/rules'">EXPLORAR</p>
             </li>
     
         </ul>

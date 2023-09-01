@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators'
 import { titleAnimation } from '../../animations/title-animation';
 import { ChampionsDataService } from '../../services/champions-data.service';
-import { map } from 'rxjs/operators'
 import { ChampionsObject } from '../../interfaces/champions.interface';
 import { ChampionCard } from '../../interfaces/champion-card.interface';
-import { Subscription } from 'rxjs';
+import { ChampionFilter } from '../../interfaces/champion-filter.interface';
 
 @Component({
   selector: 'app-champions',
@@ -22,7 +23,7 @@ export class ChampionsComponent implements OnInit, OnDestroy {
   idChamp!: string;
   loading: boolean = false;
 
-  filters: any[] = [];
+  filters: ChampionFilter[] = [];
 
   difficultChamp: number = 0;
 
@@ -125,7 +126,7 @@ export class ChampionsComponent implements OnInit, OnDestroy {
       this.filters[index].value = this.championsSearcherControl.value;
     }
     this.activeFocusSearcherInput = false;
-
+    console.log(this.filters);
   };
 
   championsRolesControlFunction(): void {
@@ -195,6 +196,7 @@ export class ChampionsComponent implements OnInit, OnDestroy {
     this.championsRolesControl.setValue('');
     this.difficultChamp = 0;
     this.filters = [];
+    console.log(this.idChamp);
     this.champsFilter(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
   };
 
