@@ -37,14 +37,4 @@ describe('ChampionsComponent', () => {
   it('Debe crear el componente de champions', () => {
     expect(component).toBeTruthy();
   });
-
-  // it('Debe redireccionar a un campeon en especifico', () => {
-
-  //   const router = TestBed.inject(Router);
-  //   const spy = spyOn(router, 'navigate');
-  //   const id = 'Draven';
-  //   const path = 'champion';
-  //   component.goTo(id);
-  //   expect(spy).toHaveBeenCalledWith([`/main/${path}`, id]);
-  // });
 });

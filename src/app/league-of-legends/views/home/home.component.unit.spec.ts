@@ -32,17 +32,4 @@ describe('HomeComponent Unit Test',() => {
         const rolValue = component.rolSelectionControl.value;
         expect(rolValue).toBe('assassins');
     });
-
-    // it('Cada vez que se escoge un rol debe ocurrir una animación en la imagen', () => {
-    //     component.rolSelectionFunction();
-    //     component.rolSelectionControl.setValue('supports');
-    //     expect(component.imgAnimation).toBeTruthy();
-    // });
-
-    // it('Cada vez que se escoge un rol debe cambiar el valor de fadeInAnimation', () => {
-    //     const fadeInAnimation = component.fadeInAnimation;
-    //     component.rolSelectionFunction();
-    //     component.rolSelectionControl.setValue('supports');
-    //     expect(component.fadeInAnimation === !fadeInAnimation).toBeTruthy();
-    // });
 })
