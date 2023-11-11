@@ -1,6 +1,6 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { fadeAnimation } from '../../animations/fade-in-animation';
@@ -33,8 +33,8 @@ SwiperCore.use([Navigation, Thumbs, Pagination]);
 })
 export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('skillSelectedHtml') skillSelectedHtml!: ElementRef;
-  skillsControl: FormControl;
-  champion!: Champion;
+  skillsControl: UntypedFormControl;
+  champion!: Champion | undefined;
   idChamp!: string;
   imgUrl!: string;
   fadeAnimation: boolean = true;
@@ -48,7 +48,7 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
     private acRoute: ActivatedRoute,
     private championsDataService: ChampionsDataService,
   ) {
-    this.skillsControl = new FormControl('');
+    this.skillsControl = new UntypedFormControl('');
   }
   ngAfterViewInit(): void {
   }
@@ -155,6 +155,7 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showSkills(skillName: string): void {
+    if(!this.champion) return;
     let index = this.champion.skills.findIndex((skill: Skill) => skill.name === skillName);
     for(let skill of this.champion.skills) {
       skill.checked = false;
@@ -166,9 +167,9 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showSkillSelectedHTML(index: number): string {
     return `
-    <p class="champion__skills__container__description__skill">${this.champion.skills[index].key}</p>
-    <h4>${this.champion.skills[index].name}</h4>
-    <p class="champion__skills__container__description__text">${this.champion.skills[index].description}</p>
+    <p class="champion__skills__container__description__skill">${this.champion?.skills[index].key}</p>
+    <h4>${this.champion?.skills[index].name}</h4>
+    <p class="champion__skills__container__description__text">${this.champion?.skills[index].description}</p>
     `;
   }
 

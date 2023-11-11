@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { fadeInAnimation } from '../../animations/fade-in-animation';
 import { translateAnimation } from '../../animations/translate-animation';
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   // GETTING HTML ELEMENTS
   @ViewChild('homeVideo') homeVideo!: ElementRef;
   // END GETTIN HTML ELEMENTS
-  rolSelectionControl: FormControl;
+  rolSelectionControl: UntypedFormControl;
   videoPath!: string;
   videoPaths: string[] = ['caitlyn', 'kaisa', 'sylas-entrace', 'sylas'];
   imgRolPath: string = 'assets/images/champions-role/assassins.png';
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
   ) {
-    this.rolSelectionControl = new FormControl('assassins');
+    this.rolSelectionControl = new UntypedFormControl('assassins');
   }
 
   ngOnInit(): void {

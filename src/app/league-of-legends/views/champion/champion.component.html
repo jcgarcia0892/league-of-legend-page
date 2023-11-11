@@ -122,7 +122,7 @@
           <div class="champion__skins__thumbs__container">
             <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp}}_{{skin.num}}.jpg" />
             <div class="champion__skins__thumbs__container__title">
-              <h4>{{(skin.name === 'default') ? champion.name : skin.name}}</h4>
+              <h4>{{(skin.name === 'default') ? champion?.name : skin.name}}</h4>
             </div>
           </div>
         </ng-template>

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { titleAnimation } from '../../animations/title-animation';
@@ -34,9 +34,9 @@ export class ChampionsComponent implements OnInit, OnDestroy {
   activeFocusSearcherInput: boolean = false;
   activeFocusLevelInput: boolean = false;
   // FORMS CONTROL
-  championsSearcherControl: FormControl;
-  championsRolesControl: FormControl;
-  levelsControl: FormControl;
+  championsSearcherControl: UntypedFormControl;
+  championsRolesControl: UntypedFormControl;
+  levelsControl: UntypedFormControl;
   // END FORMS CONTROL
   // GETTING HTML ELEMENTS
 
@@ -47,9 +47,9 @@ export class ChampionsComponent implements OnInit, OnDestroy {
   constructor(
     private championsDataService: ChampionsDataService,
   ) {
-    this.championsSearcherControl = new FormControl('');
-    this.levelsControl = new FormControl(false);
-    this.championsRolesControl = new FormControl('');
+    this.championsSearcherControl = new UntypedFormControl('');
+    this.levelsControl = new UntypedFormControl(false);
+    this.championsRolesControl = new UntypedFormControl('');
     
   };
 
