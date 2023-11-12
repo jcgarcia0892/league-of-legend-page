@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router, RouterLink, RouterLinkWithHref } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { fromEvent, Observable } from 'rxjs';
 
