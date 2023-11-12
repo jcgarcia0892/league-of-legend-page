@@ -41,4 +41,4 @@ import { TitleAppearsDirective } from './directives/titleAppears/title-appears.d
     SwiperModule
   ]
 })
-export class LeagueOfLegendsModule { }
+export class LeagueOfLegendsModule {}

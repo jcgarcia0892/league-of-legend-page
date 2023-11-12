@@ -1,5 +1,5 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
@@ -31,15 +31,23 @@ SwiperCore.use([Navigation, Thumbs, Pagination]);
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ChampionComponent implements OnInit, OnDestroy {
   @ViewChild('skillSelectedHtml') skillSelectedHtml!: ElementRef;
+
   skillsControl: UntypedFormControl;
+
   champion!: Champion | undefined;
+
   idChamp!: string;
+
   imgUrl!: string;
+
   fadeAnimation: boolean = true;
+
   getChampionObs!: Subscription;
+
   loading: boolean = false;
+
   baseUrl: string = 'https://ddragon.leagueoflegends.com/cdn';
 
   thumbsSwiper: any;  
@@ -50,11 +58,8 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     this.skillsControl = new UntypedFormControl('');
   }
-  ngAfterViewInit(): void {
-  }
 
   ngOnInit(): void {
-
     this.getChampionObs = this.acRoute.params
       .pipe(
         switchMap(({id}) => {
@@ -98,7 +103,6 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.getChampionObs.unsubscribe();
   }
-
 
   skillsControlObservable(): void {
     this.skillsControl.valueChanges.subscribe((skillName: string) => {
@@ -183,10 +187,4 @@ export class ChampionComponent implements OnInit, AfterViewInit, OnDestroy {
       imgLoading
     }
   }
-
-  onSwiper(swiper: any) {
-  }
-  onSlideChange() {
-  }
-
 }

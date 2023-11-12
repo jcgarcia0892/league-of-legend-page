@@ -7,7 +7,7 @@ export class NoImageDirective {
 
   constructor(
     private elementRef: ElementRef
-  ) { }
+  ) {}
 
   @HostListener('error')
   showErrorImage() {

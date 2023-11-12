@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChampionCard } from '../../interfaces/champion-card.interface';
 
@@ -7,16 +7,12 @@ import { ChampionCard } from '../../interfaces/champion-card.interface';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   @Input() championCard!: ChampionCard;
-  constructor(
-    private router: Router
-  ) { }
 
-  ngOnInit(): void {}
+  constructor(private router: Router) {}
 
   goTo(id: string): void {
     this.router.navigate(['/main/champion', id]);
   }
-
 }

@@ -1,18 +1,14 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss']
 })
-export class LoadingComponent implements OnInit, OnChanges {
-  loadingVar: boolean = true;
+export class LoadingComponent implements OnChanges {
+  loadingVar = true;
+
   @Input() animationVar:boolean = false;
-  constructor() { }
-
-  ngOnInit(): void {
-
-  }
 
   ngOnChanges(): void {
     if(this.animationVar) {
@@ -21,6 +17,4 @@ export class LoadingComponent implements OnInit, OnChanges {
       }, 1000)
     }
   }
-
-
 }

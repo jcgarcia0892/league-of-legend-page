@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class AnimationsService {
 
-  constructor() {}
-
   positionYFadeIn(elementPositionY: number, scrollPositionY: number): boolean {
     return (elementPositionY < scrollPositionY) ? false : true;
   }

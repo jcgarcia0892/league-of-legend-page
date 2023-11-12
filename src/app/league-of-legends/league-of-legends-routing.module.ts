@@ -15,8 +15,6 @@ const routes: Routes = [
       { path: 'champions', component: ChampionsComponent },
       { path: 'champion/:id', component: ChampionComponent },
       { path: 'rules', component: RulesComponent },
-
-
     ]
   },
   { path: '**', pathMatch: 'full', redirectTo: 'main/home' }

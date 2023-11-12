@@ -18,9 +18,13 @@ import { ChampionFilter } from '../../interfaces/champion-filter.interface';
 })
 export class ChampionsComponent implements OnInit, OnDestroy {
   private _championsCards: ChampionCard[] = [];
+
   championsCardsFilter: ChampionCard[] = [];
+
   randomChampionsCard: ChampionCard[] = [];
+
   idChamp!: string;
+
   loading: boolean = false;
 
   filters: ChampionFilter[] = [];
@@ -32,18 +36,21 @@ export class ChampionsComponent implements OnInit, OnDestroy {
   championsNameFiltered: ChampionCard[] = [];
 
   activeFocusSearcherInput: boolean = false;
+
   activeFocusLevelInput: boolean = false;
+
   // FORMS CONTROL
   championsSearcherControl: UntypedFormControl;
+
   championsRolesControl: UntypedFormControl;
+
   levelsControl: UntypedFormControl;
   // END FORMS CONTROL
-  // GETTING HTML ELEMENTS
-
 
   // SUBSCRIBERS
     championDataSubscriber!: Subscription;
   // END SUBSCRIBERS
+
   constructor(
     private championsDataService: ChampionsDataService,
   ) {
@@ -230,8 +237,6 @@ export class ChampionsComponent implements OnInit, OnDestroy {
         break;
     };
     this.champsFilter(this.idChamp, this.championsRolesControl.value ,this.difficultChamp);
-    
-    
   };
 
   champsFilter(id: string, rol: string, difficulty: number): any {
@@ -249,7 +254,6 @@ export class ChampionsComponent implements OnInit, OnDestroy {
       filter = this.filterArrayByDifficulty(filter, difficulty);
     }
     this.championsCardsFilter = filter;
-
   }
 
 }

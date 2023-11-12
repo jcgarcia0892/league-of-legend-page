@@ -11,24 +11,31 @@ import * as powers from './../../../../assets/json/powersInfo.json';
 })
 export class RulesComponent implements OnInit, AfterViewInit {
   @ViewChild('rulesVideo') rulesVideo!: ElementRef;
-  @ViewChild('getExp') getExp!: ElementRef;
-  @ViewChild('getGold') getGold!: ElementRef;
-  @ViewChild('rules') rules!: ElementRef;
-  loading: boolean = false;
-  videoPath!: string;
-  videoPaths: string[] = ['caitlyn', 'kaisa', 'sylas-entrace', 'sylas'];
-  scollInY: number = 0;
-  videoPowerPath: string = 'assets/images/get-gold.webm';
-  videoPowerPostion = 0;
-  rulesInfo: RulesInfo[] = (rules as any).default;
-  powersInfo: PowerInfo[] = (powers as any).default;
 
-  constructor() {
-  }
+  @ViewChild('getExp') getExp!: ElementRef;
+
+  @ViewChild('getGold') getGold!: ElementRef;
+
+  @ViewChild('rules') rules!: ElementRef;
+
+  loading: boolean = false;
+
+  videoPath!: string;
+
+  videoPaths: string[] = ['caitlyn', 'kaisa', 'sylas-entrace', 'sylas'];
+
+  scollInY: number = 0;
+
+  videoPowerPath: string = 'assets/images/get-gold.webm';
+
+  videoPowerPostion = 0;
+
+  rulesInfo: RulesInfo[] = (rules as any).default;
+
+  powersInfo: PowerInfo[] = (powers as any).default;
 
   ngOnInit(): void {
     this.videoPath = `assets/videos/${this.videoPaths[this.randomNumber()]}.mp4`;
-
   }
 
   ngAfterViewInit(): void {
@@ -36,7 +43,6 @@ export class RulesComponent implements OnInit, AfterViewInit {
       this.playToVideo();
       this.scollInY = this.rules.nativeElement.offsetTop;
     }, 10);
-
   }
 
   playToVideo(): void {
@@ -47,6 +53,7 @@ export class RulesComponent implements OnInit, AfterViewInit {
     this.getExp.nativeElement.play().finally();
     this.getGold.nativeElement.play().finally();
   }
+  
   randomNumber(): number {
     return Math.floor(Math.random() * this.videoPaths.length);
   };
@@ -98,6 +105,7 @@ export class RulesComponent implements OnInit, AfterViewInit {
   translatePage(pageNumber: number): number {
     return (pageNumber - 1) * 100 * -1;
   }
+  
   addTranslatePage(index: number, currentPageNumber: number): void {
     this.rulesInfo[index].card.translate = this.translatePage(currentPageNumber);
   };

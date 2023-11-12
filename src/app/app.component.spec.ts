@@ -1,14 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { from, Observable, of } from 'rxjs';
 import { AppComponent } from './app.component';
-import { LoadingComponent } from './league-of-legends/components/loading/loading.component';
 import { RulesComponent } from './league-of-legends/views/rules/rules.component';
-
-let jeje = new NavigationEnd(0, '/main/home', '/main/champions');
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -47,11 +42,5 @@ describe('AppComponent', () => {
       expect(window.scrollY).toBe(0);
       done();
     })
-
   });
-
-
-
-
-
 });

@@ -1,27 +1,22 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent implements OnInit, AfterViewInit, OnChanges {
+export class ButtonComponent implements OnChanges {
   @Input() text!: string
+
   @Input() type!: 'btn--primary' | 'btn--secondary';
+
   @Input() icon!: string | undefined;
+
   @Input() size!: 'btn--big' | 'btn--normal' | 'btn--small';
+
   @Input() border!: 'btn-no--border';
 
   styles: string[] = []
-  constructor() {
-
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-  }
   
   ngOnChanges(): void {
     if(this.type !== undefined) {
@@ -35,6 +30,4 @@ export class ButtonComponent implements OnInit, AfterViewInit, OnChanges {
     }
     
   }
-
-
 }

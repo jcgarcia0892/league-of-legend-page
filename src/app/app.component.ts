@@ -9,8 +9,6 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'lol-page';
-
   constructor(
     private router: Router,
     private viewPortScroller: ViewportScroller

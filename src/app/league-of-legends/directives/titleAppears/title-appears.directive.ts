@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, HostListener } from '@angular/core';
 import { titleAnimation } from '../../animations/title-animation';
 import { AnimationsService } from '../../services/animations.service';
 
@@ -9,12 +9,15 @@ import { AnimationsService } from '../../services/animations.service';
 })
 export class TitleAppearsDirective implements AfterViewInit {
   scrollPositionY!: number;
+
   titleOffsetTop!: number;
+
   titleOffsetHeight!: number;
+
   constructor(
     private animationService: AnimationsService,
     private elementRef: ElementRef
-  ) { }
+  ) {}
   @HostBinding('@titleAnimation') titleAnimation!: string;
 
   @HostListener('window:scroll', ['$event'])
@@ -35,5 +38,4 @@ export class TitleAppearsDirective implements AfterViewInit {
       this.titleOffsetHeight = this.elementRef.nativeElement.offsetHeight;
     },10);
   };
-
 }

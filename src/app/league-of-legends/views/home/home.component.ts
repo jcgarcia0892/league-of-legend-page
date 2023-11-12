@@ -19,21 +19,29 @@ import * as data from './../../../../assets/json/roles.json';
 export class HomeComponent implements OnInit, AfterViewInit {
   // ANIMATIONS VAR
   imgAnimation: boolean = false;
+
   fadeInAnimation: boolean = true;
-  // followingMouseXAnimation!: string;
+
   loading: boolean = false;
   // END ANIMATION VAR
+
   // GETTING HTML ELEMENTS
   @ViewChild('homeVideo') homeVideo!: ElementRef;
   // END GETTIN HTML ELEMENTS
+
   rolSelectionControl: UntypedFormControl;
+
   videoPath!: string;
+
   videoPaths: string[] = ['caitlyn', 'kaisa', 'sylas-entrace', 'sylas'];
+
   imgRolPath: string = 'assets/images/champions-role/assassins.png';
+  
   champion: Roles = {
     name: 'Akali',
     nickName: 'La Asesina Furtiva'
   }
+  
   rolesArray: Roles[] = (data as any).default;
   
   constructor(

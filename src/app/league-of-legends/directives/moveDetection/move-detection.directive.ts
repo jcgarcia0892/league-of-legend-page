@@ -11,11 +11,8 @@ export class MoveDetectionDirective {
 
   constructor(
     private animationService: AnimationsService,
-  ) { }
+  ) {}
   @HostBinding('@followingMouseXAnimation') followingMouseXAnimation!: string;
-
-  ngOnInit(): void {
-  }
 
   @HostListener('document:mousemove', ['$event'])
   makeAnimation(event: any) {
