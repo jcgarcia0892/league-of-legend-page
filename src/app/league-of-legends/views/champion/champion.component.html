@@ -26,12 +26,11 @@
         <div class="champion__description__body__text__chips">
           <h4>TIPO DE CAMPEÓN</h4>
           <div class="champion__description__body__text__chips__container">
-            <div
-              class="champion__description__body__text__chips__container__chip"
-              *ngFor="let rol of champion()?.rolArray"
-            >
-              <span>{{ rol }}</span>
-            </div>
+            @for (rol of champion()?.rolArray; track $index) {
+              <div class="champion__description__body__text__chips__container__chip">
+                <span>{{ rol }}</span>
+              </div>
+            }
           </div>
         </div>
         <div class="champion__description__body__text__history">
@@ -41,20 +40,28 @@
 
         <div class="champion__description__body__text__allyTips">
           <h4>TIPS PARA USAR EL CAMPEÓN</h4>
-          <p *ngFor="let tip of champion()?.allytips">{{ tip }}</p>
-          <p *ngIf="champion()?.allytips?.length === 0">
-            Nuestro expertos están trabajando para brindarte los mejor tips
-            cuando usas a este campeón en partida.
-          </p>
+          @for(tip of champion()?.allytips; track $index) {
+            <p>{{ tip }}</p>
+          }
+          @if (champion()?.allytips?.length === 0) {
+            <p>
+              Nuestro expertos están trabajando para brindarte los mejor tips
+              cuando usas a este campeón en partida.
+            </p>
+          }
         </div>
 
         <div class="champion__description__body__text__enemyTips">
           <h4>TIPS PARA DERROTAR EL CAMPEÓN</h4>
-          <p *ngFor="let tip of champion()?.enemytips">{{ tip }}</p>
-          <p *ngIf="champion()?.enemytips?.length === 0">
-            Nuestro expertos están trabajando para brindarte los mejor tips
-            cuando estas en contra de este campeón en partida.
-          </p>
+          @for (tip of champion()?.enemytips; track $index) {
+            <p>{{ tip }}</p>
+          }
+          @if(champion()?.enemytips?.length === 0) {
+            <p>
+              Nuestro expertos están trabajando para brindarte los mejor tips
+              cuando estas en contra de este campeón en partida.
+            </p>
+          }
         </div>
       </div>
       <div class="champion__description__body__img">
@@ -68,28 +75,30 @@
       <div class="champion__skills__container__imgs">
         <h2>HABILIDADES</h2>
         <div class="champion__skills__container__imgs__assets">
-          <div *ngFor="let skill of champion()?.skills">
-            <input
-              type="radio"
-              name="championSkills"
-              [formControl]="skillsControl"
-              [id]="skill.name"
-              [value]="skill.name"
-            />
-            <label [for]="skill.name">
+          @for (skill of champion()?.skills; track $index) {
+            <div>
+              <input
+                type="radio"
+                name="championSkills"
+                [formControl]="skillsControl"
+                [id]="skill.name"
+                [value]="skill.name"
+              />
+              <label [for]="skill.name">
+                <img
+                  class="champion__skills__container__imgs__assets__img"
+                  [src]="skill?.img"
+                  alt=""
+                />
+              </label>
               <img
-                class="champion__skills__container__imgs__assets__img"
-                [src]="skill?.img"
+                class="champion__skills__container__imgs__assets__selector"
+                [ngClass]="{ 'op-1': skill.checked }"
+                src="assets/images/skills-selector.svg"
                 alt=""
               />
-            </label>
-            <img
-              class="champion__skills__container__imgs__assets__selector"
-              [ngClass]="{ 'op-1': skill.checked }"
-              src="assets/images/skills-selector.svg"
-              alt=""
-            />
-          </div>
+            </div>
+          }
         </div>
       </div>
       <div class="champion__skills__container__logo">
@@ -118,14 +127,14 @@
         [thumbs]="{ swiper: thumbsSwiper }"
         class="mySwiper2"
       >
-        <ng-template swiperSlide *ngFor="let skin of champion()?.skins">
+        @for (skin of champion()?.skins; track $index) {
           <div class="champion__skins__thumbs__container">
             <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp()}}_{{skin.num}}.jpg" />
             <div class="champion__skins__thumbs__container__title">
               <h4>{{(skin.name === 'default') ? champion()?.name : skin.name}}</h4>
             </div>
           </div>
-        </ng-template>
+        }
       </swiper>
     </div>
     <div class="champion__skins__slides">
@@ -140,9 +149,11 @@
         [watchSlidesProgress]="true"
         class="mySwiper"
     >
-      <ng-template swiperSlide *ngFor="let skin of champion()?.skins">
-        <img class="champion__skins__slides__img" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp()}}_{{skin.num}}.jpg"/>
-      </ng-template>
+      @for (skin of champion()?.skins; track $index) {
+        <ng-template swiperSlide>
+          <img class="champion__skins__slides__img" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp()}}_{{skin.num}}.jpg"/>
+        </ng-template>
+      }
     </swiper>
     </div>
   </div>

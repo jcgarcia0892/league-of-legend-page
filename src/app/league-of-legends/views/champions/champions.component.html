@@ -1,5 +1,5 @@
 <section>
-    <app-loading [animationVar]="loading"></app-loading>
+    <app-loading [animationVar]="loading()"></app-loading>
   </section>
 
 <section class="findChamps">
@@ -17,17 +17,18 @@
                             type="text"
                             placeholder="BUSCAR"
                             [formControl]="championsSearcherControl"
-                            (focus)="activeFocusSearcherInput = true"
+                            (focus)="activeFocusSearcherInput.set(true)"
                             (blur)="blurSearcher()"
                             id="searcherInput">
                         <label class="material-icons icon-asset" for="searcherInput">search</label>
                         <i class="material-icons icon-asset" (click)="cleanChipFilter('nombre')" *ngIf="championsSearcherControl.value.length > 0">close</i>
                     </div>
                 </div>
-                <div class="findChamps__body__navbar__search__dropdown" [ngClass]="{'fadeIn': activeFocusSearcherInput}">
+                <div class="findChamps__body__navbar__search__dropdown" [ngClass]="{'fadeIn': activeFocusSearcherInput()}">
                     <ul>
-                        <li *ngFor="let champion of championsNameFiltered"
-                            (click)="filterChampionByName(champion.id)"> {{champion.name}} </li>
+                        @for (champion of championsNameFiltered(); track $index) {
+                            <li (click)="filterChampionByName(champion.id)"> {{champion.name}} </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -79,74 +80,88 @@
                     (blur)="blurDifficulty()"
                     (click)="levelsControl.setValue(!levelsControl.value)"
                 >
-                <label *ngIf="difficultChamp === 0"  for="levels">TODAS LAS DIFICULTADES </label>
-                <label *ngIf="difficultChamp !== 0" for="levels">
-                    DIFICULTAD: {{difficultChamp}}
+                <label *ngIf="difficultChamp() === 0"  for="levels">TODAS LAS DIFICULTADES </label>
+                <label *ngIf="difficultChamp() !== 0" for="levels">
+                    DIFICULTAD: {{difficultChamp()}}
                 </label>
                 <div class="findChamps__body__navbar__levels__icons">
                     <i class="material-icons icon-asset" *ngIf="!levelsControl.value"> keyboard_arrow_down</i>
                     <i class="material-icons icon-asset" *ngIf="levelsControl.value"> keyboard_arrow_up</i>
                 </div>
                 <div class="findChamps__body__navbar__levels__container" [ngClass]="{'fadeIn': levelsControl.value}">
-                    <div 
-                        class="findChamps__body__navbar__levels__container__group"
-                        *ngFor="let level of difficulty; let i = index"
-                        (click)="filterChampionByDifficulty(level)"
-                        [ngClass]="{'bg-gray': level === difficultChamp}">
+                    @for (level of difficulty(); track i; let i = $index) {
                         <div 
-                            class="findChamps__body__navbar__levels__container__group__item"
-                            *ngFor="let item of difficulty; let j = index"
-                            [ngClass]="{'bg-blue': j <= i}">
+                            class="findChamps__body__navbar__levels__container__group"
+                            (click)="filterChampionByDifficulty(level)"
+                            [ngClass]="{'bg-gray': level === difficultChamp()}">
+                            @for (item of difficulty(); track j; let j = $index) {
+                                <div 
+                                    class="findChamps__body__navbar__levels__container__group__item"
+                                    [ngClass]="{'bg-blue': j <= i}">
+                                </div>
+                            }
                         </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+        @if (filters().length > 0) {
+            <div class="findChamps__body__chips">
+                <div class="findChamps__body__chips__filters">
+                    <h3 class="findChamps__body__chips__filters__title">Filtros:</h3>
+                    <div class="findChamps__body__chips__filters__button">
+                        <app-button
+                        [text]="(filters().length <= 1) ? 'Limpiar filtro' : 'Limpiar filtros'"
+                        size="btn--normal"
+                        [type]="'btn--secondary'"
+                        (click)="cleanFilters()"></app-button>
                     </div>
                 </div>
-
+                @for (filter of filters(); track $index) {
+                    <div class="findChamps__body__chips__chip">
+                        <span >{{filter.field}}: {{filter.value}}</span>
+                        <i class="material-icons icon-asset" (click)="cleanChipFilter(filter.field)">close</i>
+                    </div>
+                }
+    
             </div>
-        </div>
-
-        <div class="findChamps__body__chips" *ngIf="filters.length > 0">
-            <div class="findChamps__body__chips__filters">
-                <h3 class="findChamps__body__chips__filters__title">Filtros:</h3>
-                <div class="findChamps__body__chips__filters__button">
-                    <app-button
-                    [text]="(filters.length <= 1) ? 'Limpiar filtro' : 'Limpiar filtros'"
-                    size="btn--normal"
-                    [type]="'btn--secondary'"
-                    (click)="cleanFilters()"></app-button>
-                </div>
-            </div>
-            <div class="findChamps__body__chips__chip" *ngFor="let filter of filters">
-                <span >{{filter.field}}: {{filter.value}}</span>
-                <i class="material-icons icon-asset" (click)="cleanChipFilter(filter.field)">close</i>
-            </div>
-
-        </div>
+        }
 
         <div class="findChamps__body__cards">
-            <div class="findChamps__body__cards__container" *ngIf="championsCardsFilter.length > 0">
-                <div class="findChamps__body__cards__container__card" *ngFor="let championCard of championsCardsFilter">
-                    <app-card [championCard]="championCard"></app-card>
+            @if (championsCardsFilter().length > 0) {
+                <div class="findChamps__body__cards__container">
+                    @for (championCard of championsCardsFilter(); track $index) {
+                        <div class="findChamps__body__cards__container__card">
+                            <app-card [championCard]="championCard"></app-card>
+                        </div>
+                    }
                 </div>
-            </div>
+            }
 
-            <div class="findChamps__body__cards__error" *ngIf="championsCardsFilter.length === 0">
-                <div class="findChamps__body__cards__error__title">
-                    <h3>No hay campeones que cumplan con el criterio de filtro</h3>
-                    <h4>Campeones que te puedan interesar:</h4>
+            @if(championsCardsFilter().length === 0) {
+                <div class="findChamps__body__cards__error">
+                    <div class="findChamps__body__cards__error__title">
+                        <h3>No hay campeones que cumplan con el criterio de filtro</h3>
+                        <h4>Campeones que te puedan interesar:</h4>
+                    </div>
+                    
+                    @for (championCard of randomChampionsCard(); track $index) {
+                        <div class="findChamps__body__cards__error__card">
+                            <app-card [championCard]="championCard"></app-card>
+                        </div>
+                    }
+                    <div class="findChamps__body__cards__error__button">
+                        <app-button
+                            text="Más campeones"
+                            size="btn--normal"
+                            type="btn--primary"
+                            (click)="pushingRandomChampions()"></app-button>
+                    
+                    </div>
                 </div>
-
-                <div class="findChamps__body__cards__error__card" *ngFor="let championCard of randomChampionsCard">
-                    <app-card [championCard]="championCard"></app-card>
-                </div>
-                <div class="findChamps__body__cards__error__button">
-                    <app-button
-                        text="Más campeones"
-                        size="btn--normal"
-                        type="btn--primary"
-                        (click)="pushingRandomChampions()"></app-button>
-                
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>

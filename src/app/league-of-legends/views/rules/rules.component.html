@@ -1,11 +1,11 @@
 <section>
-    <app-loading [animationVar]="loading"></app-loading>
+    <app-loading [animationVar]="loading()"></app-loading>
 </section>
 
 <!-- RULES SCREEN -->
 <main class="main">
     <video #rulesVideo loop>
-        <source [src]="videoPath" type="video/mp4">
+        <source [src]="videoPath()" type="video/mp4">
     </video>
     <div class="main__center">
         <h2>BIENVENIDO A LA GRIETA DEL INVOCADOR</h2>
@@ -24,42 +24,44 @@
 <section class="rules" #rules>
     <div class="rules__container">
         <div class="rules__container__left">
-            <div class="rules__container__left__item" *ngFor="let rule of rulesInfo">
-                <div class="rules__container__left__item__header">
-                    <h5>{{rule.header.subtitle}}</h5>
-                    <h2>{{rule.header.title}}</h2>
-                    <p *ngFor="let description of rule.header.descriptions">{{description}}</p>
-                </div>
-                <div class="rules__container__left__item__card">
-                    <p class="rules__container__left__item__card__page">{{rule.card.currentPageNumber}}/{{rule.card.list.length}}</p>
-                    <ul>
-                        <li [ngStyle]="{'transform': 'translateX(' + rule.card.translate + '%)'}" *ngFor="let item of rule.card.list">
-                            <h5>{{item.title}}</h5>
-                            <p class="rules__container__left__item__card__text">{{item.description}}</p>
-                        </li>
-                    </ul>
-                    <div class="rules__container__left__item__card__buttons">
-                        <div>
-                            <app-button
-                            icon="arrow_back_ios"
-                            size="btn--small"
-                            type="btn--secondary"
-                            [border]="'btn-no--border'"
-                            (click)="changeItemList(rule.header.subtitle, 'prev', rule.card.currentPageNumber)"></app-button>
+            @for (rule of rulesInfo(); track $index) {
+                <div class="rules__container__left__item">
+                    <div class="rules__container__left__item__header">
+                        <h5>{{rule.header.subtitle}}</h5>
+                        <h2>{{rule.header.title}}</h2>
+                        <p *ngFor="let description of rule.header.descriptions">{{description}}</p>
+                    </div>
+                    <div class="rules__container__left__item__card">
+                        <p class="rules__container__left__item__card__page">{{rule.card.currentPageNumber}}/{{rule.card.list.length}}</p>
+                        <ul>
+                            <li [ngStyle]="{'transform': 'translateX(' + rule.card.translate + '%)'}" *ngFor="let item of rule.card.list">
+                                <h5>{{item.title}}</h5>
+                                <p class="rules__container__left__item__card__text">{{item.description}}</p>
+                            </li>
+                        </ul>
+                        <div class="rules__container__left__item__card__buttons">
+                            <div>
+                                <app-button
+                                icon="arrow_back_ios"
+                                size="btn--small"
+                                type="btn--secondary"
+                                [border]="'btn-no--border'"
+                                (click)="changeItemList(rule.header.subtitle, 'prev', rule.card.currentPageNumber)"></app-button>
+                            </div>
+    
+                            <div>
+                                <app-button
+                                icon="arrow_forward_ios"
+                                size="btn--small"
+                                type="btn--secondary"
+                                [border]="'btn-no--border'"
+                                (click)="changeItemList(rule.header.subtitle, 'next', rule.card.currentPageNumber)"></app-button>
+                            </div>
+    
                         </div>
-
-                        <div>
-                            <app-button
-                            icon="arrow_forward_ios"
-                            size="btn--small"
-                            type="btn--secondary"
-                            [border]="'btn-no--border'"
-                            (click)="changeItemList(rule.header.subtitle, 'next', rule.card.currentPageNumber)"></app-button>
-                        </div>
-
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 
@@ -80,16 +82,18 @@
 
         <div class="power__body__right">
             <div>
-                <div class="power__body__right__info" *ngFor="let power of powersInfo">
-                    <div class="power__body__right__info__icon">
-                        <i class="material-icons" *ngIf="!power.isShown" (click)="showSelectedPower(power.title, power.videoPosition)">add</i>
-                        <i class="material-icons" *ngIf="power.isShown">remove</i>
+                @for (power of powersInfo(); track $index) {
+                    <div class="power__body__right__info">
+                        <div class="power__body__right__info__icon">
+                            <i class="material-icons" *ngIf="!power.isShown" (click)="showSelectedPower(power.title, power.videoPosition)">add</i>
+                            <i class="material-icons" *ngIf="power.isShown">remove</i>
+                        </div>
+                        <div class="power__body__right__info__texto">
+                            <h5 (click)="showSelectedPower(power.title, power.videoPosition)">{{power.title}}</h5>
+                            <p [ngClass]="{'max-height': power.isShown}"> {{power.description}} </p>
+                        </div>
                     </div>
-                    <div class="power__body__right__info__texto">
-                        <h5 (click)="showSelectedPower(power.title, power.videoPosition)">{{power.title}}</h5>
-                        <p [ngClass]="{'max-height': power.isShown}"> {{power.description}} </p>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
