@@ -17,25 +17,27 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NoImageDirective } from './directives/noImage/no-image.directive';
 import { MoveDetectionDirective } from './directives/moveDetection/move-detection.directive';
 import { TitleAppearsDirective } from './directives/titleAppears/title-appears.directive';
+import { RoleBoxComponent } from './components/role-box/role-box.component';
 
 @NgModule({
   declarations: [
-    HomeComponent,
+    // HomeComponent,
     NavbarComponent,
-    ButtonComponent,
     CardComponent,
     ChampionComponent,
     ChampionsComponent,
     RulesComponent,
     MainComponent,
-    LoadingComponent,
     FooterComponent,
     NoImageDirective,
     MoveDetectionDirective,
     TitleAppearsDirective,
   ],
   imports: [
+    ButtonComponent,
+    LoadingComponent,
     CommonModule,
+    RoleBoxComponent,
     LeagueOfLegendsRoutingModule,
     ReactiveFormsModule,
     SwiperModule

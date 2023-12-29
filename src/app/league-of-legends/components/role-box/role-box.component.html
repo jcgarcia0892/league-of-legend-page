@@ -1,0 +1,12 @@
+<input
+    type="radio"
+    name="roleName" 
+    [id]="role.roleName"
+    [value]="value"
+    [checked]="value === role.roleName"
+    (input)="inputChange(role.roleName)"
+>
+<label [for]="role.roleName" class="app-role-box__label">
+    <div class="icon-image" [style]="'maskImage: ' + imgPath()"></div>
+    <h3>{{role.roleName}}</h3>
+</label>

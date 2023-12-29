@@ -1,5 +1,5 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation, inject, signal } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
@@ -7,9 +7,10 @@ import { fadeAnimation } from '../../animations/fade-in-animation';
 import { ChampionsDataService } from '../../services/champions-data.service';
 
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination, Thumbs } from "swiper";
+import SwiperCore, { Navigation, Pagination, Swiper, Thumbs } from "swiper";
 import { Subscription } from 'rxjs';
 import { Champion, Skill } from '../../interfaces/champion.interface';
+import { RoleName } from '../../interfaces/roles.interface';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs, Pagination]);
@@ -34,52 +35,47 @@ SwiperCore.use([Navigation, Thumbs, Pagination]);
 export class ChampionComponent implements OnInit, OnDestroy {
   @ViewChild('skillSelectedHtml') skillSelectedHtml!: ElementRef;
 
-  skillsControl: UntypedFormControl;
+  skillsControl = new UntypedFormControl('');;
 
-  champion!: Champion | undefined;
+  champion = signal<Champion | undefined>(undefined);
 
-  idChamp!: string;
+  idChamp = signal<string>('');
 
-  imgUrl!: string;
+  fadeAnimation = signal<boolean>(true);
 
-  fadeAnimation: boolean = true;
+  subscription = new Subscription();
 
-  getChampionObs!: Subscription;
-
-  loading: boolean = false;
+  loading = signal<boolean>(false);
 
   baseUrl: string = 'https://ddragon.leagueoflegends.com/cdn';
 
-  thumbsSwiper: any;  
+  thumbsSwiper!: Swiper;  
 
-  constructor(
-    private acRoute: ActivatedRoute,
-    private championsDataService: ChampionsDataService,
-  ) {
-    this.skillsControl = new UntypedFormControl('');
-  }
+  private acRoute = inject(ActivatedRoute);
+
+  private championsDataService = inject(ChampionsDataService);
 
   ngOnInit(): void {
-    this.getChampionObs = this.acRoute.params
+    const subscription = this.acRoute.params
       .pipe(
         switchMap(({id}) => {
-          this.idChamp = id;
+          this.idChamp.set(id);
           return this.championsDataService.getChampion(id)
         }),
         map(({data, version}) => {
-          const imagesPath = this.getImagesPath(this.idChamp, version);
+          const imagesPath = this.getImagesPath(this.idChamp(), version);
           const skills = [];
-          const skillSelected = {};
           const rolArray = [];
-          for(let rol of data[this.idChamp].tags) {
+          for(let rol of data[this.idChamp()].tags) {
+            console.log(rol);
             rolArray.push(this.translateRol(rol));
           }
-          skills.push(this.mapSkills(data[this.idChamp].passive, version));
+          skills.push(this.mapSkills(data[this.idChamp()].passive, version));
           
-          for(let i = 0; i < data[this.idChamp].spells.length; i++) {
-            skills.push(this.mapSkills(data[this.idChamp].spells[i], version, i));
+          for(let i = 0; i < data[this.idChamp()].spells.length; i++) {
+            skills.push(this.mapSkills(data[this.idChamp()].spells[i], version, i));
           }
-          const {spells, stats, blurb, info, partype, recommended, ...champProps} = data[this.idChamp]
+          const {spells, stats, blurb, info, partype, recommended, ...champProps} = data[this.idChamp()]
           const champion: Champion = {
             skills,
             rolArray,
@@ -91,24 +87,26 @@ export class ChampionComponent implements OnInit, OnDestroy {
       )
 
     .subscribe((champion: Champion) => {
-      this.champion = champion;
-      this.champion.skills[0].checked = true;
-      this.skillsControl.setValue(this.champion.skills[0].name);
-      this.loading = true;
+      this.champion.set(champion);
+      this.champion()!.skills[0].checked = true;
+      this.skillsControl.setValue(this.champion()!.skills[0].name);
+      this.loading.set(true);
     });
+    this.subscription.add(subscription);
 
     this.skillsControlObservable();
   }
 
   ngOnDestroy(): void {
-    this.getChampionObs.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   skillsControlObservable(): void {
-    this.skillsControl.valueChanges.subscribe((skillName: string) => {
+    const subscription = this.skillsControl.valueChanges.subscribe((skillName: string) => {
       this.showSkills(skillName);
-      this.fadeAnimation = !this.fadeAnimation;
-    })
+      this.fadeAnimation.update((value) => !value);
+    });
+    this.subscription.add(subscription);
   }
 
   translateRol(value: string): string {
@@ -159,21 +157,21 @@ export class ChampionComponent implements OnInit, OnDestroy {
   }
 
   showSkills(skillName: string): void {
-    if(!this.champion) return;
-    let index = this.champion.skills.findIndex((skill: Skill) => skill.name === skillName);
-    for(let skill of this.champion.skills) {
+    if(!this.champion()) return;
+    let index = this.champion()!.skills.findIndex((skill: Skill) => skill.name === skillName);
+    for(let skill of this.champion()!.skills) {
       skill.checked = false;
     };
-    this.champion.skills[index].checked = true;
+    this.champion()!.skills[index].checked = true;
     this.skillSelectedHtml.nativeElement.innerHTML = this.showSkillSelectedHTML(index);
 
   }
 
   showSkillSelectedHTML(index: number): string {
     return `
-    <p class="champion__skills__container__description__skill">${this.champion?.skills[index].key}</p>
-    <h4>${this.champion?.skills[index].name}</h4>
-    <p class="champion__skills__container__description__text">${this.champion?.skills[index].description}</p>
+    <p class="champion__skills__container__description__skill">${this.champion()!?.skills[index].key}</p>
+    <h4>${this.champion()!?.skills[index].name}</h4>
+    <p class="champion__skills__container__description__text">${this.champion()!?.skills[index].description}</p>
     `;
   }
 

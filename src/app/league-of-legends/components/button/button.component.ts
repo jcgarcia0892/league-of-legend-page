@@ -1,9 +1,12 @@
+import { NgClass, NgIf } from '@angular/common';
 import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgClass],
 })
 export class ButtonComponent implements OnChanges {
   @Input() text!: string

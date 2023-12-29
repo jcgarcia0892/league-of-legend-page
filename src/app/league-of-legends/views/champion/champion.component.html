@@ -1,15 +1,15 @@
 <section>
-  <app-loading [animationVar]="loading"></app-loading>
+  <app-loading [animationVar]="loading()"></app-loading>
 </section>
 
 <section class="champion">
   <div class="champion__main">
-    <img class="champion__main__blur" [src]="champion?.imgSplash" alt="" />
+    <img class="champion__main__blur" [src]="champion()?.imgSplash" alt="" />
     <div class="champion__main__presentation">
-      <img class="" [src]="champion?.imgSplash" alt="" />
+      <img class="" [src]="champion()?.imgSplash" alt="" />
       <div class="champion__main__presentation__text">
-        <h1>{{ champion?.name }}</h1>
-        <h2>{{ champion?.title }}</h2>
+        <h1>{{ champion()?.name }}</h1>
+        <h2>{{ champion()?.title }}</h2>
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
   <div class="champion__description">
     <div class="champion__description__header">
       <div class="champion__description__header__img">
-        <img [src]="champion?.imgSquare" alt="" />
+        <img [src]="champion()?.imgSquare" alt="" />
       </div>
     </div>
     <div class="champion__description__body">
@@ -28,7 +28,7 @@
           <div class="champion__description__body__text__chips__container">
             <div
               class="champion__description__body__text__chips__container__chip"
-              *ngFor="let rol of champion?.rolArray"
+              *ngFor="let rol of champion()?.rolArray"
             >
               <span>{{ rol }}</span>
             </div>
@@ -36,13 +36,13 @@
         </div>
         <div class="champion__description__body__text__history">
           <h4>HISTORIA</h4>
-          <p>{{ champion?.lore }}</p>
+          <p>{{ champion()?.lore }}</p>
         </div>
 
         <div class="champion__description__body__text__allyTips">
           <h4>TIPS PARA USAR EL CAMPEÓN</h4>
-          <p *ngFor="let tip of champion?.allytips">{{ tip }}</p>
-          <p *ngIf="champion?.allytips?.length === 0">
+          <p *ngFor="let tip of champion()?.allytips">{{ tip }}</p>
+          <p *ngIf="champion()?.allytips?.length === 0">
             Nuestro expertos están trabajando para brindarte los mejor tips
             cuando usas a este campeón en partida.
           </p>
@@ -50,15 +50,15 @@
 
         <div class="champion__description__body__text__enemyTips">
           <h4>TIPS PARA DERROTAR EL CAMPEÓN</h4>
-          <p *ngFor="let tip of champion?.enemytips">{{ tip }}</p>
-          <p *ngIf="champion?.enemytips?.length === 0">
+          <p *ngFor="let tip of champion()?.enemytips">{{ tip }}</p>
+          <p *ngIf="champion()?.enemytips?.length === 0">
             Nuestro expertos están trabajando para brindarte los mejor tips
             cuando estas en contra de este campeón en partida.
           </p>
         </div>
       </div>
       <div class="champion__description__body__img">
-        <img [src]="champion?.imgLoading" alt="" />
+        <img [src]="champion()?.imgLoading" alt="" />
       </div>
     </div>
   </div>
@@ -68,7 +68,7 @@
       <div class="champion__skills__container__imgs">
         <h2>HABILIDADES</h2>
         <div class="champion__skills__container__imgs__assets">
-          <div *ngFor="let skill of champion?.skills">
+          <div *ngFor="let skill of champion()?.skills">
             <input
               type="radio"
               name="championSkills"
@@ -97,7 +97,7 @@
       </div>
       <div
         class="champion__skills__container__description"
-        [@fadeAnimation]="fadeAnimation ? 'fadeIn' : 'fadeOut'"
+        [@fadeAnimation]="fadeAnimation() ? 'fadeIn' : 'fadeOut'"
         
       >
       <div #skillSelectedHtml>
@@ -118,11 +118,11 @@
         [thumbs]="{ swiper: thumbsSwiper }"
         class="mySwiper2"
       >
-        <ng-template swiperSlide *ngFor="let skin of champion?.skins">
+        <ng-template swiperSlide *ngFor="let skin of champion()?.skins">
           <div class="champion__skins__thumbs__container">
-            <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp}}_{{skin.num}}.jpg" />
+            <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp()}}_{{skin.num}}.jpg" />
             <div class="champion__skins__thumbs__container__title">
-              <h4>{{(skin.name === 'default') ? champion?.name : skin.name}}</h4>
+              <h4>{{(skin.name === 'default') ? champion()?.name : skin.name}}</h4>
             </div>
           </div>
         </ng-template>
@@ -133,15 +133,15 @@
         style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
         (swiper)="thumbsSwiper = $event"
         [spaceBetween]="10"
-        [slidesPerView]="(champion?.skins?.length || 3 > 2) ? 3 : champion?.skins?.length"
+        [slidesPerView]="(champion()?.skins?.length || 3 > 2) ? 3 : champion()?.skins?.length"
         [freeMode]="true"
         [navigation]="true"
         [pagination]="{clickable: true}"
         [watchSlidesProgress]="true"
         class="mySwiper"
     >
-      <ng-template swiperSlide *ngFor="let skin of champion?.skins">
-        <img class="champion__skins__slides__img" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp}}_{{skin.num}}.jpg"/>
+      <ng-template swiperSlide *ngFor="let skin of champion()?.skins">
+        <img class="champion__skins__slides__img" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp()}}_{{skin.num}}.jpg"/>
       </ng-template>
     </swiper>
     </div>

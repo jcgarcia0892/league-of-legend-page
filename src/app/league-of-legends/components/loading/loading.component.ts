@@ -1,9 +1,12 @@
+import { NgClass, NgIf } from '@angular/common';
 import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-loading',
   templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.scss']
+  styleUrls: ['./loading.component.scss'],
+  standalone: true,
+  imports: [NgIf,NgClass],
 })
 export class LoadingComponent implements OnChanges {
   loadingVar = true;

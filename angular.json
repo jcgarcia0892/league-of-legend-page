@@ -82,18 +82,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lol-page:build"
+            "buildTarget": "lol-page:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "lol-page:build:production"
+              "buildTarget": "lol-page:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lol-page:build"
+            "buildTarget": "lol-page:build"
           }
         },
         "test": {

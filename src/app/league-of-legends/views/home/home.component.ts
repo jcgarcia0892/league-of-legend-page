@@ -1,57 +1,65 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, computed, inject, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { fadeInAnimation } from '../../animations/fade-in-animation';
 import { translateAnimation } from '../../animations/translate-animation';
-import { Roles } from '../../interfaces/roles.interface';
+import { RoleName, Role, RoleInfo } from '../../interfaces/roles.interface';
 import * as data from './../../../../assets/json/roles.json';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { ButtonComponent } from '../../components/button/button.component';
+import { RoleBoxComponent } from '../../components/role-box/role-box.component';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    ButtonComponent,
+    LoadingComponent,
+    RoleBoxComponent,
+    ReactiveFormsModule,
+  ],
   animations: [
     translateAnimation,
     fadeInAnimation,
   ]
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  // ANIMATIONS VAR
-  imgAnimation: boolean = false;
-
-  fadeInAnimation: boolean = true;
-
-  loading: boolean = false;
-  // END ANIMATION VAR
-
   // GETTING HTML ELEMENTS
   @ViewChild('homeVideo') homeVideo!: ElementRef;
   // END GETTIN HTML ELEMENTS
 
-  rolSelectionControl: UntypedFormControl;
+  // ANIMATIONS VAR
+  imgAnimation = signal<boolean>(false);
 
-  videoPath!: string;
-
-  videoPaths: string[] = ['caitlyn', 'kaisa', 'sylas-entrace', 'sylas'];
-
-  imgRolPath: string = 'assets/images/champions-role/assassins.png';
+  fadeInAnimation = signal<boolean>(true);
   
-  champion: Roles = {
+  loading = signal<boolean>(false);
+  // END ANIMATION VAR
+  
+  champion = signal<RoleInfo>({
     name: 'Akali',
     nickName: 'La Asesina Furtiva'
-  }
+  });
   
-  rolesArray: Roles[] = (data as any).default;
+  rolesArray = signal<Role[]>((data as any).default);
   
-  constructor(
-    private router: Router,
-  ) {
-    this.rolSelectionControl = new UntypedFormControl('assassins');
-  }
+  rolSelectionControl = new UntypedFormControl(this.rolesArray()[0].roleName);
+
+  videoPaths = signal<string[]>(['caitlyn', 'kaisa', 'sylas-entrace', 'sylas']);
+  
+  videoPath = computed(() => `assets/videos/${this.videoPaths()[this.randomNumber()]}.mp4`);
+
+  imgRolPath = signal<string>(`assets/images/champions-role/${this.rolSelectionControl.value}.png`);
+
+  roleAltImage = computed<string>(() => `${this.rolSelectionControl.value}-image`);
+
+  private router = inject(Router);
 
   ngOnInit(): void {
-    this.videoPath = `assets/videos/${this.videoPaths[this.randomNumber()]}.mp4`;
     this.rolSelectionFunction();
   }
 
@@ -67,7 +75,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   randomNumber(): number {
-    return Math.floor(Math.random() * this.videoPaths.length);
+    return Math.floor(Math.random() * this.videoPaths().length);
   };
 
   playToVideo(): void {
@@ -77,26 +85,28 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.homeVideo.nativeElement.play()
       .then()
       .catch()
-      .finally(() => this.loading = true);
+      .finally(() => this.loading.set(true));
     }
   }
 
   rolSelectionFunction(): void {
-    this.rolSelectionControl.valueChanges.subscribe((rol: string) => {
-      this.imgAnimation = true;
-      this.fadeInAnimation = false;
+    this.rolSelectionControl.valueChanges.subscribe((roleName: RoleName) => {
+      this.imgAnimation.set(true);
+      this.fadeInAnimation.set(false);
       setTimeout(() => {
-        this.imgRolPath = `assets/images/champions-role/${rol}.png`;
+        this.imgRolPath.set(`assets/images/champions-role/${roleName}.png`);
       }, 300);
 
     });
   }
 
   loadImg(): any {
-    let index = this.rolesArray.findIndex(element => element.rol === this.rolSelectionControl.value);
-    this.champion.name = this.rolesArray[index].name;
-    this.champion.nickName = this.rolesArray[index].nickName;
-    this.imgAnimation = false;
-    this.fadeInAnimation = true;
+    let index = this.rolesArray().findIndex(element => element.roleName === this.rolSelectionControl.value);
+    this.champion.set({
+      name: this.rolesArray()[index].name,
+      nickName: this.rolesArray()[index].nickName,
+    });
+    this.imgAnimation.set(false);
+    this.fadeInAnimation.set(true);
   }
 }
