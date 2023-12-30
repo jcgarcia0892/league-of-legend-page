@@ -1,6 +1,4 @@
-@import 'variables';
-@import 'animations';
-@import 'mixins';
+@use 'variables' as var;
 
 .app-role-box {
     & input {
@@ -9,11 +7,11 @@
     & input[type="radio"]:checked + &__label {
         .icon-image {
             transition: all .3s ease;
-            background-color: $c-primary-light;
+            background-color: var.$c-primary-light;
         }
         h3 {
             transition: all .3s ease;
-            color: $c-primary-light;
+            color: var.$c-primary-light;
         }
     } 
     &__label {
@@ -31,7 +29,7 @@
         }
 
         .icon-image {
-            background-color: $c-gray-darker;
+            background-color: var.$c-gray-darker;
             mask-size: 100%;
             -webkit-mask-repeat: no-repeat;
             mask-repeat: no-repeat;
@@ -42,7 +40,7 @@
         }
 
         h3 {
-            color: $c-gray-darker;
+            color: var.$c-gray-darker;
         }
     }
 }

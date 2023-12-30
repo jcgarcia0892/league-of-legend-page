@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { titleAnimation } from '../../animations/title-animation';
@@ -7,11 +7,27 @@ import { ChampionsDataService } from '../../services/champions-data.service';
 import { ChampionsObject } from '../../interfaces/champions.interface';
 import { ChampionCard } from '../../interfaces/champion-card.interface';
 import { ChampionFilter } from '../../interfaces/champion-filter.interface';
+import { RouterModule } from '@angular/router';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { ButtonComponent } from '../../components/button/button.component';
+import { CardComponent } from '../../components/card/card.component';
 
 @Component({
   selector: 'app-champions',
   templateUrl: './champions.component.html',
   styleUrls: ['./champions.component.scss'],
+  standalone: true,
+  imports: [
+    NgClass,
+    NgIf,
+    NgFor,
+    ReactiveFormsModule,
+    RouterModule,
+    LoadingComponent,
+    ButtonComponent,
+    CardComponent,
+  ],
   animations: [
     titleAnimation,
   ]
@@ -38,25 +54,18 @@ export class ChampionsComponent implements OnInit, OnDestroy {
   activeFocusSearcherInput = signal<boolean>(false);
 
   // FORMS CONTROL
-  championsSearcherControl: UntypedFormControl;
+  championsSearcherControl = new FormControl<string>('', {nonNullable: true});
 
-  championsRolesControl: UntypedFormControl;
+  championsRolesControl = new FormControl<string>('', {nonNullable: true});
 
-  levelsControl: UntypedFormControl;
+  levelsControl = new FormControl<boolean>(false, {nonNullable: true});
   // END FORMS CONTROL
+
+  private championsDataService = inject(ChampionsDataService);
 
   // SUBSCRIBERS
     subscription = new Subscription();
   // END SUBSCRIBERS
-
-  constructor(
-    private championsDataService: ChampionsDataService,
-  ) {
-    this.championsSearcherControl = new UntypedFormControl('');
-    this.levelsControl = new UntypedFormControl(false);
-    this.championsRolesControl = new UntypedFormControl('');
-    
-  };
 
   ngOnInit(): void {
     this.championsSearcherControlFunction();
@@ -124,7 +133,7 @@ export class ChampionsComponent implements OnInit, OnDestroy {
     this.idChamp.set(id);
     this.champsFilter(this.idChamp(), this.championsRolesControl.value ,this.difficultChamp());
     const champion: ChampionCard | undefined = this._championsCards().find((ch: ChampionCard) => ch.id === id)
-    this.championsSearcherControl.setValue(champion?.name);
+    this.championsSearcherControl.setValue(champion?.name || '');
     let filter = {field: 'nombre', value: this.championsSearcherControl.value};
     let index = this.filters().findIndex((element: any) => element.field === filter.field);
     if(index === -1) {
@@ -170,13 +179,13 @@ export class ChampionsComponent implements OnInit, OnDestroy {
   blurSearcher(): void {
     setTimeout(() => this.activeFocusSearcherInput.set(false), 90);
   };
+
   blurDifficulty(): void {
     setTimeout(() => this.levelsControl.setValue(false), 90);
   };
   // END BLUR INPUTS
 
   // ARRAY FILTERS
-
   filterArrayById(array: ChampionCard[], id: string): ChampionCard[] {
     return array.filter((element) => element.id === id);
   };
@@ -195,7 +204,6 @@ export class ChampionsComponent implements OnInit, OnDestroy {
     })
     return championsCards;
   };
-
   // END ARRAY FILTERS
 
   // RESET FILTERS

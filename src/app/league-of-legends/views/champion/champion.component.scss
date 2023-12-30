@@ -1,9 +1,9 @@
-@import "swiper/css";
-@import "swiper/css/navigation";
-@import "swiper/css/thumbs";
-@import "swiper/css/pagination";
-@import 'mixins';
-@import 'variables';
+@use "swiper/css";
+@use "swiper/css/navigation";
+@use "swiper/css/thumbs";
+@use "swiper/css/pagination";
+@use 'mixins' as mix;
+@use 'variables' as var;
 
 
 .champion {
@@ -11,7 +11,7 @@
         position: relative;
         width: 100%;
         height: calc(100vh - 8rem);
-        background-color: $c-dark;
+        background-color: var.$c-dark;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -35,7 +35,7 @@
                 content: '';
                 width: 100%;
                 height: 102%;
-                background: linear-gradient(transparent 0%, transparent 25%, transparent 50%, rgba($c-dark, .5) 75%, rgba($c-dark, .7) 90%, rgba($c-dark, 1));
+                background: linear-gradient(transparent 0%, transparent 25%, transparent 50%, rgba(var.$c-dark, .5) 75%, rgba(var.$c-dark, .7) 90%, rgba(var.$c-dark, 1));
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -44,7 +44,7 @@
             & img {
                 vertical-align: top;
                 width: 100%;
-                box-shadow: 12px 29px 81px 0px rgba($c-dark,0.75);
+                box-shadow: 12px 29px 81px 0px rgba(var.$c-dark,0.75);
             }
             
             &__text {
@@ -53,7 +53,7 @@
                 top: 80%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                color: $c-light;
+                color: var.$c-light;
                 text-align: center;
                 text-transform: uppercase;
             }
@@ -64,12 +64,12 @@
     }
 
     &__description, &__skills, &__skins {
-        @include css-grid(0);
+        @include mix.css-grid(0);
     }
 
     &__description {
         padding: 10rem 0;
-        background-color: $c-dark;
+        background-color: var.$c-dark;
 
 
         &__header {
@@ -81,7 +81,7 @@
                 margin: 0 auto;
                 width: 8%;
                 padding-top: 8%;
-                border: .2rem solid $c-primary;
+                border: .2rem solid var.$c-primary;
                 position: relative;
                 margin-bottom: 10rem;
 
@@ -108,7 +108,7 @@
 
             &__text {
                 width: 60%;
-                color: $c-light;
+                color: var.$c-light;
                 
                 & > * {
                     margin-bottom: 3rem;
@@ -122,7 +122,7 @@
 
                     & p {
                         font-size: 1.6rem;
-                        color: $c-gray-dark;
+                        color: var.$c-gray-dark;
                         margin-bottom: 1.6rem;
                     }
                 }
@@ -136,19 +136,11 @@
                         &__chip {
                             border-radius: 2rem;
                             padding: 1rem 1.5rem;
-                            background-color: $c-primary;
+                            background-color: var.$c-primary;
                             margin-right: 2rem;
                             font-size: 1.6rem;
                         }
                     }
-                }
-
-                &__history {
-
-                }
-
-                &__allyTips {
-
                 }
 
                 &__enemyTips {
@@ -169,7 +161,7 @@
     }
 
     &__skills {
-        color: $c-primary-light;
+        color: var.$c-primary-light;
         padding: 6rem 0;
         
         &__container {
@@ -254,18 +246,18 @@
             }
 
             &__description::-webkit-scrollbar {
-                background-color: $c-gray;
+                background-color: var.$c-gray;
                 border-radius: 1rem;
                 width: 1rem;
             }
 
             &__description::-webkit-scrollbar-thumb {
-                background-color: $c-primary-light;
+                background-color: var.$c-primary-light;
                 border-radius: 1rem;
 
             }
             &__description::-webkit-scrollbar-thumb {
-                background-color: $c-primary-light;
+                background-color: var.$c-primary-light;
                 border-radius: 1rem;
 
             }
@@ -280,7 +272,7 @@
                 padding-right: 1rem;
                 overflow-y: auto;
                 scrollbar-width: thin;
-                scrollbar-color: $c-primary-light $c-gray;
+                scrollbar-color: var.$c-primary-light var.$c-gray;
                 transition: all ease 1s;
 
                 &__skill {
@@ -301,7 +293,7 @@
     }
 
     &__skins {
-        background-color: $c-dark;
+        background-color: var.$c-dark;
         padding: 6rem 0;
 
         &__title {
@@ -309,7 +301,7 @@
             grid-row: 1 / 2;
             
             & h2 {
-                color: $c-light;
+                color: var.$c-light;
                 margin-bottom: 3rem;
             }
         }
@@ -329,7 +321,7 @@
                     top: 0;
                     left: 0;
                     width: fit-content;
-                    background-color: rgba($c-dark, .6);
+                    background-color: rgba(var.$c-dark, .6);
                     backdrop-filter: blur(.5rem);
                     padding: 1.5% 6%;
                     display: flex;
@@ -337,7 +329,7 @@
                     align-items: center;
 
                     & h4 {
-                        color: $c-light;
+                        color: var.$c-light;
                         text-transform: uppercase;
                     }
                 }
@@ -360,7 +352,7 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                background-color: $c-dark;
+                background-color: var.$c-dark;
                 width: 100%;
                 height: 10rem;
             }
@@ -402,11 +394,11 @@
 }
 .swiper-pagination-bullet {
     opacity: 1;
-    background-color: $c-gray-dark;
+    background-color: var.$c-gray-dark;
 }
 
 .swiper-pagination-bullet-active {
-    background-color: $c-primary;
+    background-color: var.$c-primary;
 }
 
 .mySwiper .swiper-slide {

@@ -1,5 +1,5 @@
-@import 'variables';
-@import 'animations';
+@use 'variables' as var;
+@use 'animations';
 
 
 .loading {
@@ -10,7 +10,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: $c-light; 
+    background-color: var.$c-light; 
     z-index: 2000;
     justify-content: center;
     align-items: center;
@@ -46,7 +46,7 @@
                 width: 0;
                 height: 0;
                 border-radius: 50%;
-                background-color: $c-yellow;
+                background-color: var.$c-yellow;
                 animation: rotateAppear 1s linear infinite;
                 animation-delay: calc(.05s * var(--i));
             }

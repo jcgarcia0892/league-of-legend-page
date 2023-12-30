@@ -1,11 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ChampionCard } from '../../interfaces/champion-card.interface';
+import { NoImageDirective } from '../../directives/noImage/no-image.directive';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
+  standalone: true,
+  imports: [
+    RouterModule,
+    NoImageDirective,
+  ]
 })
 export class CardComponent {
   @Input() championCard!: ChampionCard;

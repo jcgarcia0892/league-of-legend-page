@@ -1,11 +1,11 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables'as var;
+@use 'mixins' as mix;
 
 footer {
-    @include css-grid(0 0 0 0);
+    @include mix.css-grid(0 0 0 0);
     height: 8rem;
     width: 100%;
-    background-color: $c-primary;
+    background-color: var.$c-primary;
     position: relative;
     bottom: 0;
     left: 0;
@@ -17,6 +17,6 @@ footer {
         align-items: center;
         justify-content: center;
         font-size: 1.6rem;
-        color: $c-light;
+        color: var.$c-light;
     }
 }

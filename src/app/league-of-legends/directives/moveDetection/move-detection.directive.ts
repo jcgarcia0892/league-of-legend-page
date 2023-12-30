@@ -5,7 +5,8 @@ import { AnimationsService } from '../../services/animations.service';
 @Component({
   selector: '[appMoveDetection]',
   animations: [followingMouseXAnimation],
-  template: '<ng-content></ng-content>'
+  template: '<ng-content></ng-content>',
+  standalone: true,
 })
 export class MoveDetectionDirective {
 

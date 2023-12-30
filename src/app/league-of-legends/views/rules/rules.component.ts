@@ -3,11 +3,25 @@ import { RulesInfo } from '../../interfaces/rulesInfo.interface';
 import { PowerInfo } from '../../interfaces/powersInfo.interface';
 import * as rules from './../../../../assets/json/rulesInfo.json';
 import * as powers from './../../../../assets/json/powersInfo.json';
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { ButtonComponent } from '../../components/button/button.component';
+import { TitleAppearsDirective } from '../../directives/titleAppears/title-appears.directive';
 
 @Component({
   selector: 'app-rules',
   templateUrl: './rules.component.html',
-  styleUrls: ['./rules.component.scss']
+  styleUrls: ['./rules.component.scss'],
+  standalone: true,
+  imports: [
+    NgClass,
+    NgIf,
+    NgFor,
+    NgStyle,
+    LoadingComponent,
+    ButtonComponent,
+    TitleAppearsDirective,
+  ],
 })
 export class RulesComponent implements OnInit, AfterViewInit {
   @ViewChild('rulesVideo') rulesVideo!: ElementRef;

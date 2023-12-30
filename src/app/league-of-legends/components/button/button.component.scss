@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as var;
 
 
 .btn-base {
@@ -29,24 +29,24 @@
 }
 
 .btn--primary {
-    background-color: $c-primary;
-    color: $c-light;
+    background-color: var.$c-primary;
+    color: var.$c-light;
     transition: background-color .3s ease;
 };
 
 .btn--secondary {
-    border: .1rem solid $c-primary;
-    background-color: $c-light;
-    color: $c-primary-light;
+    border: .1rem solid var.$c-primary;
+    background-color: var.$c-light;
+    color: var.$c-primary-light;
     transition: background-color .3s ease;
 }
 
 .btn--primary:hover {
-    background-color: $c-primary-dark;
+    background-color: var.$c-primary-dark;
 }
 
 .btn--secondary:hover {
-    background-color: $c-gray;
+    background-color: var.$c-gray;
 }
 
 .btn-no--border {

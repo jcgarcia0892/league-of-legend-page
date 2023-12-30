@@ -5,7 +5,8 @@ import { AnimationsService } from '../../services/animations.service';
 @Component({
   selector: '[appTitleAppears]',
   template: '<ng-content></ng-content>',
-  animations: [titleAnimation]
+  animations: [titleAnimation],
+  standalone: true,
 })
 export class TitleAppearsDirective implements AfterViewInit {
   scrollPositionY!: number;

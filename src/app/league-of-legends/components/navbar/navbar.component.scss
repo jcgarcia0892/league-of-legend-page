@@ -1,11 +1,11 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as var;
+@use 'mixins' as mix;
 
 .navbar {
-    @include css-grid(0 0 0 0);
+    @include mix.css-grid(0 0 0 0);
     width: 100%;
     height: 8rem;
-    background-color: $c-primary;
+    background-color: var.$c-primary;
     box-shadow: 0 3px 6px rgba(0,0,0, .3);
     padding: 1rem 0;
     position: fixed;
@@ -28,7 +28,7 @@
             & a {
                 margin-right: 5rem;
                 font-size: 20px;
-                color: $c-gray-dark;
+                color: var.$c-gray-dark;
                 cursor: pointer;
                 text-decoration: none;
                 transition: all .6s ease;
@@ -41,7 +41,7 @@
     
         &__icon {
             cursor: pointer;
-            color: $c-light;
+            color: var.$c-light;
             & i {
                 font-size: 3.2rem;
             }
@@ -53,7 +53,7 @@
             right: 0;
             width: 90%;
             height: calc(100vh - 8rem);
-            background-color: $c-primary-light;
+            background-color: var.$c-primary-light;
             transform: translateX(100%);
             z-index: 9999;
             transition: all .6s ease;
@@ -62,16 +62,16 @@
                 width: 100%;
                 padding: 2rem;
                 list-style: none;
-                border-bottom: .1rem solid $c-gray;
+                border-bottom: .1rem solid var.$c-gray;
                 cursor: pointer;
                 & p {
-                    color: $c-gray-dark;
+                    color: var.$c-gray-dark;
                     font-size: 3.2rem;
                 }
             }
     
             & li:hover {
-                background-color: $c-primary;
+                background-color: var.$c-primary;
             }
         }
     }
@@ -79,7 +79,7 @@
 }
 
 .active-link {
-    color: $c-light !important;
+    color: var.$c-light !important;
 }
 
 

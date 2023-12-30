@@ -1,16 +1,20 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation, inject, signal } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+
 import { fadeAnimation } from '../../animations/fade-in-animation';
 import { ChampionsDataService } from '../../services/champions-data.service';
+import { Champion, Skill } from '../../interfaces/champion.interface';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, Swiper, Thumbs } from "swiper";
-import { Subscription } from 'rxjs';
-import { Champion, Skill } from '../../interfaces/champion.interface';
-import { RoleName } from '../../interfaces/roles.interface';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { SwiperModule } from 'swiper/angular';
+
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs, Pagination]);
@@ -19,6 +23,16 @@ SwiperCore.use([Navigation, Thumbs, Pagination]);
   selector: 'app-champion',
   templateUrl: './champion.component.html',
   styleUrls: ['./champion.component.scss'],
+  standalone: true,
+  imports: [
+    NgClass,
+    NgFor,
+    NgIf,
+    ReactiveFormsModule,
+    RouterModule,
+    SwiperModule,
+    LoadingComponent,
+  ],
   animations: [
     trigger('fadeAnimation', [
       transition("* <=> *", useAnimation(fadeAnimation, {
@@ -35,7 +49,7 @@ SwiperCore.use([Navigation, Thumbs, Pagination]);
 export class ChampionComponent implements OnInit, OnDestroy {
   @ViewChild('skillSelectedHtml') skillSelectedHtml!: ElementRef;
 
-  skillsControl = new UntypedFormControl('');;
+  skillsControl = new FormControl<string>('', {nonNullable: true});
 
   champion = signal<Champion | undefined>(undefined);
 
@@ -67,7 +81,6 @@ export class ChampionComponent implements OnInit, OnDestroy {
           const skills = [];
           const rolArray = [];
           for(let rol of data[this.idChamp()].tags) {
-            console.log(rol);
             rolArray.push(this.translateRol(rol));
           }
           skills.push(this.mapSkills(data[this.idChamp()].passive, version));

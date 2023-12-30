@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appNoImage]'
+  selector: '[appNoImage]',
+  standalone: true,
 })
 export class NoImageDirective {
 

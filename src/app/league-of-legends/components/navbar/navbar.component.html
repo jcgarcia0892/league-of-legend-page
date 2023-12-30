@@ -3,7 +3,7 @@
         <a class="navbar__container__img" routerLink="/main/home">
             <img src="assets/images/mini-logo.svg" alt="mini_logo">
         </a>
-        <div class="navbar__container__text" *ngIf="screenWidth > 700">
+        <div class="navbar__container__text" *ngIf="screenWidth() > 700">
             <a  routerLink="/main/home"
                 routerLinkActive="active-link">INICIO</a>
             <a  routerLink="/main/champions"
@@ -11,12 +11,13 @@
             <a  routerLink="/main/rules"
                 routerLinkActive="active-link">EXPLORAR</a>
         </div>
+        @if (screenWidth() < 700) {
+            <div class="navbar__container__icon">
+                <i class="material-icons" (click)="isOpenMenu.set(!isOpenMenu)">menu</i>
+            </div>
+        }
     
-        <div class="navbar__container__icon" *ngIf="screenWidth < 700">
-            <i class="material-icons" (click)="isOpenMenu = !isOpenMenu">menu</i>
-        </div>
-    
-        <ul class="navbar__container__links" [ngClass]="{'translateX': isOpenMenu}">
+        <ul class="navbar__container__links" [ngClass]="{'translateX': isOpenMenu()}">
             <li (click)="goTo('home')">
                 <p [class.active-link]="router.url === '/main/home'">INICIO</p>
             </li>

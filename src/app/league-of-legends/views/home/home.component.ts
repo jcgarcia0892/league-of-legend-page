@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, computed, inject, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { fadeInAnimation } from '../../animations/fade-in-animation';
 import { translateAnimation } from '../../animations/translate-animation';
@@ -8,7 +8,8 @@ import * as data from './../../../../assets/json/roles.json';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { RoleBoxComponent } from '../../components/role-box/role-box.component';
-import { JsonPipe } from '@angular/common';
+import { MoveDetectionDirective } from '../../directives/moveDetection/move-detection.directive';
+import { TitleAppearsDirective } from '../../directives/titleAppears/title-appears.directive';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,8 @@ import { JsonPipe } from '@angular/common';
     LoadingComponent,
     RoleBoxComponent,
     ReactiveFormsModule,
+    MoveDetectionDirective,
+    TitleAppearsDirective,
   ],
   animations: [
     translateAnimation,
@@ -47,7 +50,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   
   rolesArray = signal<Role[]>((data as any).default);
   
-  rolSelectionControl = new UntypedFormControl(this.rolesArray()[0].roleName);
+  rolSelectionControl = new FormControl<RoleName>(this.rolesArray()[0].roleName, {nonNullable: true});
 
   videoPaths = signal<string[]>(['caitlyn', 'kaisa', 'sylas-entrace', 'sylas']);
   

@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./league-of-legends/league-of-legends.module').then(m => m.LeagueOfLegendsModule),
+    loadChildren: () => import('./league-of-legends/league-of-legends-routing.module').then(m => m.LeagueOfLegendsRoutingModule),
   }
 ];
 

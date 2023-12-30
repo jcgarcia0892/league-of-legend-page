@@ -1,16 +1,16 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as var;
+@use 'mixins' as mix;
 
 
 .findChamps {
-    @include css-grid;
+    @include mix.css-grid;
 
     &__title {
         text-align: center;
         grid-row: 1 / 2;
         grid-column: content-start / content-end;
         margin-bottom: 6rem;
-        color: $c-primary-light;
+        color: var.$c-primary-light;
 
         h4 {
             width: 50%;
@@ -23,7 +23,7 @@
         grid-column: content-start / content-end;
 
         &__navbar {
-            color: $c-primary-light;
+            color: var.$c-primary-light;
             font-size: 1.6rem;
             width: 100%;
             display: flex;
@@ -40,7 +40,7 @@
 
             &__search {
                 width: 20%;
-                border: 1px solid $c-gray;
+                border: 1px solid var.$c-gray;
                 position: relative;
 
                 &__button {
@@ -58,10 +58,10 @@
                     height: auto;
                     max-height: 30rem;
                     width: 101%;
-                    box-shadow: .1rem .1rem .3rem $c-gray-dark;
+                    box-shadow: .1rem .1rem .3rem var.$c-gray-dark;
                     overflow-y: scroll;
                     text-transform: uppercase;
-                    background-color: $c-light;
+                    background-color: var.$c-light;
                     z-index: -12;
                     opacity: 0;
                     transition: all .3s ease;
@@ -75,7 +75,7 @@
                         }
 
                         & li:hover {
-                            background-color: $c-gray;
+                            background-color: var.$c-gray;
                         }
                     }
                 }
@@ -83,14 +83,14 @@
 
             &__filters {
                 width: 60%;
-                border-top: 1px solid $c-gray;
-                border-bottom: 1px solid $c-gray;
+                border-top: 1px solid var.$c-gray;
+                border-bottom: 1px solid var.$c-gray;
 
                 &__lists {
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: center;
-                    color: $c-primary-light;
+                    color: var.$c-primary-light;
                     list-style: none;
                     width: 100%;
 
@@ -122,7 +122,7 @@
                                 position: absolute;
                                 bottom: 0;
                                 left: 0;
-                                background-color: $c-primary-light;
+                                background-color: var.$c-primary-light;
                                 transform: scale(0);
                                 transition: all .3s ease;
 
@@ -141,7 +141,7 @@
 
             &__levels {
                 width: 20%;
-                border: 1px solid $c-gray;
+                border: 1px solid var.$c-gray;
                 position: relative;
 
                 & input[type=checkbox] {
@@ -184,10 +184,10 @@
                 &__container {
                     width: 100%;
                     position: absolute;
-                    background-color: $c-light;
+                    background-color: var.$c-light;
                     top: 100%;
                     left: 0;
-                    box-shadow: .1rem .1rem .3rem $c-gray-dark;
+                    box-shadow: .1rem .1rem .3rem var.$c-gray-dark;
                     z-index: -10;
                     opacity: 0;
                     transition: all .3s ease;
@@ -204,13 +204,13 @@
                         cursor: pointer;
 
                         &:hover {
-                            background-color: $c-gray;
+                            background-color: var.$c-gray;
                         }
 
                         &__item {
                             width: 8%;
                             height: 1.5rem;
-                            background-color: $c-gray-dark;
+                            background-color: var.$c-gray-dark;
                             margin-left: 1%;
                         }
                     }
@@ -235,7 +235,7 @@
                 align-items: center;
                 margin-bottom: 1rem;
                 &__title {
-                    color:$c-primary-light;
+                    color:var.$c-primary-light;
                     margin-right: 2rem;
                     text-transform: uppercase;
                 }
@@ -247,10 +247,10 @@
                 align-items: center;
                 border-radius: 2rem;
                 padding: 1rem 1.5rem;
-                background-color: $c-primary;
+                background-color: var.$c-primary;
                 margin-right: 2rem;
                 font-size: 1.6rem;
-                color: $c-light;
+                color: var.$c-light;
                 text-transform: uppercase;
 
                 & i {
@@ -291,7 +291,7 @@
 
                 &__title {
                     width: 100%;
-                    color: $c-primary-light;
+                    color: var.$c-primary-light;
                     margin-bottom: 3rem;
 
                     & h3 {
@@ -339,7 +339,7 @@
 
     & input[type=text] {
        border: none;
-       color: $c-primary-light;
+       color: var.$c-primary-light;
        width: 100%;
        padding: 2rem 6rem;
        font-size: 16px;
@@ -349,7 +349,7 @@
     }
 
     & input[type=text]::placeholder {
-        color: $c-primary-light;
+        color: var.$c-primary-light;
     }
 
     & input[type=text]:focus {
@@ -371,12 +371,12 @@
 
 // HELPERS
 .bg-blue {
-    background-color: $c-primary;
+    background-color: var.$c-primary;
 
 }
 
 .bg-gray {
-    background-color: $c-primary-light !important;
+    background-color: var.$c-primary-light !important;
 }
 
 .fadeIn {
@@ -406,7 +406,7 @@
                 &__filters {
                     width: 100%;
                     order: -1;
-                    border: 1px solid $c-gray;
+                    border: 1px solid var.$c-gray;
                 }
 
                 &__levels {

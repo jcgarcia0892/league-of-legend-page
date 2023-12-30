@@ -124,16 +124,19 @@
       <swiper
         style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
         [spaceBetween]="10"
+        [slidesPerView]="1"
         [thumbs]="{ swiper: thumbsSwiper }"
         class="mySwiper2"
       >
         @for (skin of champion()?.skins; track $index) {
-          <div class="champion__skins__thumbs__container">
-            <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp()}}_{{skin.num}}.jpg" />
-            <div class="champion__skins__thumbs__container__title">
-              <h4>{{(skin.name === 'default') ? champion()?.name : skin.name}}</h4>
+          <ng-template swiperSlide>
+            <div class="champion__skins__thumbs__container">
+              <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp()}}_{{skin.num}}.jpg" />
+              <div class="champion__skins__thumbs__container__title">
+                <h4>{{(skin.name === 'default') ? champion()?.name : skin.name}}</h4>
+              </div>
             </div>
-          </div>
+          </ng-template>
         }
       </swiper>
     </div>

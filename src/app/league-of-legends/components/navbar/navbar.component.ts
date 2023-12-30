@@ -1,25 +1,30 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NgClass, NgIf } from '@angular/common';
+import { AfterViewInit, Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
+  standalone: true,
+  imports: [NgClass, NgIf, RouterModule],
 })
 export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit{
-  eventObs!: Subscription;
-  isOpenMenu: boolean = false;
-  screenWidth: number;
+  subscription = new Subscription();
+  
+  isOpenMenu = signal<boolean>(false);
+
+  screenWidth = signal<number>(0);
   constructor(
     public router: Router
   ) {
-    this.screenWidth = document.body.clientWidth;
+    this.screenWidth.set(document.body.clientWidth);
   }
 
   ngOnInit(): void {
-    this.eventObs = fromEvent(window, 'resize').subscribe((event: Event) => {
-      this.screenWidth = (event.target as Window).document.body.clientWidth;
+    this.subscription = fromEvent(window, 'resize').subscribe((event: Event) => {
+      this.screenWidth.set((event.target as Window).document.body.clientWidth);
     });
   }
 
@@ -27,12 +32,12 @@ export class NavbarComponent implements OnInit, OnDestroy, AfterViewInit{
   }
 
   ngOnDestroy(): void {
-    this.eventObs.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   goTo(path: string): void {
     this.router.navigate([`/main/${path}`]);
-    this.isOpenMenu = false;
+    this.isOpenMenu.set(false);
   }
 
 }
