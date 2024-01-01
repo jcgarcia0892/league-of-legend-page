@@ -1,0 +1,39 @@
+<div class="app-swiper-skin__thumbs">
+    <swiper
+      style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
+      [spaceBetween]="10"
+      [slidesPerView]="1"
+      [thumbs]="{ swiper: thumbsSwiper }"
+      class="mySwiper2"
+    >
+      @for (skin of skins; track $index) {
+        <ng-template swiperSlide>
+          <div class="app-swiper-skin__thumbs__container">
+            <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp}}_{{skin.num}}.jpg" />
+            <div class="app-swiper-skin__thumbs__container__title">
+              <h4>{{(skin.name === 'default') ? name : skin.name}}</h4>
+            </div>
+          </div>
+        </ng-template>
+      }
+    </swiper>
+  </div>
+  <div class="app-swiper-skin__slides">
+    <swiper
+      style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
+      (swiper)="thumbsSwiper = $event"
+      [spaceBetween]="10"
+      [slidesPerView]="(skins.length || 3 > 2) ? 3 : skins.length"
+      [freeMode]="true"
+      [navigation]="true"
+      [pagination]="{clickable: true}"
+      [watchSlidesProgress]="true"
+      class="mySwiper"
+  >
+    @for (skin of skins; track $index) {
+      <ng-template swiperSlide>
+        <img class="app-swiper-skin__slides__img" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp}}_{{skin.num}}.jpg"/>
+      </ng-template>
+    }
+  </swiper>
+  </div>

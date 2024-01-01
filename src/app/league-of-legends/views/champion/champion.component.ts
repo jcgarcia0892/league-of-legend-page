@@ -14,6 +14,8 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 import SwiperCore, { Navigation, Pagination, Swiper, Thumbs } from "swiper";
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
+import { SkillSelectionComponent } from '../../components/skill-selection/skill-selection.component';
+import { SwiperSkinComponent } from '../../components/swiper-skin/swiper-skin.component';
 
 
 // install Swiper modules
@@ -32,6 +34,8 @@ SwiperCore.use([Navigation, Thumbs, Pagination]);
     RouterModule,
     SwiperModule,
     LoadingComponent,
+    SkillSelectionComponent,
+    SwiperSkinComponent,
   ],
   animations: [
     trigger('fadeAnimation', [
@@ -62,8 +66,6 @@ export class ChampionComponent implements OnInit, OnDestroy {
   loading = signal<boolean>(false);
 
   baseUrl: string = 'https://ddragon.leagueoflegends.com/cdn';
-
-  thumbsSwiper!: Swiper;  
 
   private acRoute = inject(ActivatedRoute);
 

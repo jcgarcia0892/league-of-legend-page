@@ -1,0 +1,20 @@
+<input
+  type="radio"
+  [name]="name"
+  [id]="skill.name"
+  [value]="value || skill.name"
+  (input)="changeValue(skill.name)"
+  [checked]="value === skill.name"
+/>
+<label [for]="skill.name" class="app-skill-selection__label">
+  <img
+    [src]="skill.img"
+    [alt]="altSkillImage()"
+  />
+</label>
+<img
+  class="app-skill-selection__img"
+  [ngClass]="{ 'op-1': skill.checked }"
+  src="assets/images/skills-selector.svg"
+  alt="skill selector image"
+/>

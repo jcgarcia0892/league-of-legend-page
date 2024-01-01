@@ -76,33 +76,12 @@
         <h2>HABILIDADES</h2>
         <div class="champion__skills__container__imgs__assets">
           @for (skill of champion()?.skills; track $index) {
-            <div>
-              <input
-                type="radio"
-                name="championSkills"
-                [formControl]="skillsControl"
-                [id]="skill.name"
-                [value]="skill.name"
-              />
-              <label [for]="skill.name">
-                <img
-                  class="champion__skills__container__imgs__assets__img"
-                  [src]="skill?.img"
-                  alt=""
-                />
-              </label>
-              <img
-                class="champion__skills__container__imgs__assets__selector"
-                [ngClass]="{ 'op-1': skill.checked }"
-                src="assets/images/skills-selector.svg"
-                alt=""
-              />
-            </div>
+            <app-skill-selection name="championSkills" [skill]="skill" [formControl]="skillsControl" />
           }
         </div>
       </div>
       <div class="champion__skills__container__logo">
-        <img src="assets/images/skills-symbol.svg" alt="" />
+        <img src="assets/images/skills-symbol.svg" alt="skill symbol image" />
       </div>
       <div
         class="champion__skills__container__description"
@@ -120,45 +99,7 @@
     <div class="champion__skins__title">
       <h2>ASPECTOS DISPONIBLES</h2>
     </div>
-    <div class="champion__skins__thumbs">
-      <swiper
-        style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
-        [spaceBetween]="10"
-        [slidesPerView]="1"
-        [thumbs]="{ swiper: thumbsSwiper }"
-        class="mySwiper2"
-      >
-        @for (skin of champion()?.skins; track $index) {
-          <ng-template swiperSlide>
-            <div class="champion__skins__thumbs__container">
-              <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp()}}_{{skin.num}}.jpg" />
-              <div class="champion__skins__thumbs__container__title">
-                <h4>{{(skin.name === 'default') ? champion()?.name : skin.name}}</h4>
-              </div>
-            </div>
-          </ng-template>
-        }
-      </swiper>
-    </div>
-    <div class="champion__skins__slides">
-      <swiper
-        style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
-        (swiper)="thumbsSwiper = $event"
-        [spaceBetween]="10"
-        [slidesPerView]="(champion()?.skins?.length || 3 > 2) ? 3 : champion()?.skins?.length"
-        [freeMode]="true"
-        [navigation]="true"
-        [pagination]="{clickable: true}"
-        [watchSlidesProgress]="true"
-        class="mySwiper"
-    >
-      @for (skin of champion()?.skins; track $index) {
-        <ng-template swiperSlide>
-          <img class="champion__skins__slides__img" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{idChamp()}}_{{skin.num}}.jpg"/>
-        </ng-template>
-      }
-    </swiper>
-    </div>
+    <app-swiper-skin [name]="champion()?.name || ''" [idChamp]="idChamp()" [skins]="champion()?.skins || []" />
   </div>
 </section>
 
