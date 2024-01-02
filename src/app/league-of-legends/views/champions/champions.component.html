@@ -112,11 +112,14 @@
                 <div class="findChamps__body__chips__filters">
                     <h3 class="findChamps__body__chips__filters__title">Filtros:</h3>
                     <div class="findChamps__body__chips__filters__button">
-                        <app-button
-                        [text]="(filters().length <= 1) ? 'Limpiar filtro' : 'Limpiar filtros'"
-                        size="btn--normal"
-                        [type]="'btn--secondary'"
-                        (click)="cleanFilters()"></app-button>
+                        <button
+                            app-button
+                            size="btn--normal"
+                            type="btn--secondary"
+                            (click)="cleanFilters()"
+                        >
+                            {{(filters().length <= 1) ? 'Limpiar filtro' : 'Limpiar filtros'}}
+                        </button>
                     </div>
                 </div>
                 @for (filter of filters(); track $index) {
@@ -153,11 +156,14 @@
                         </div>
                     }
                     <div class="findChamps__body__cards__error__button">
-                        <app-button
-                            text="Más campeones"
+                        <button
+                            app-button
                             size="btn--normal"
                             type="btn--primary"
-                            (click)="pushingRandomChampions()"></app-button>
+                            (click)="pushingRandomChampions()"
+                        >
+                            Más campeones
+                        </button>
                     
                     </div>
                 </div>

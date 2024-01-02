@@ -1,54 +1,59 @@
 @use 'variables' as var;
 
-
-.btn-base {
-    outline: none;
-    width: 100%;
-    border-radius: 1rem 1rem 0 0;
-    border: none;
-    font-family: 'Fira Sans', sans-serif;
-    cursor: pointer;
+.app-button {
+    &.btn-base {
+        outline: none;
+        width: 100%;
+        border-radius: 1rem 1rem 0 0;
+        border: none;
+        font-family: 'Fira Sans', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        
+    };
     
-};
+    &.btn--big {
+        padding: 5rem 2.5rem;
+        font-size:3.2rem;
+    
+    }
+    
+    &.btn--normal {
+        padding: 2.4rem 2rem;
+        font-size: 2rem;
+    }
+    
+    &.btn--small {
+        padding: 1.2rem .5rem;
+        font-size: 1.2rem;
+    
+    }
+    
+    &.btn--primary {
+        background-color: var.$c-primary;
+        color: var.$c-light;
+        transition: background-color .3s ease;
+    };
+    
+    &.btn--secondary {
+        border: .1rem solid var.$c-primary;
+        background-color: var.$c-light;
+        color: var.$c-primary-light;
+        transition: background-color .3s ease;
+    }
+    
+    &.btn--primary:hover {
+        background-color: var.$c-primary-dark;
+    }
+    
+    &.btn--secondary:hover {
+        background-color: var.$c-gray;
+    }
+    
+    &.btn-no--border {
+        border: none !important;
+    }
 
-.btn--big {
-    padding: 5rem 2.5rem;
-    font-size:3.2rem;
-
-}
-
-.btn--normal {
-    padding: 2.4rem 2rem;
-    font-size: 2rem;
-}
-
-.btn--small {
-    padding: 1.2rem .5rem;
-    font-size: 1.2rem;
-
-}
-
-.btn--primary {
-    background-color: var.$c-primary;
-    color: var.$c-light;
-    transition: background-color .3s ease;
-};
-
-.btn--secondary {
-    border: .1rem solid var.$c-primary;
-    background-color: var.$c-light;
-    color: var.$c-primary-light;
-    transition: background-color .3s ease;
-}
-
-.btn--primary:hover {
-    background-color: var.$c-primary-dark;
-}
-
-.btn--secondary:hover {
-    background-color: var.$c-gray;
-}
-
-.btn-no--border {
-    border: none !important;
 }

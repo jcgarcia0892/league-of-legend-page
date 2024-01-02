@@ -11,11 +11,13 @@
         <h2>BIENVENIDO A LA GRIETA DEL INVOCADOR</h2>
         <h1>APRENDE LO BÁSICO PARA JUGAR</h1>
         <div class="main__center__button">
-            <app-button
-                text="EMPEZAR EL RECORRIDO"
+            <button
+                app-button
                 size="btn--normal"
                 type="btn--primary"
-                (click)="scrollToRules()"></app-button>
+                (click)="scrollToRules()">
+                EMPEZAR EL RECORRIDO
+            </button>
         </div>
     </div>
 </main>
@@ -41,21 +43,28 @@
                         </ul>
                         <div class="rules__container__left__item__card__buttons">
                             <div>
-                                <app-button
-                                icon="arrow_back_ios"
-                                size="btn--small"
-                                type="btn--secondary"
-                                [border]="'btn-no--border'"
-                                (click)="changeItemList(rule.header.subtitle, 'prev', rule.card.currentPageNumber)"></app-button>
+                                <button
+                                    app-button
+                                    icon="arrow_back_ios"
+                                    size="btn--small"
+                                    type="btn--secondary"
+                                    [border]="'btn-no--border'"
+                                    (click)="changeItemList(rule.header.subtitle, 'prev', rule.card.currentPageNumber)"
+                                >
+                                    <i class="material-icons">arrow_back_ios</i>
+                                </button>
                             </div>
     
                             <div>
-                                <app-button
-                                icon="arrow_forward_ios"
+                                <button
+                                app-button
                                 size="btn--small"
                                 type="btn--secondary"
                                 [border]="'btn-no--border'"
-                                (click)="changeItemList(rule.header.subtitle, 'next', rule.card.currentPageNumber)"></app-button>
+                                (click)="changeItemList(rule.header.subtitle, 'next', rule.card.currentPageNumber)"
+                            >
+                                <i class="material-icons">arrow_forward_ios</i>
+                            </button>
                             </div>
     
                         </div>

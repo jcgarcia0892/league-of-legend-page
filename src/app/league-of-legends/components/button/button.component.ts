@@ -1,36 +1,31 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { ButtonBorder, ButtonClasses, ButtonSize, ButtonType } from '../../interfaces/button-interface';
 
 @Component({
-  selector: 'app-button',
+  selector: 'button[app-button]',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   standalone: true,
   imports: [NgIf, NgClass],
-})
-export class ButtonComponent implements OnChanges {
-  @Input() text!: string
-
-  @Input() type!: 'btn--primary' | 'btn--secondary';
-
-  @Input() icon!: string | undefined;
-
-  @Input() size!: 'btn--big' | 'btn--normal' | 'btn--small';
-
-  @Input() border!: 'btn-no--border';
-
-  styles: string[] = []
-  
-  ngOnChanges(): void {
-    if(this.type !== undefined) {
-      this.styles.push(this.type);
-    };
-    if(this.size !== undefined) {
-      this.styles.push(this.size);
-    }
-    if(this.border !== undefined) {
-      this.styles.push(this.border);
-    }
-    
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    'class': 'app-button btn-base',
+    '[class]': 'buttonClasses'
   }
+})
+export class ButtonComponent {
+  @Input() set type(type: ButtonType) {
+    this.buttonClasses.push(type);
+  };
+
+  @Input() set size(size: ButtonSize) {
+    this.buttonClasses.push(size);
+  };
+
+  @Input() set border(border: ButtonBorder) {
+    this.buttonClasses.push(border);
+  };
+
+  buttonClasses: ButtonClasses = [];
 }

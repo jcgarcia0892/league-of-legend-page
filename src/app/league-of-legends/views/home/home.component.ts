@@ -85,10 +85,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const isPlaying = this.homeVideo.nativeElement.currentTime > 0 && !this.homeVideo.nativeElement.paused && !this.homeVideo.nativeElement.ended && this.homeVideo.nativeElement.readyState > this.homeVideo.nativeElement.HAVE_CURRENT_DATA
     if(!isPlaying) {
       this.homeVideo.nativeElement.muted = true;
-      this.homeVideo.nativeElement.play()
-      .then()
-      .catch()
-      .finally(() => this.loading.set(true));
+      this.homeVideo.nativeElement.play();
+      this.loading.set(true);
     }
   }
 
