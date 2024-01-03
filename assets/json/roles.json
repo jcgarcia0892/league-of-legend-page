@@ -1,31 +1,31 @@
 [
     {
-      "rol": "assassins",
+      "roleName": "asesinos",
       "name": "Akali",
       "nickName": "La Asesina Furtiva"
     },
     {
-      "rol": "fighters",
+      "roleName": "luchadores",
       "name": "Yasuo",
       "nickName": "El Imperdonable"
     },
     {
-      "rol": "mages",
+      "roleName": "magos",
       "name": "Lux",
       "nickName": "La Dama Luminosa"
     },
     {
-      "rol": "marksmen",
+      "roleName": "tiradores",
       "name": "Jink",
       "nickName": "La Bala Perdida"
     },
     {
-      "rol": "supports",
+      "roleName": "apoyos",
       "name": "Thresh",
       "nickName": "El Carcelero Implacable"
     },
     {
-      "rol": "tanks",
+      "roleName": "tanques",
       "name": "Leona",
       "nickName": "El Radiante Amanecer"
     }
