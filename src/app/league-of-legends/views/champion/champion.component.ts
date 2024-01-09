@@ -1,7 +1,7 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -11,11 +11,12 @@ import { Champion, Skill } from '../../interfaces/champion.interface';
 import { LoadingComponent } from '../../components/loading/loading.component';
 
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination, Swiper, Thumbs } from "swiper";
+import SwiperCore, { Navigation, Pagination, Thumbs } from "swiper";
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { SkillSelectionComponent } from '../../components/skill-selection/skill-selection.component';
 import { SwiperSkinComponent } from '../../components/swiper-skin/swiper-skin.component';
+import { ButtonComponent } from '../../components/button/button.component';
 
 
 // install Swiper modules
@@ -33,6 +34,7 @@ SwiperCore.use([Navigation, Thumbs, Pagination]);
     ReactiveFormsModule,
     RouterModule,
     SwiperModule,
+    ButtonComponent,
     LoadingComponent,
     SkillSelectionComponent,
     SwiperSkinComponent,
@@ -49,6 +51,9 @@ SwiperCore.use([Navigation, Thumbs, Pagination]);
     ])
   ],
   encapsulation: ViewEncapsulation.None,
+  host: {
+    'class': 'app-champion'
+  },
 })
 export class ChampionComponent implements OnInit, OnDestroy {
   @ViewChild('skillSelectedHtml') skillSelectedHtml!: ElementRef;
@@ -61,6 +66,8 @@ export class ChampionComponent implements OnInit, OnDestroy {
 
   fadeAnimation = signal<boolean>(true);
 
+  canFindChampion = signal<boolean>(false);
+
   subscription = new Subscription();
 
   loading = signal<boolean>(false);
@@ -70,6 +77,8 @@ export class ChampionComponent implements OnInit, OnDestroy {
   private acRoute = inject(ActivatedRoute);
 
   private championsDataService = inject(ChampionsDataService);
+
+  private router = inject(Router);
 
   ngOnInit(): void {
     const subscription = this.acRoute.params
@@ -101,11 +110,18 @@ export class ChampionComponent implements OnInit, OnDestroy {
         })
       )
 
-    .subscribe((champion: Champion) => {
-      this.champion.set(champion);
-      this.champion()!.skills[0].checked = true;
-      this.skillsControl.setValue(this.champion()!.skills[0].name);
-      this.loading.set(true);
+    .subscribe({
+      next: (champion: Champion) => {
+        this.champion.set(champion);
+        this.champion()!.skills[0].checked = true;
+        this.skillsControl.setValue(this.champion()!.skills[0].name);
+        this.loading.set(true);
+        this.canFindChampion.set(true);
+      },
+      error: () => {
+        this.canFindChampion.set(false);
+        this.loading.set(true);
+      }
     });
     this.subscription.add(subscription);
 
@@ -199,5 +215,9 @@ export class ChampionComponent implements OnInit, OnDestroy {
       imgSquare,
       imgLoading
     }
+  }
+
+  goTo(url: string): void {
+    this.router.navigate([url]);
   }
 }

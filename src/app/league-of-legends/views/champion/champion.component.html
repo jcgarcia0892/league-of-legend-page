@@ -1,106 +1,121 @@
 <section>
-  <app-loading [animationVar]="loading()"></app-loading>
+  <app-loading [animationVar]="loading()" />
 </section>
 
-<section class="champion">
-  <div class="champion__main">
-    <img class="champion__main__blur" [src]="champion()?.imgSplash" alt="" />
-    <div class="champion__main__presentation">
-      <img class="" [src]="champion()?.imgSplash" alt="" />
-      <div class="champion__main__presentation__text">
-        <h1>{{ champion()?.name }}</h1>
-        <h2>{{ champion()?.title }}</h2>
-      </div>
-    </div>
-  </div>
-
-  <div class="champion__description">
-    <div class="champion__description__header">
-      <div class="champion__description__header__img">
-        <img [src]="champion()?.imgSquare" alt="" />
-      </div>
-    </div>
-    <div class="champion__description__body">
-      <div class="champion__description__body__text">
-        <h2>INFORMACIÓN</h2>
-        <div class="champion__description__body__text__chips">
-          <h4>TIPO DE CAMPEÓN</h4>
-          <div class="champion__description__body__text__chips__container">
-            @for (rol of champion()?.rolArray; track $index) {
-              <div class="champion__description__body__text__chips__container__chip">
-                <span>{{ rol }}</span>
-              </div>
-            }
+@if (loading()) {
+  @if(canFindChampion()) {
+    <section class="champion">
+      <div class="champion__main">
+        <img class="champion__main__blur" [src]="champion()?.imgSplash" alt="" />
+        <div class="champion__main__presentation">
+          <img class="" [src]="champion()?.imgSplash" alt="" />
+          <div class="champion__main__presentation__text">
+            <h1>{{ champion()?.name }}</h1>
+            <h2>{{ champion()?.title }}</h2>
           </div>
         </div>
-        <div class="champion__description__body__text__history">
-          <h4>HISTORIA</h4>
-          <p>{{ champion()?.lore }}</p>
+      </div>
+    
+      <div class="champion__description">
+        <div class="champion__description__header">
+          <div class="champion__description__header__img">
+            <img [src]="champion()?.imgSquare" alt="" />
+          </div>
         </div>
-
-        <div class="champion__description__body__text__allyTips">
-          <h4>TIPS PARA USAR EL CAMPEÓN</h4>
-          @for(tip of champion()?.allytips; track $index) {
-            <p>{{ tip }}</p>
-          }
-          @if (champion()?.allytips?.length === 0) {
-            <p>
-              Nuestro expertos están trabajando para brindarte los mejor tips
-              cuando usas a este campeón en partida.
-            </p>
-          }
+        <div class="champion__description__body">
+          <div class="champion__description__body__text">
+            <h2>INFORMACIÓN</h2>
+            <div class="champion__description__body__text__chips">
+              <h4>TIPO DE CAMPEÓN</h4>
+              <div class="champion__description__body__text__chips__container">
+                @for (rol of champion()?.rolArray; track $index) {
+                  <div class="champion__description__body__text__chips__container__chip">
+                    <span>{{ rol }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+            <div class="champion__description__body__text__history">
+              <h4>HISTORIA</h4>
+              <p>{{ champion()?.lore }}</p>
+            </div>
+    
+            <div class="champion__description__body__text__allyTips">
+              <h4>TIPS PARA USAR EL CAMPEÓN</h4>
+              @for(tip of champion()?.allytips; track $index) {
+                <p>{{ tip }}</p>
+              }
+              @if (champion()?.allytips?.length === 0) {
+                <p>
+                  Nuestro expertos están trabajando para brindarte los mejor tips
+                  cuando usas a este campeón en partida.
+                </p>
+              }
+            </div>
+    
+            <div class="champion__description__body__text__enemyTips">
+              <h4>TIPS PARA DERROTAR EL CAMPEÓN</h4>
+              @for (tip of champion()?.enemytips; track $index) {
+                <p>{{ tip }}</p>
+              }
+              @if(champion()?.enemytips?.length === 0) {
+                <p>
+                  Nuestro expertos están trabajando para brindarte los mejor tips
+                  cuando estas en contra de este campeón en partida.
+                </p>
+              }
+            </div>
+          </div>
+          <div class="champion__description__body__img">
+            <img [src]="champion()?.imgLoading" alt="" />
+          </div>
         </div>
-
-        <div class="champion__description__body__text__enemyTips">
-          <h4>TIPS PARA DERROTAR EL CAMPEÓN</h4>
-          @for (tip of champion()?.enemytips; track $index) {
-            <p>{{ tip }}</p>
-          }
-          @if(champion()?.enemytips?.length === 0) {
-            <p>
-              Nuestro expertos están trabajando para brindarte los mejor tips
-              cuando estas en contra de este campeón en partida.
-            </p>
-          }
+      </div>
+    
+      <div class="champion__skills">
+        <div class="champion__skills__container">
+          <div class="champion__skills__container__imgs">
+            <h2>HABILIDADES</h2>
+            <div class="champion__skills__container__imgs__assets">
+              @for (skill of champion()?.skills; track $index) {
+                <app-skill-selection name="championSkills" [skill]="skill" [formControl]="skillsControl" />
+              }
+            </div>
+          </div>
+          <div class="champion__skills__container__logo">
+            <img src="assets/images/skills-symbol.svg" alt="skill symbol image" />
+          </div>
+          <div
+            class="champion__skills__container__description"
+            [@fadeAnimation]="fadeAnimation() ? 'fadeIn' : 'fadeOut'"
+            
+          >
+          <div #skillSelectedHtml>
+            
+          </div>
+        </div>
         </div>
       </div>
-      <div class="champion__description__body__img">
-        <img [src]="champion()?.imgLoading" alt="" />
-      </div>
-    </div>
-  </div>
-
-  <div class="champion__skills">
-    <div class="champion__skills__container">
-      <div class="champion__skills__container__imgs">
-        <h2>HABILIDADES</h2>
-        <div class="champion__skills__container__imgs__assets">
-          @for (skill of champion()?.skills; track $index) {
-            <app-skill-selection name="championSkills" [skill]="skill" [formControl]="skillsControl" />
-          }
+    
+      <div class="champion__skins">
+        <div class="champion__skins__title">
+          <h2>ASPECTOS DISPONIBLES</h2>
         </div>
+        <app-swiper-skin [name]="champion()?.name || ''" [idChamp]="idChamp()" [skins]="champion()?.skins || []" />
       </div>
-      <div class="champion__skills__container__logo">
-        <img src="assets/images/skills-symbol.svg" alt="skill symbol image" />
-      </div>
-      <div
-        class="champion__skills__container__description"
-        [@fadeAnimation]="fadeAnimation() ? 'fadeIn' : 'fadeOut'"
-        
-      >
-      <div #skillSelectedHtml>
-        
-      </div>
-    </div>
-    </div>
-  </div>
-
-  <div class="champion__skins">
-    <div class="champion__skins__title">
-      <h2>ASPECTOS DISPONIBLES</h2>
-    </div>
-    <app-swiper-skin [name]="champion()?.name || ''" [idChamp]="idChamp()" [skins]="champion()?.skins || []" />
-  </div>
-</section>
+    </section>
+  } @else {
+    <section class="champion-not-found">
+      <h1>Campeon No Encontrado</h1>
+      <button
+        app-button
+        size="btn--normal"
+        type="btn--secondary"
+        (click)="goTo('/main/champions')"
+      >Regresar a todos los campeones</button>
+    </section>
+  }
+  
+}
 
 
