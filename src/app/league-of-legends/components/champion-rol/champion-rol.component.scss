@@ -1,0 +1,60 @@
+@use 'variables' as var;
+
+.app-champion-rol {
+    font-size: 1.6rem;
+    color: var.$c-primary-light;
+    
+    border-top: 1px solid var.$c-gray;
+    border-bottom: 1px solid var.$c-gray;
+    &__lists {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        color: var.$c-primary-light;
+        list-style: none;
+        width: 100%;
+
+        &__item {
+            height: 6rem;
+
+            & input[type=radio] {
+                display: none;
+            };
+            & input[type="radio"]:checked + label:before {
+                transform: scale(1, 1);
+
+            }
+
+            & label {
+                margin: 0 auto;
+                height: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                position: relative;
+                cursor: pointer;
+                padding: 0 1rem;
+
+                &:before {
+                    content: '';
+                    height: 2px;
+                    width: 100%;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    background-color: var.$c-primary-light;
+                    transform: scale(0);
+                    transition: all .3s ease;
+
+                }
+
+                &:hover::before {
+                    transform: scale(.2, 1);
+                }
+
+
+            }
+
+        }
+    }
+}

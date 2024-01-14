@@ -1,0 +1,74 @@
+<ul class="app-champion-rol__lists">
+    <li class="app-champion-rol__lists__item">
+        <input
+            type="radio"
+            name="rols"
+            id="assassinsFilter"
+            (input)="handleRadioInput($event)"
+            [value]="championRol.assassin"
+            [checked]="championRol.assassin === value">
+        <label for="assassinsFilter">
+            <span>ASESINOS</span>
+        </label>
+    </li>
+    <li class="app-champion-rol__lists__item">
+        <input
+            type="radio"
+            name="rols"
+            id="supportsFilter"
+            (input)="handleRadioInput($event)"
+            [value]="championRol.support"
+            [checked]="championRol.support === value" />
+        <label for="supportsFilter">
+            <span>APOYOS</span>
+        </label>
+    </li>
+    <li class="app-champion-rol__lists__item">
+        <input
+            type="radio"
+            name="rols"
+            id="fightersFilter"
+            (input)="handleRadioInput($event)"
+            [value]="championRol.fighter"
+            [checked]="championRol.fighter === value" />
+        <label for="fightersFilter">
+            <span>LUCHADORES</span>
+        </label>
+    </li>
+    <li class="app-champion-rol__lists__item">
+        <input
+            type="radio"
+            name="rols"
+            id="magesFilter"
+            (input)="handleRadioInput($event)"
+            [value]="championRol.mage"
+            [checked]="championRol.mage === value" />
+        <label for="magesFilter">
+            <span>MAGOS</span>
+        </label>
+    </li>
+    <li class="app-champion-rol__lists__item">
+        <input
+            type="radio"
+            name="rols"
+            id="tanksFilter"
+            (input)="handleRadioInput($event)"
+            [value]="championRol.tank"
+            [checked]="championRol.tank === value" />
+        <label for="tanksFilter">
+            <span>TANQUES</span>
+        </label>
+    </li>
+    <li class="app-champion-rol__lists__item">
+        <input
+            type="radio"
+            name="rols"
+            id="marksmen"
+            (input)="handleRadioInput($event)"
+            [value]="championRol.marksman"
+            [checked]="championRol.marksman === value" />
+        <label for="marksmen">
+            <span>TIRADORES</span>
+        </label>
+    </li>
+</ul>

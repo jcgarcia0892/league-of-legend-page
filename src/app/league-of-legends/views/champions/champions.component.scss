@@ -22,205 +22,6 @@
         grid-row: 2 / 3;
         grid-column: content-start / content-end;
 
-        &__navbar {
-            color: var.$c-primary-light;
-            font-size: 1.6rem;
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 6rem;
-
-            & > * {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                align-items: center;
-                height: 6rem;
-            }
-
-            &__search {
-                width: 20%;
-                border: 1px solid var.$c-gray;
-                position: relative;
-
-                &__button {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    position: relative;
-                    cursor: pointer;
-                    width: 100%;
-                }
-                &__dropdown {
-                    position: absolute;
-                    top: 102%;
-                    left: -.1rem;
-                    height: auto;
-                    max-height: 30rem;
-                    width: 101%;
-                    box-shadow: .1rem .1rem .3rem var.$c-gray-dark;
-                    overflow-y: scroll;
-                    text-transform: uppercase;
-                    background-color: var.$c-light;
-                    z-index: -12;
-                    opacity: 0;
-                    transition: all .3s ease;
-
-                    & ul {
-                        & li {
-                            padding: 1rem 0;
-                            padding-left: 2rem;
-                            cursor: pointer;
-                            transition: all .3s ease;
-                        }
-
-                        & li:hover {
-                            background-color: var.$c-gray;
-                        }
-                    }
-                }
-            }
-
-            &__filters {
-                width: 60%;
-                border-top: 1px solid var.$c-gray;
-                border-bottom: 1px solid var.$c-gray;
-
-                &__lists {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    color: var.$c-primary-light;
-                    list-style: none;
-                    width: 100%;
-
-                    &__item {
-                        height: 6rem;
-
-                        & input[type=radio] {
-                            display: none;
-                        };
-                        & input[type="radio"]:checked + label:before {
-                            transform: scale(1, 1);
-
-                        }
-
-                        & label {
-                            margin: 0 auto;
-                            height: 100%;
-                            display: flex;
-                            flex-wrap: wrap;
-                            align-items: center;
-                            position: relative;
-                            cursor: pointer;
-                            padding: 0 1rem;
-
-                            &:before {
-                                content: '';
-                                height: 2px;
-                                width: 100%;
-                                position: absolute;
-                                bottom: 0;
-                                left: 0;
-                                background-color: var.$c-primary-light;
-                                transform: scale(0);
-                                transition: all .3s ease;
-
-                            }
-
-                            &:hover::before {
-                                transform: scale(.2, 1);
-                            }
-
-
-                        }
-
-                    }
-                }
-            }
-
-            &__levels {
-                width: 20%;
-                border: 1px solid var.$c-gray;
-                position: relative;
-
-                & input[type=checkbox] {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    opacity: 0;
-                    cursor: pointer;
-                }
-
-                & input[type=checkbox]:checked + div i,
-                & input[type=checkbox]:hover + div i {
-                    transform: translateX(.5rem);
-                }
-
-                & label {
-                    display: flex;
-                    flex-wrap: wrap;
-                    padding-left: 1.8rem;
-                    align-items: center;
-                    width: 85%;
-                    cursor: pointer;
-
-                
-                }
-
-                &__icons {
-                    width: 15%;
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: flex-end;
-                    padding-right: 2rem;
-                    i {
-                        transition: all .3s ease;
-                    }
-                }
-
-
-                &__container {
-                    width: 100%;
-                    position: absolute;
-                    background-color: var.$c-light;
-                    top: 100%;
-                    left: 0;
-                    box-shadow: .1rem .1rem .3rem var.$c-gray-dark;
-                    z-index: -10;
-                    opacity: 0;
-                    transition: all .3s ease;
-
-
-                    &__group {
-                        padding: 4%;
-                        width: 100%;
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: center;
-                        align-items: center;
-                        transition: all .3s ease;
-                        cursor: pointer;
-
-                        &:hover {
-                            background-color: var.$c-gray;
-                        }
-
-                        &__item {
-                            width: 8%;
-                            height: 1.5rem;
-                            background-color: var.$c-gray-dark;
-                            margin-left: 1%;
-                        }
-                    }
-
-                }
-
-            }
-
-        }
-
         &__chips {
             display: flex;
             flex-wrap: wrap;
@@ -234,6 +35,7 @@
                 justify-content: space-between;
                 align-items: center;
                 margin-bottom: 1rem;
+                
                 &__title {
                     color:var.$c-primary-light;
                     margin-right: 2rem;
@@ -258,13 +60,10 @@
                     cursor: pointer;
                 }
             }
-
-
         }
 
         &__cards {
             width: 100%;
-
             
             &__container {
                 width: 100%;
@@ -277,6 +76,7 @@
                     margin-bottom: 2rem;
                 }
             }
+
             &__error {
                 &__card {
                     width: 25%;
@@ -299,96 +99,20 @@
                     }
 
                 }
+
                 &__card {
                     margin-bottom: 3rem;
                 }
+
                 &__card, &__button {
                     width: 21%;
                 }
-
             }
         }
     }
 
 
 }
-
-.search-input {
-    width: 100%;
-    cursor: pointer;
-    position: relative;
-    & label {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 1.5rem;
-        cursor: pointer;
-        font-size: 3.2rem;
-        transition: .3s all ease-out;
-
-    }
-
-    & i {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 2rem;
-        font-size: 3.2rem;
-        cursor: pointer;
-    }
-
-    & input[type=text] {
-       border: none;
-       color: var.$c-primary-light;
-       width: 100%;
-       padding: 2rem 6rem;
-       font-size: 16px;
-       text-transform: uppercase;
-       cursor: pointer;
-
-    }
-
-    & input[type=text]::placeholder {
-        color: var.$c-primary-light;
-    }
-
-    & input[type=text]:focus {
-       outline: unset;
-
-    }
-
-    & input[type=text]:focus::placeholder {
-       color: rgba(76, 89, 173, .5);
-    }
-
-    & input[type=text]:hover + label,
-    & input[type=text]:focus + label {
-        left: 1rem;
-    }
-
-}
-
-
-// HELPERS
-.bg-blue {
-    background-color: var.$c-primary;
-
-}
-
-.bg-gray {
-    background-color: var.$c-primary-light !important;
-}
-
-.fadeIn {
-    opacity: 1;
-    z-index: 10;
-}
-
-.mb-20 {
-    margin-bottom: 20px;
-}
-
-
 
 @media screen and (max-width: 1300px) {
     .findChamps {
@@ -397,22 +121,8 @@
                 width: 70%;
             }
         }
+
         &__body {
-            &__navbar {
-                &__search {
-                    width: 50%;
-                }
-
-                &__filters {
-                    width: 100%;
-                    order: -1;
-                    border: 1px solid var.$c-gray;
-                }
-
-                &__levels {
-                    width: 50%;
-                }
-            }
             &__cards {
                 &__container {
                     &__card {
@@ -438,6 +148,7 @@
                 width: 95%;
             }
         }
+
         &__body {
             &__cards {
                 &__contianer {
@@ -450,6 +161,7 @@
             &__chips {
                 justify-content: space-between;
                 margin-bottom: 4rem;
+
                 &__chip {
                     width: 45%;
                     justify-content: space-between;
@@ -478,25 +190,8 @@
                 width: 100%;
             }
         }
+
         &__body {
-
-            &__navbar {
-                &__filters {
-                height: auto !important;
-
-                    &__lists {
-                        justify-content: space-evenly;
-                    }
-                }
-
-                &__search {
-                    width: 100%;
-                }
-
-                &__levels {
-                    width: 100%;
-                }
-            }
             &__cards {
                 &__container {
                     &__card {
@@ -534,15 +229,9 @@
         font-size: 2.4rem;
     }
 
-
     .findChamps {
         &__body {
-
-            &__navbar {
-
-            }
             &__chips {
-
                 &__chip {
                     width: 100%;
                     font-size: 1.4rem;
@@ -561,15 +250,16 @@
     h3 {
         font-size: 2.4rem;
     }
+
     h4 {
         font-size: 2rem;
     }
 
     .findChamps {
         padding: 4rem 0 4rem 0;
+
         &__title {
             margin-bottom: 2rem;
         }
     }
-
 }

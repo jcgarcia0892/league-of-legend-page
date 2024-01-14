@@ -1,0 +1,21 @@
+<app-champion-search
+    [formControl]="championsSearcherControl"
+    [activeFocusSearcherInput]="activeFocusSearcherInput()"
+    [championsNameFiltered]="championsNameFiltered()"
+    (blurEventEmitter)="blurSearcher()"
+    (focusEventEmitter)="activeFocusSearcherInput.set(true)"
+    (championIdEventEmitter)="filterChampionByName($event)"
+    (cleanTextEventEmitter)="cleanChipFilter($event)"
+/>
+
+<app-champion-rol
+    [formControl]="championsRolesControl"
+/>
+
+<app-champion-level
+    [formControl]="levelsControl"
+    [difficultChamp]="difficultChamp()"
+    [difficulty]="difficulty()"
+    (blurDifficultyEmitter)="blurDifficulty()"
+    (filterChampionByDifficultyEmitter)="filterChampionByDifficulty($event)"
+/>

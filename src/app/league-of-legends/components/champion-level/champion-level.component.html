@@ -1,0 +1,39 @@
+<input
+    type="checkbox"
+    placeholder="TODAS LAS DIFICULTADES"
+    id="levels"
+    (blur)="blurDifficultyEmitter.emit()"
+    (click)="handleInputCheckbox()"
+    (keydown.esc)="closeOverlay()"
+/>
+@if (difficultChamp === 0) {
+    <label for="levels">TODAS LAS DIFICULTADES </label>
+}
+@if (difficultChamp !== 0) {
+    <label for="levels">
+        DIFICULTAD: {{difficultChamp}}
+    </label>
+}
+<div class="app-champion-level__icons">
+    @if (!value) {
+        <i class="material-icons icon-asset"> keyboard_arrow_down</i>
+    }
+    @if (value) {
+        <i class="material-icons icon-asset"> keyboard_arrow_up</i>
+    }
+</div>
+<div class="app-champion-level__container" [ngClass]="{'fadeIn': value}">
+    @for (level of difficulty; track i; let i = $index) {
+        <div 
+            class="app-champion-level__container__group"
+            (click)="filterChampionByDifficultyEmitter.emit(level)"
+            [ngClass]="{'bg-gray': level === difficultChamp}">
+            @for (item of difficulty; track j; let j = $index) {
+                <div 
+                    class="app-champion-level__container__group__item"
+                    [ngClass]="{'bg-blue': j <= i}">
+                </div>
+            }
+        </div>
+    }
+</div>

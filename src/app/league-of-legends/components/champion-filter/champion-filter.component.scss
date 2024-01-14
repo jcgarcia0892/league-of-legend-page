@@ -1,0 +1,64 @@
+@use 'variables' as var;
+
+.app-champion-filter {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 6rem;
+
+    & > * {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: 6rem;
+    }
+
+    app-champion-search {
+        width: 20%;
+    }
+
+    app-champion-rol {
+        width: 60%;
+    }
+
+    app-champion-level {
+        width: 20%;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .app-champion-filter {
+        app-champion-search {
+            width: 50%;
+        }
+        app-champion-rol {
+            width: 100%;
+            order: -1;
+            border: 1px solid var.$c-gray;
+        }
+
+        app-champion-level {
+            width: 50%;
+        }
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .app-champion-filter {
+        app-champion-search {
+            width: 100%;
+        }
+
+        app-champion-rol {
+            height: auto !important;
+            &__lists {
+                justify-content: space-evenly;
+            }
+        }
+
+        app-champion-level {
+            width: 100%;
+        }
+    }
+}

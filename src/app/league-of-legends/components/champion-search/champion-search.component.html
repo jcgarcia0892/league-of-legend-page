@@ -1,0 +1,25 @@
+<div class="app-champion-search__button">
+    <div class="search-input">
+        <input
+            autocomplete="off"
+            type="text"
+            placeholder="BUSCAR"
+            (input)="handleInput($event)"
+            [value]="value()"
+            (focus)="focusEventEmitter.emit()"
+            (blur)="blurEventEmitter.emit()"
+            id="searcherInput"
+        />
+        <label class="material-icons icon-asset" for="searcherInput">search</label>
+        @if(value().length > 0) {
+            <i class="material-icons icon-asset" (click)="cleanTextEventEmitter.emit('nombre')">close</i>
+        }
+    </div>
+</div>
+<div class="app-champion-search__dropdown" [ngClass]="{'fadeIn': activeFocusSearcherInput}">
+    <ul>
+        @for (champion of championsNameFiltered; track $index) {
+            <li (click)="championIdEventEmitter.emit(champion.id)"> {{champion.name}} </li>
+        }
+    </ul>
+</div>

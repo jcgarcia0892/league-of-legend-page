@@ -1,0 +1,96 @@
+@use 'variables' as var;
+
+.app-champion-level {
+    font-size: 1.6rem;
+    color: var.$c-primary-light;
+
+    border: 1px solid var.$c-gray;
+    position: relative;
+
+    & input[type=checkbox] {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    & input[type=checkbox]:checked + div i,
+    & input[type=checkbox]:hover + div i {
+        transform: translateX(.5rem);
+    }
+
+    & label {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 1.8rem;
+        align-items: center;
+        width: 85%;
+        cursor: pointer;
+
+    
+    }
+
+    &__icons {
+        width: 15%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 2rem;
+        i {
+            transition: all .3s ease;
+        }
+    }
+
+
+    &__container {
+        width: 100%;
+        position: absolute;
+        background-color: var.$c-light;
+        top: 100%;
+        left: 0;
+        box-shadow: .1rem .1rem .3rem var.$c-gray-dark;
+        z-index: -10;
+        opacity: 0;
+        transition: all .3s ease;
+
+
+        &__group {
+            padding: 4%;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            transition: all .3s ease;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var.$c-gray;
+            }
+
+            &__item {
+                width: 8%;
+                height: 1.5rem;
+                background-color: var.$c-gray-dark;
+                margin-left: 1%;
+            }
+        }
+
+    }
+
+    .bg-blue {
+        background-color: var.$c-primary;
+    
+    }
+
+    .bg-gray {
+        background-color: var.$c-primary-light !important;
+    }
+    
+    .fadeIn {
+        opacity: 1;
+        z-index: 10;
+    }
+}

@@ -8,104 +8,11 @@
         <h4>Puedes ver la información del campeón que mas te guste, puedes filtrar por nombre, por rol o por dificultad de uso</h4>
     </div>
     <div class="findChamps__body">
-        <div class="findChamps__body__navbar">
-            <div class="findChamps__body__navbar__search">
-                <div class="findChamps__body__navbar__search__button">
-                    <div class="search-input">
-                        <input
-                            autocomplete="off"
-                            type="text"
-                            placeholder="BUSCAR"
-                            [formControl]="championsSearcherControl"
-                            (focus)="activeFocusSearcherInput.set(true)"
-                            (blur)="blurSearcher()"
-                            id="searcherInput">
-                        <label class="material-icons icon-asset" for="searcherInput">search</label>
-                        <i class="material-icons icon-asset" (click)="cleanChipFilter('nombre')" *ngIf="championsSearcherControl.value.length > 0">close</i>
-                    </div>
-                </div>
-                <div class="findChamps__body__navbar__search__dropdown" [ngClass]="{'fadeIn': activeFocusSearcherInput()}">
-                    <ul>
-                        @for (champion of championsNameFiltered(); track $index) {
-                            <li (click)="filterChampionByName(champion.id)"> {{champion.name}} </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            <div class="findChamps__body__navbar__filters">
-                <ul class="findChamps__body__navbar__filters__lists">
-                    <li class="findChamps__body__navbar__filters__lists__item">
-                        <input type="radio" name="rols" id="assassinsFilter" [formControl]="championsRolesControl" value="assassin">
-                        <label for="assassinsFilter">
-                            <span>ASESINOS</span>
-                        </label>
-                    </li>
-                    <li class="findChamps__body__navbar__filters__lists__item">
-                        <input type="radio" name="rols" id="supportsFilter" [formControl]="championsRolesControl" value="support">
-                        <label for="supportsFilter">
-                            <span>APOYOS</span>
-                        </label>
-                    </li>
-                    <li class="findChamps__body__navbar__filters__lists__item">
-                        <input type="radio" name="rols" id="fightersFilter" [formControl]="championsRolesControl" value="fighter">
-                        <label for="fightersFilter">
-                            <span>LUCHADORES</span>
-                        </label>
-                    </li>
-                    <li class="findChamps__body__navbar__filters__lists__item">
-                        <input type="radio" name="rols" id="magesFilter" [formControl]="championsRolesControl" value="mage">
-                        <label for="magesFilter">
-                            <span>MAGOS</span>
-                        </label>
-                    </li>
-                    <li class="findChamps__body__navbar__filters__lists__item">
-                        <input type="radio" name="rols" id="tanksFilter" [formControl]="championsRolesControl" value="tank">
-                        <label for="tanksFilter">
-                            <span>TANQUES</span>
-                        </label>
-                    </li>
-                    <li class="findChamps__body__navbar__filters__lists__item">
-                        <input type="radio" name="rols" id="marksmen" [formControl]="championsRolesControl" value="marksman">
-                        <label for="marksmen">
-                            <span>TIRADORES</span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-            <div class="findChamps__body__navbar__levels">
-                <input
-                    type="checkbox"
-                    placeholder="TODAS LAS DIFICULTADES"
-                    id="levels"
-                    (blur)="blurDifficulty()"
-                    (click)="levelsControl.setValue(!levelsControl.value)"
-                >
-                <label *ngIf="difficultChamp() === 0"  for="levels">TODAS LAS DIFICULTADES </label>
-                <label *ngIf="difficultChamp() !== 0" for="levels">
-                    DIFICULTAD: {{difficultChamp()}}
-                </label>
-                <div class="findChamps__body__navbar__levels__icons">
-                    <i class="material-icons icon-asset" *ngIf="!levelsControl.value"> keyboard_arrow_down</i>
-                    <i class="material-icons icon-asset" *ngIf="levelsControl.value"> keyboard_arrow_up</i>
-                </div>
-                <div class="findChamps__body__navbar__levels__container" [ngClass]="{'fadeIn': levelsControl.value}">
-                    @for (level of difficulty(); track i; let i = $index) {
-                        <div 
-                            class="findChamps__body__navbar__levels__container__group"
-                            (click)="filterChampionByDifficulty(level)"
-                            [ngClass]="{'bg-gray': level === difficultChamp()}">
-                            @for (item of difficulty(); track j; let j = $index) {
-                                <div 
-                                    class="findChamps__body__navbar__levels__container__group__item"
-                                    [ngClass]="{'bg-blue': j <= i}">
-                                </div>
-                            }
-                        </div>
-                    }
-                </div>
-
-            </div>
-        </div>
+        <app-champion-filter
+            [championsData]="championsCards()"
+            (championCardFilterEmitter)="championsCardsFilter.set($event)"
+            (filtersEmitter)="filters.set($event)"
+        />
 
         @if (filters().length > 0) {
             <div class="findChamps__body__chips">
@@ -128,10 +35,9 @@
                         <i class="material-icons icon-asset" (click)="cleanChipFilter(filter.field)">close</i>
                     </div>
                 }
-    
             </div>
         }
-
+        
         <div class="findChamps__body__cards">
             @if (championsCardsFilter().length > 0) {
                 <div class="findChamps__body__cards__container">
