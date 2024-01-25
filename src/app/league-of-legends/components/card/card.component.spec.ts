@@ -8,15 +8,12 @@ class FakeRouter {
   navigate(params: any[]): void {}
 }
 
-
-
 describe('CardComponent', () => {
   let component: CardComponent;
   let fixture: ComponentFixture<CardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CardComponent ],
       imports: [RouterTestingModule],
       providers: [
         {provide: Router, useClass: FakeRouter}

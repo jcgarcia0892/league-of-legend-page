@@ -7,12 +7,15 @@ describe('SkillSelectionComponent', () => {
   let fixture: ComponentFixture<SkillSelectionComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SkillSelectionComponent]
-    })
-    .compileComponents();
-    
     fixture = TestBed.createComponent(SkillSelectionComponent);
+    fixture.componentRef.setInput('skill', {
+      checked: true,
+      description: "De forma periódica, el siguiente ataque básico",
+      img: "https://ddragon.leagueoflegends.com/cdn/14.2.1/img/passive/Aatrox_Passive.png",
+      key: "Pasiva",
+      name: "Aspecto de la muerte",
+    });
+    fixture.componentRef.setInput('name', 'Aspecto de la muerte');
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

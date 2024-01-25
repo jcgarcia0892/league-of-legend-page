@@ -1,10 +1,7 @@
 import { Location } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router, RouterOutlet } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { FooterComponent } from '../../components/footer/footer.component';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { Router, RouterOutlet, provideRouter } from '@angular/router';
 
 import { MainComponent } from './main.component';
 
@@ -14,11 +11,9 @@ describe('MainComponent', () => {
   let router: Router;
   let location: Location;
 
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MainComponent, NavbarComponent, FooterComponent ],
-      imports: [RouterTestingModule.withRoutes([])]
+      providers: [provideRouter([]),],
     })
     .compileComponents();
 

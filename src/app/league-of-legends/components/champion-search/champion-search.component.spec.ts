@@ -7,11 +7,6 @@ describe('ChampionSearchComponent', () => {
   let fixture: ComponentFixture<ChampionSearchComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ChampionSearchComponent]
-    })
-    .compileComponents();
-    
     fixture = TestBed.createComponent(ChampionSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

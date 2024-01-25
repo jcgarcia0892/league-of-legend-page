@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
     NavbarComponent,
     FooterComponent,
     RouterModule,
+    RouterOutlet,
   ],
 })
 export class MainComponent {}

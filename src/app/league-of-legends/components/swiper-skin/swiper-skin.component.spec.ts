@@ -7,12 +7,15 @@ describe('SwiperSkinComponent', () => {
   let fixture: ComponentFixture<SwiperSkinComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SwiperSkinComponent]
-    })
-    .compileComponents();
-    
     fixture = TestBed.createComponent(SwiperSkinComponent);
+    fixture.componentRef.setInput('skins', [{
+      chromas: false,
+      id: "266000",
+      name: "default",
+      num: 0
+    }]);
+    fixture.componentRef.setInput('name', 'Aatrox');
+    fixture.componentRef.setInput('idChamp', 'Aatrox');
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

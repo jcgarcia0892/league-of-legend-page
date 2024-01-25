@@ -7,10 +7,6 @@ describe('ChampionFilterComponent', () => {
   let fixture: ComponentFixture<ChampionFilterComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ChampionFilterComponent]
-    })
-    .compileComponents();
     
     fixture = TestBed.createComponent(ChampionFilterComponent);
     component = fixture.componentInstance;

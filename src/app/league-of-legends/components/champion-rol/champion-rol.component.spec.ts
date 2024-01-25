@@ -7,11 +7,6 @@ describe('ChampionRolComponent', () => {
   let fixture: ComponentFixture<ChampionRolComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ChampionRolComponent]
-    })
-    .compileComponents();
-    
     fixture = TestBed.createComponent(ChampionRolComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,5 +1,5 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
@@ -80,7 +80,10 @@ export class ChampionComponent implements OnInit, OnDestroy {
 
   private router = inject(Router);
 
+  private chDetectorRef = inject(ChangeDetectorRef);
+
   ngOnInit(): void {
+    this.skillsControlObservable();
     const subscription = this.acRoute.params
       .pipe(
         switchMap(({id}) => {
@@ -114,9 +117,10 @@ export class ChampionComponent implements OnInit, OnDestroy {
       next: (champion: Champion) => {
         this.champion.set(champion);
         this.champion()!.skills[0].checked = true;
-        this.skillsControl.setValue(this.champion()!.skills[0].name);
         this.loading.set(true);
         this.canFindChampion.set(true);
+        this.chDetectorRef.detectChanges();
+        this.skillsControl.setValue(this.champion()!.skills[0].name);
       },
       error: () => {
         this.canFindChampion.set(false);
@@ -124,8 +128,6 @@ export class ChampionComponent implements OnInit, OnDestroy {
       }
     });
     this.subscription.add(subscription);
-
-    this.skillsControlObservable();
   }
 
   ngOnDestroy(): void {
@@ -194,7 +196,9 @@ export class ChampionComponent implements OnInit, OnDestroy {
       skill.checked = false;
     };
     this.champion()!.skills[index].checked = true;
-    this.skillSelectedHtml.nativeElement.innerHTML = this.showSkillSelectedHTML(index);
+    if(this.skillSelectedHtml) {
+      this.skillSelectedHtml.nativeElement.innerHTML = this.showSkillSelectedHTML(index);
+    }
 
   }
 

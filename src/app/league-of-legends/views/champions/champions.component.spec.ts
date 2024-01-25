@@ -1,12 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ChampionsComponent } from './champions.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
-import { ButtonComponent } from '../../components/button/button.component';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
 
 class FakeRouter {
   navigate(path: string[]){}
@@ -18,12 +13,9 @@ describe('ChampionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChampionsComponent, LoadingComponent, ButtonComponent ],
-      imports: [ HttpClientTestingModule, ReactiveFormsModule ],
       providers: [
-        { provide: Router, useClass: FakeRouter }
+        provideHttpClient(),
       ]
-
     })
     .compileComponents();
   });

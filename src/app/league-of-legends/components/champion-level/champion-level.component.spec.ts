@@ -7,11 +7,6 @@ describe('ChampionLevelComponent', () => {
   let fixture: ComponentFixture<ChampionLevelComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ChampionLevelComponent]
-    })
-    .compileComponents();
-    
     fixture = TestBed.createComponent(ChampionLevelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,14 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router, provideRouter } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { Router, RouterLink } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { fromEvent, Observable } from 'rxjs';
 
 import { NavbarComponent } from './navbar.component';
-
-class FakeRouter {
-  navigate(route: any) {}
-}
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -16,12 +10,9 @@ describe('NavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarComponent ],
-      imports: [  ],
       providers: [
-        {provide: Router, useClass: FakeRouter}
-      ]
-
+        provideRouter([]),
+      ],
     })
     .compileComponents();
   });
@@ -44,7 +35,7 @@ describe('NavbarComponent', () => {
         linksToHome += 1;
       }
     }
-    if(component.screenWidth > 700) {
+    if(component.screenWidth() > 700) {
       expect(linksToHome).toBe(2);
     } else {
       expect(linksToHome).toBe(1);
@@ -61,7 +52,7 @@ describe('NavbarComponent', () => {
         break;
       }
     }
-    if(component.screenWidth > 700) {
+    if(component.screenWidth() > 700) {
       expect(existe).toBeTruthy();
     } else {
       expect(existe).toBeFalsy();
@@ -77,7 +68,7 @@ describe('NavbarComponent', () => {
         break;
       }
     }
-    if(component.screenWidth > 700) {
+    if(component.screenWidth() > 700) {
       expect(existe).toBeTruthy();
     } else {
       expect(existe).toBeFalsy();
@@ -109,10 +100,9 @@ describe('NavbarComponent', () => {
     expect(spy).toHaveBeenCalledWith([`/main/${path}`]);
   });
 
-  xit('El fromEvent debe haber sido llamado', () => {
+  it('El fromEvent debe haber sido llamado', () => {
     window.dispatchEvent(new Event('resize'));
-    const esIgual = component.screenWidth === window.outerWidth;
+    const esIgual = component.screenWidth() === window.document.body.clientWidth;
     expect(esIgual).toBeTruthy();
-
   });
 });

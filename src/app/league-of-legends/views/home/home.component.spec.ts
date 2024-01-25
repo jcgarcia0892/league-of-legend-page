@@ -1,20 +1,11 @@
-import { trigger } from '@angular/animations';
 import {
   ComponentFixture,
-  fakeAsync,
-  flush,
   TestBed,
-  tick,
 } from '@angular/core/testing';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ButtonComponent } from '../../components/button/button.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { TitleAppearsDirective } from '../../directives/titleAppears/title-appears.directive';
+
 import { AnimationsService } from '../../services/animations.service';
 
 import { HomeComponent } from './home.component';
@@ -29,8 +20,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeComponent, ButtonComponent, LoadingComponent],
-      imports: [BrowserAnimationsModule, ReactiveFormsModule],
+      imports: [BrowserAnimationsModule],
       providers: [{ provide: Router, useClass: FakeRouter }, AnimationsService],
     }).compileComponents();
   });
@@ -82,13 +72,13 @@ describe('HomeComponent', () => {
   });
 
   it('Cada vez que se escoge un rol debe ocurrir una animación en la imagen', () => {
-    component.rolSelectionControl.setValue('supports');
+    component.rolSelectionControl.setValue('apoyos');
     expect(component.imgAnimation).toBeTruthy();
   });
 
   it('Cada vez que se escoge un rol debe cambiar el valor de fadeInAnimation', () => {
     const fadeInAnimation = component.fadeInAnimation;
-    component.rolSelectionControl.setValue('supports');
-    expect(component.fadeInAnimation === !fadeInAnimation).toBeTruthy();
+    component.rolSelectionControl.setValue('apoyos');
+    expect(component.fadeInAnimation() === !fadeInAnimation).toBeTruthy();
   });
 });

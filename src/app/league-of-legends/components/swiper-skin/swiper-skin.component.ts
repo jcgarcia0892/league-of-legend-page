@@ -25,4 +25,10 @@ export class SwiperSkinComponent {
   @Input({required: true}) idChamp!: string;
 
   thumbsSwiper!: Swiper;
+
+  ngAfterViewInit(): void {
+    console.log(this.skins);
+    console.log(this.name);
+    console.log(this.idChamp);
+  }
 }

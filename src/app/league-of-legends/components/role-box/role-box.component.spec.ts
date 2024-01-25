@@ -7,12 +7,9 @@ describe('RoleBoxComponent', () => {
   let fixture: ComponentFixture<RoleBoxComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [RoleBoxComponent]
-    })
-    .compileComponents();
-    
     fixture = TestBed.createComponent(RoleBoxComponent);
+    fixture.componentRef.setInput('role', {roleName: 'asesinos', name: 'asesinos', nickName: 'asesinos'});
+    fixture.componentRef.setInput('value', 'asesinos');
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
