@@ -25,7 +25,6 @@ import { ChampionLevelComponent } from '../champion-level/champion-level.compone
 })
 export class ChampionFilterComponent implements OnInit {
   @Input() set championsData(championsData: ChampionCard[]) {
-    console.log('here');
     this._championsCards.set(championsData);
     this.championsCardsFilter.set(championsData);
     this.championNameFilterFunction('');

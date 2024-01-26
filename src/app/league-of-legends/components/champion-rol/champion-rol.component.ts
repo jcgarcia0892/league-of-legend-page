@@ -48,6 +48,5 @@ export class ChampionRolComponent implements ControlValueAccessor {
     const element = event.target as HTMLInputElement;
     this.onChange(element.value);
     this.value = element.value;
-    console.log(this.value);
   }
 }

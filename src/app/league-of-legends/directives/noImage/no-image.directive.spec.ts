@@ -1,36 +1,54 @@
 
-import { DebugElement, ElementRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CardComponent } from '../../components/card/card.component';
 import { NoImageDirective } from './no-image.directive';
 
-class MockElementRef extends ElementRef {
-  constructor() {
-    super(null)
-  }
+@Component({
+  standalone: true,
+  imports: [NoImageDirective],
+  template: `
+        <img [src]="imgSource" loading="lazy" appNoImage>
+  `,
+})
+class TestHost {
+  imgSource = './assets/images/lol-icon.svg';
+
+  @ViewChild(NoImageDirective) noImageDirective!: NoImageDirective;
 }
 
 describe('NoImageDirective', () => {
-  let fixture: ComponentFixture<CardComponent>;
-  let des: DebugElement;
+  let fixture: ComponentFixture<TestHost>;
+  let component: TestHost;
 
   beforeEach(async () => {
     fixture = await TestBed.configureTestingModule({
-      declarations: [ CardComponent, NoImageDirective ],
-      imports: [RouterTestingModule],
+      imports: [TestHost],
     })
-    .createComponent(CardComponent);
+    .createComponent(TestHost);
 
     fixture.detectChanges();
-
-    des = fixture.debugElement.query(By.directive(NoImageDirective));
+    component = fixture.componentInstance;
   });
 
-  xit('should create an instance', () => {
-    const directive = new NoImageDirective(new MockElementRef());
-    console.log(directive);
-    expect(directive).toBeTruthy();
+  it('should create an instance', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should set defaultImagePath when error method is triggered', () => {
+    let imgTag = fixture.debugElement.query(By.css('img')).nativeElement as HTMLImageElement;
+    imgTag.dispatchEvent(new Event('error'));
+    fixture.detectChanges();
+    imgTag = fixture.debugElement.query(By.css('img')).nativeElement as HTMLImageElement;
+    expect(imgTag.src).toContain(component.noImageDirective.defaultImagePath);
+  });
+
+  it('should call showErrorImage when an error event is triggered', () => {
+    let imgTag = fixture.debugElement.query(By.css('img')).nativeElement as HTMLImageElement;
+    const showErrorImageMock = spyOn(component.noImageDirective, 'showErrorImage');
+    imgTag.dispatchEvent(new Event('error'));
+    fixture.detectChanges();
+
+    expect(showErrorImageMock).toHaveBeenCalled();
   });
 });

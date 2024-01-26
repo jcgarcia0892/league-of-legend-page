@@ -33,9 +33,9 @@ export class SkillSelectionComponent implements ControlValueAccessor {
 
   value = '';
 
-  onChange!: (value: string) => void;
+  onChange(value: string): void {};
 
-  onTouched!: () => void;
+  onTouched(): void {};
 
   writeValue(value: string): void {
     this.value = value;

@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit, inject, signal, ViewChild } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { titleAnimation } from '../../animations/title-animation';
@@ -7,8 +9,6 @@ import { ChampionsDataService } from '../../services/champions-data.service';
 import { ChampionsObject } from '../../interfaces/champions.interface';
 import { ChampionCard } from '../../interfaces/champion-card.interface';
 import { ChampionFilter } from '../../interfaces/champion-filter.interface';
-import { RouterModule } from '@angular/router';
-import { NgClass, NgFor, NgIf } from '@angular/common';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { CardComponent } from '../../components/card/card.component';

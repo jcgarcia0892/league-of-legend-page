@@ -23,4 +23,18 @@ describe('SkillSelectionComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('writeValue should change the value of the value property', () => {
+    const text = 'text';
+    component.writeValue(text);
+    component.registerOnChange((value: string): void => {});
+    component.registerOnTouched(() => {});
+    expect(component.value).toBe(text);
+  });
+
+  it('changeValue should change the value of the value property', () => {
+    const text = 'text';
+    component.changeValue(text);
+    expect(component.value).toBe(text);
+  });
 });
