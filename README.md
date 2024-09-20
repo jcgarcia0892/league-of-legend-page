@@ -14,7 +14,7 @@ This project has 4 possible views, each one of these views is enriched with css 
 
 - Explore: This view show information about how to play the game.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
 
 ## Development server
 
