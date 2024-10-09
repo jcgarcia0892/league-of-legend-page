@@ -7,8 +7,7 @@
     "build": "ng build",
     "test": "ng test --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "deploy": "ng deploy"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -19,9 +18,9 @@
     "@angular/forms": "^17.0.8",
     "@angular/platform-browser": "^17.0.8",
     "@angular/platform-browser-dynamic": "^17.0.8",
-    "@angular/platform-server": "^17.0.0",
     "@angular/router": "^17.0.8",
-    "angular-cli-ghpages": "2.0.1",
+    "@angular/platform-server": "^17.0.0",
+    "angular-cli-ghpages": "^1.0.0",
     "rxjs": "~6.6.0",
     "swiper": "^7.0.8",
     "tslib": "^2.3.0",
