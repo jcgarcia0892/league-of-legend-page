@@ -1,22 +1,19 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Output, ViewEncapsulation, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-champion-level',
-  standalone: true,
-  imports: [
-    NgIf, NgFor, NgClass
-  ],
-  templateUrl: './champion-level.component.html',
-  styleUrl: './champion-level.component.scss',
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: ChampionLevelComponent, multi: true },
-  ],
-  host: {
-    'class': 'app-champion-level',
-  },
+    selector: 'app-champion-level',
+    imports: [NgClass],
+    templateUrl: './champion-level.component.html',
+    styleUrl: './champion-level.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: ChampionLevelComponent, multi: true },
+    ],
+    host: {
+        'class': 'app-champion-level',
+    }
 })
 export class ChampionLevelComponent implements ControlValueAccessor {
 

@@ -1,24 +1,22 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output, ViewEncapsulation, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ChampionCard } from '../../interfaces/champion-card.interface';
 
 @Component({
-  selector: 'app-champion-search',
-  standalone: true,
-  imports: [
-    NgClass,
-    NgIf,
-  ],
-  templateUrl: './champion-search.component.html',
-  styleUrl: './champion-search.component.scss',
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: ChampionSearchComponent, multi: true }
-  ],
-  host: {
-    'class': 'app-champion-search'
-  }
+    selector: 'app-champion-search',
+    imports: [
+        NgClass,
+    ],
+    templateUrl: './champion-search.component.html',
+    styleUrl: './champion-search.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+        { provide: NG_VALUE_ACCESSOR, useExisting: ChampionSearchComponent, multi: true }
+    ],
+    host: {
+        'class': 'app-champion-search'
+    }
 })
 export class ChampionSearchComponent implements ControlValueAccessor {
 

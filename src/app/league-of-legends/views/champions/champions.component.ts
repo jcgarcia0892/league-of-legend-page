@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, inject, signal, ViewChild } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { titleAnimation } from '../../animations/title-animation';
@@ -15,24 +15,20 @@ import { CardComponent } from '../../components/card/card.component';
 import { ChampionFilterComponent } from '../../components/champion-filter/champion-filter.component';
 
 @Component({
-  selector: 'app-champions',
-  templateUrl: './champions.component.html',
-  styleUrls: ['./champions.component.scss'],
-  standalone: true,
-  imports: [
-    NgClass,
-    NgIf,
-    NgFor,
-    ReactiveFormsModule,
-    RouterModule,
-    ButtonComponent,
-    CardComponent,
-    ChampionFilterComponent,
-    LoadingComponent,
-  ],
-  animations: [
-    titleAnimation,
-  ]
+    selector: 'app-champions',
+    templateUrl: './champions.component.html',
+    styleUrls: ['./champions.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        RouterModule,
+        ButtonComponent,
+        CardComponent,
+        ChampionFilterComponent,
+        LoadingComponent,
+    ],
+    animations: [
+        titleAnimation,
+    ]
 })
 export class ChampionsComponent implements OnInit, OnDestroy {
 

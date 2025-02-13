@@ -12,23 +12,22 @@ import { MoveDetectionDirective } from '../../directives/moveDetection/move-dete
 import { TitleAppearsDirective } from '../../directives/titleAppears/title-appears.directive';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    ButtonComponent,
-    LoadingComponent,
-    RoleBoxComponent,
-    ReactiveFormsModule,
-    MoveDetectionDirective,
-    TitleAppearsDirective,
-  ],
-  animations: [
-    translateAnimation,
-    fadeInAnimation,
-  ]
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        ButtonComponent,
+        LoadingComponent,
+        RoleBoxComponent,
+        ReactiveFormsModule,
+        MoveDetectionDirective,
+        TitleAppearsDirective,
+    ],
+    animations: [
+        translateAnimation,
+        fadeInAnimation,
+    ]
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   // GETTING HTML ELEMENTS

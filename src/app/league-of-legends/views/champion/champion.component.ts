@@ -12,7 +12,6 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, Thumbs } from "swiper";
-import { NgClass, NgFor, NgIf } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { SkillSelectionComponent } from '../../components/skill-selection/skill-selection.component';
 import { SwiperSkinComponent } from '../../components/swiper-skin/swiper-skin.component';
@@ -23,37 +22,33 @@ import { ButtonComponent } from '../../components/button/button.component';
 SwiperCore.use([Navigation, Thumbs, Pagination]);
 
 @Component({
-  selector: 'app-champion',
-  templateUrl: './champion.component.html',
-  styleUrls: ['./champion.component.scss'],
-  standalone: true,
-  imports: [
-    NgClass,
-    NgFor,
-    NgIf,
-    ReactiveFormsModule,
-    RouterModule,
-    SwiperModule,
-    ButtonComponent,
-    LoadingComponent,
-    SkillSelectionComponent,
-    SwiperSkinComponent,
-  ],
-  animations: [
-    trigger('fadeAnimation', [
-      transition("* <=> *", useAnimation(fadeAnimation, {
-        params: {
-          start: 0,
-          end: 1,
-          time: '.3s'
-        }
-      }))
-    ])
-  ],
-  encapsulation: ViewEncapsulation.None,
-  host: {
-    'class': 'app-champion'
-  },
+    selector: 'app-champion',
+    templateUrl: './champion.component.html',
+    styleUrls: ['./champion.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        RouterModule,
+        SwiperModule,
+        ButtonComponent,
+        LoadingComponent,
+        SkillSelectionComponent,
+        SwiperSkinComponent,
+    ],
+    animations: [
+        trigger('fadeAnimation', [
+            transition("* <=> *", useAnimation(fadeAnimation, {
+                params: {
+                    start: 0,
+                    end: 1,
+                    time: '.3s'
+                }
+            }))
+        ])
+    ],
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'app-champion'
+    }
 })
 export class ChampionComponent implements OnInit, OnDestroy {
   @ViewChild('skillSelectedHtml') skillSelectedHtml!: ElementRef;

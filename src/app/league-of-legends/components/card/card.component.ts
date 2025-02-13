@@ -4,14 +4,13 @@ import { ChampionCard } from '../../interfaces/champion-card.interface';
 import { NoImageDirective } from '../../directives/noImage/no-image.directive';
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
-  standalone: true,
-  imports: [
-    RouterModule,
-    NoImageDirective,
-  ]
+    selector: 'app-card',
+    templateUrl: './card.component.html',
+    styleUrls: ['./card.component.scss'],
+    imports: [
+        RouterModule,
+        NoImageDirective,
+    ]
 })
 export class CardComponent {
   @Input() championCard!: ChampionCard;

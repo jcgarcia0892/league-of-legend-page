@@ -8,20 +8,19 @@ import { ChampionRolComponent } from '../champion-rol/champion-rol.component';
 import { ChampionLevelComponent } from '../champion-level/champion-level.component';
 
 @Component({
-  selector: 'app-champion-filter',
-  standalone: true,
-  imports: [
-    ChampionSearchComponent,
-    ChampionRolComponent,
-    ChampionLevelComponent,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './champion-filter.component.html',
-  styleUrl: './champion-filter.component.scss',
-  encapsulation: ViewEncapsulation.None,
-  host: {
-    'class': 'app-champion-filter',
-  }
+    selector: 'app-champion-filter',
+    imports: [
+        ChampionSearchComponent,
+        ChampionRolComponent,
+        ChampionLevelComponent,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './champion-filter.component.html',
+    styleUrl: './champion-filter.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        'class': 'app-champion-filter',
+    }
 })
 export class ChampionFilterComponent implements OnInit {
   @Input() set championsData(championsData: ChampionCard[]) {

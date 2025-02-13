@@ -9,19 +9,18 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { TitleAppearsDirective } from '../../directives/titleAppears/title-appears.directive';
 
 @Component({
-  selector: 'app-rules',
-  templateUrl: './rules.component.html',
-  styleUrls: ['./rules.component.scss'],
-  standalone: true,
-  imports: [
-    NgClass,
-    NgIf,
-    NgFor,
-    NgStyle,
-    LoadingComponent,
-    ButtonComponent,
-    TitleAppearsDirective,
-  ],
+    selector: 'app-rules',
+    templateUrl: './rules.component.html',
+    styleUrls: ['./rules.component.scss'],
+    imports: [
+        NgClass,
+        NgIf,
+        NgFor,
+        NgStyle,
+        LoadingComponent,
+        ButtonComponent,
+        TitleAppearsDirective,
+    ]
 })
 export class RulesComponent implements OnInit, AfterViewInit {
   @ViewChild('rulesVideo') rulesVideo!: ElementRef;

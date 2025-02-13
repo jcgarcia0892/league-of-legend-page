@@ -4,25 +4,24 @@ import { NG_VALUE_ACCESSOR, ReactiveFormsModule, ControlValueAccessor } from '@a
 import { Skill } from '../../interfaces/champion.interface';
 
 @Component({
-  selector: 'app-skill-selection',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgClass,
-  ],
-  templateUrl: './skill-selection.component.html',
-  styleUrl: './skill-selection.component.scss',
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: SkillSelectionComponent,
-      multi: true,
-    },
-  ],
-  host: {
-    'class': 'app-skill-selection',
-  }
+    selector: 'app-skill-selection',
+    imports: [
+        ReactiveFormsModule,
+        NgClass,
+    ],
+    templateUrl: './skill-selection.component.html',
+    styleUrl: './skill-selection.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: SkillSelectionComponent,
+            multi: true,
+        },
+    ],
+    host: {
+        'class': 'app-skill-selection',
+    }
 })
 export class SkillSelectionComponent implements ControlValueAccessor {
   @Input({required: true}) skill!: Skill;

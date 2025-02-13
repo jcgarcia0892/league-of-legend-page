@@ -5,11 +5,10 @@ import { By } from '@angular/platform-browser';
 import { NoImageDirective } from './no-image.directive';
 
 @Component({
-  standalone: true,
-  imports: [NoImageDirective],
-  template: `
+    imports: [NoImageDirective],
+    template: `
         <img [src]="imgSource" loading="lazy" appNoImage>
-  `,
+  `
 })
 class TestHost {
   imgSource = './assets/images/lol-icon.svg';

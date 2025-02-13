@@ -4,15 +4,14 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  standalone: true,
-  imports: [
-    NavbarComponent,
-    FooterComponent,
-    RouterModule,
-    RouterOutlet,
-  ],
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    imports: [
+        NavbarComponent,
+        FooterComponent,
+        RouterModule,
+        RouterOutlet,
+    ]
 })
 export class MainComponent {}
