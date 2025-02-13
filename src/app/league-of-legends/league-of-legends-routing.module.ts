@@ -7,7 +7,6 @@ import { MainComponent } from './views/main/main.component';
 import { RulesComponent } from './views/rules/rules.component';
 
 const getChampionName: ResolveFn<string> = (route, state) => {
-  console.log({route, state});
   return route.params['id'];
 }
 
