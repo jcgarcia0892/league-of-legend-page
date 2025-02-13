@@ -1,5 +1,5 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation, computed, effect, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
@@ -57,6 +57,8 @@ export class ChampionComponent implements OnInit, OnDestroy {
 
   champion = signal<Champion | undefined>(undefined);
 
+  skillSelected = computed(() => this.champion()?.skills.find(skill => skill.checked));
+
   idChamp = signal<string>('');
 
   fadeAnimation = signal<boolean>(true);
@@ -76,6 +78,15 @@ export class ChampionComponent implements OnInit, OnDestroy {
   private router = inject(Router);
 
   private chDetectorRef = inject(ChangeDetectorRef);
+
+  constructor() {
+    effect(() => {
+      const skillSelected = this.skillSelected();
+      if(skillSelected) {
+        this.skillSelectedHtml.nativeElement.innerHTML = this.showSkillSelectedHTML(skillSelected);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.skillsControlObservable();
@@ -97,6 +108,7 @@ export class ChampionComponent implements OnInit, OnDestroy {
           for(let i = 0; i < data[this.idChamp()].spells.length; i++) {
             skills.push(this.mapSkills(data[this.idChamp()].spells[i], version, i));
           }
+          skills[0].checked = true;
           const {spells, stats, blurb, info, partype, recommended, ...champProps} = data[this.idChamp()]
           const champion: Champion = {
             skills,
@@ -111,7 +123,6 @@ export class ChampionComponent implements OnInit, OnDestroy {
     .subscribe({
       next: (champion: Champion) => {
         this.champion.set(champion);
-        this.champion()!.skills[0].checked = true;
         this.loading.set(true);
         this.canFindChampion.set(true);
         this.chDetectorRef.detectChanges();
@@ -186,22 +197,23 @@ export class ChampionComponent implements OnInit, OnDestroy {
 
   showSkills(skillName: string): void {
     if(!this.champion()) return;
-    let index = this.champion()!.skills.findIndex((skill: Skill) => skill.name === skillName);
-    for(let skill of this.champion()!.skills) {
-      skill.checked = false;
-    };
-    this.champion()!.skills[index].checked = true;
-    if(this.skillSelectedHtml) {
-      this.skillSelectedHtml.nativeElement.innerHTML = this.showSkillSelectedHTML(index);
-    }
+    this.champion.update((champion) => {
+      let index = champion!.skills.findIndex((skill: Skill) => skill.name === skillName);
+      for(let skill of champion!.skills) {
+        skill.checked = false;
+      };
+      champion!.skills[index].checked = true;
+      return {...champion!};
+    })
 
   }
 
-  showSkillSelectedHTML(index: number): string {
+  showSkillSelectedHTML(skillSelected: Skill): string {
+    const {key, name, description} = skillSelected;
     return `
-    <p class="champion__skills__container__description__skill">${this.champion()!?.skills[index].key}</p>
-    <h4>${this.champion()!?.skills[index].name}</h4>
-    <p class="champion__skills__container__description__text">${this.champion()!?.skills[index].description}</p>
+      <p class="champion__skills__container__description__skill">${key}</p>
+      <h4>${name}</h4>
+      <p class="champion__skills__container__description__text">${description}</p>
     `;
   }
 
